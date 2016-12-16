@@ -1,0 +1,25 @@
+{
+  "name": "money-on-the-board",
+  "version": "1.0.0",
+  "description": "A web application to organize fundraising campaigns based on live sport in-game events.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joshcoles/money-on-the-board.git"
+  },
+  "author": "Josh, Kelly, Clayton, Adam",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/joshcoles/money-on-the-board/issues"
+  },
+  "homepage": "https://github.com/joshcoles/money-on-the-board#readme",
+  "dependencies": {
+    "bcrypt": "^1.0.1",
+    "body-parser": "^1.15.2",
+    "ejs": "^2.5.5",
+    "express": "^4.14.0"
+  }
+}
