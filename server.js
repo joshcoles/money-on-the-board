@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const PORT        = 3000;
 const express     = require('express');
 const app         = express();
@@ -20,7 +22,3 @@ app.get('/', (req, res) => {
 app.listen(PORT, () => {
  console.log('App Listening on Port ', PORT);
 });
-
-
-
-
