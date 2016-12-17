@@ -8,6 +8,7 @@ const game        = require('../mock-api/sample-data/sportsradar-play-by-play-se
 
 app.set('view engine', 'ejs');
 app.set('views', '../client/public/views');
+app.use('/dist', express.static('../client/dist'));
 
 const pledge_events = ['goal', 'shotsaved', 'hit', 'penalty', 'assist'];
 const pledge_events_array = [];
