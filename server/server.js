@@ -26,7 +26,7 @@ game.periods.forEach(function(period) {
   })
 })
 
-let i = 0
+let i = 0;
 setInterval(function() {
   if (i === pledge_events_array.length){
     return
