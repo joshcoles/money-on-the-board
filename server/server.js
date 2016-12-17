@@ -12,6 +12,10 @@ app.set('views', '../client/public/views');
 const pledge_events = ['goal', 'shotsaved', 'hit', 'penalty', 'assist'];
 const pledge_events_array = [];
 
+
+// Game Time Function //
+// Iterates through game events based on selected pledge values
+
 game.periods.forEach(function(period) {
     console.log(period.sequence)
 
@@ -35,9 +39,32 @@ setInterval(function() {
 // app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 
-
+// Homepage - Informs users about MOTB and presents campaign page
 app.get('/', (req, res) => {
   res.render('index', {game, pledge_events});
+});
+
+
+app.get('/campaign', (req, res) => {
+
+});
+
+// React PAGE //
+app.get('/campaign/:id', (req, res) => {
+
+});
+
+app.get('/campaign/new', (req, res) => {
+
+});
+
+app.post('/campaign/new', (req, res) => {
+
+  res.redirect("/campaign/:id")
+});
+
+app.post('/campaign/:id/delete', (req, res) => {
+
 });
 
 app.listen(PORT, () => {
