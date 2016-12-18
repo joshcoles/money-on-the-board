@@ -3,11 +3,56 @@
 <body>
 <% include ./partials/_header %>
 
-  <a class="twitter-timeline"  width="300"
-  height="500" data-height="400" href="https://twitter.com/SensMotB">Tweets by SensMotB</a>
+  <div class="row">
+    <form class="col s12" action="/campaign/new" method="POST">
+       <div class="row">
+        <label>Select a game</label>
+          <select class="browser-default">
+            <option value="" disabled selected>Choose your option</option>
+            <option value="1">Sens vs Leafs</option>
+          </select>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="campaign_name" type="text" class="validate" name="campaign_name">
+          <label class="active" for="campaign_name">Name of Campaign</label>
+        </div>
+        <div class="input-field col s12">
+          <input id="charity_name" type="text" class="validate" name="charity_name">
+          <label class="active" for="charity_name">Charity Name</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="charity_url" type="text" class="validate" name="charity_url">
+          <label class="active" for="charity_url">Charity URL</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="hashtag" type="text" class="validate" name="hashtag">
+          <label class="active" for="hashtag">Hashtag</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="email" type="email" class="validate" name="email">
+          <label class="active" for="email">Email</label>
+        </div>
+      </div>
+      <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+        <i class="material-icons right"></i>
+      </button>
+    </form>
+  </div>
 
-  <div id="react-root"></div>
-  <script src="/dist/bundle.js"></script>
+
+
+
+
+
+
+
 
 </body>
 <% include ./partials/_footer %>
