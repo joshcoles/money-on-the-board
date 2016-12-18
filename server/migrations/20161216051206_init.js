@@ -32,6 +32,7 @@ exports.up = function(knex, Promise) {
     }),
     knex.schema.createTable('games', function(table){
       table.increments();
+      table.string('game_uuid');
     }),
     knex.schema.createTable('campaigns', function(table){
       table.increments();
