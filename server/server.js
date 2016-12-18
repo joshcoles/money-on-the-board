@@ -19,7 +19,6 @@ app.get('/', (req, res) => {
   res.render('landing-page');
 });
 
-
 app.get('/campaign', (req, res) => {
   res.render('index');
 });
