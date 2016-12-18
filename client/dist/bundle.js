@@ -1532,7 +1532,7 @@
 /* 248 */
 /***/ function(module, exports, __webpack_require__) {
 
-	eval("exports = module.exports = __webpack_require__(249)();\n// imports\n\n\n// module\nexports.push([module.id, \"h1 {\\n  color: tomato; }\\n\", \"\"]);\n\n// exports\n\n\n/*****************\n ** WEBPACK FOOTER\n ** ./~/css-loader!./~/sass-loader!./styles/application.scss\n ** module id = 248\n ** module chunks = 0\n **/\n//# sourceURL=webpack:///./styles/application.scss?./~/css-loader!./~/sass-loader");
+	eval("exports = module.exports = __webpack_require__(249)();\n// imports\n\n\n// module\nexports.push([module.id, \"h1 {\\n  color: #E51837; }\\n\\nnav {\\n  background-color: #E51837;\\n  color: #D4A00F; }\\n\", \"\"]);\n\n// exports\n\n\n/*****************\n ** WEBPACK FOOTER\n ** ./~/css-loader!./~/sass-loader!./styles/application.scss\n ** module id = 248\n ** module chunks = 0\n **/\n//# sourceURL=webpack:///./styles/application.scss?./~/css-loader!./~/sass-loader");
 
 /***/ },
 /* 249 */
