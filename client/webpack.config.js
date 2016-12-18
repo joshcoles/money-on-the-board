@@ -20,8 +20,17 @@ module.exports = {
         include: path.join(__dirname, 'src')
       },
       {
+        test: /\.jsx?$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/
+      },
+      {
         test: /\.scss$/,
         loaders: ["style", "css", "sass"]
+      },
+      {
+        test: /\.json$/,
+        loader: 'json' 
       }
     ]
   }
