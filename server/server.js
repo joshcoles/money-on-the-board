@@ -5,7 +5,7 @@ const PORT                = 4000;
 const express             = require('express');
 const app                 = express();
 const bodyParser          = require('body-parser');
-const WebSocketServer     = require('ws');
+// const WebSocketServer     = require('ws');
 
 app.set('view engine', 'ejs');
 app.set('views', '../client/public/views');
