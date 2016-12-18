@@ -36,22 +36,22 @@ app.get('/campaign/:id', (req, res) => {
 });
 
 app.post('/campaign/new', (req, res) => {
-  console.log('form submitted')
-  let game = req.body.game
-  let campaign_name = req.body.campaign_name
-  let charity_name = req.body.charity_name
-  let charity_url = req.body.charity_url
-  let hashtag = req.body.hashtag
-  let email = req.body.email
-  let password = req.body.password
-  console.log(game)
-  console.log(campaign_name)
-  console.log(charity_name)
-  console.log(charity_url)
-  console.log(hashtag)
-  console.log(email)
-  console.log(password)
-  res.redirect("/campaign")
+  console.log('***Form Submitted***')
+  let game = req.param("game")
+  let campaign_name = req.body.campaign_name;
+  let charity_name = req.body.charity_name;
+  let charity_url = req.body.charity_url;
+  let hashtag = req.body.hashtag;
+  let email = req.body.email;
+  let password = req.body.password;
+  console.log("Game: " + game);
+  console.log("Campaign name: " + campaign_name);
+  console.log("Charity name: " + charity_name);
+  console.log("Charity url: " + charity_url);
+  console.log("Hashtag: " + hashtag);
+  console.log("Email: " + email);
+  console.log("Password: " + password);
+  res.redirect("/campaign");
 });
 
 app.post('/campaign/:id/delete', (req, res) => {
