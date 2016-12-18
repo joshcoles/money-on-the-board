@@ -8,7 +8,7 @@ exports.up = function(knex, Promise) {
       table.integer('campaign_id');
       table.string('player_uuid');
       table.string('team_uuid');
-      table.decimal('money', 2);
+      table.decimal('money', 8, 2);
     }),
     knex.schema.createTable('in_game_events', function(table){
       table.increments();
