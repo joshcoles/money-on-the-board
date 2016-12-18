@@ -5,7 +5,7 @@ const PORT                = 4000;
 const express             = require('express');
 const app                 = express();
 const bodyParser          = require('body-parser');
-const WebSocketServer     = require('ws');
+// const WebSocketServer     = require('ws');
 
 app.set('view engine', 'ejs');
 app.set('views', '../client/public/views');
@@ -36,7 +36,22 @@ app.get('/campaign/:id', (req, res) => {
 });
 
 app.post('/campaign/new', (req, res) => {
-  res.redirect("/campaign/:id")
+  console.log('***Form Submitted***')
+  let game = req.param("game")
+  let campaign_name = req.body.campaign_name;
+  let charity_name = req.body.charity_name;
+  let charity_url = req.body.charity_url;
+  let hashtag = req.body.hashtag;
+  let email = req.body.email;
+  let password = req.body.password;
+  console.log("Game: " + game);
+  console.log("Campaign name: " + campaign_name);
+  console.log("Charity name: " + charity_name);
+  console.log("Charity url: " + charity_url);
+  console.log("Hashtag: " + hashtag);
+  console.log("Email: " + email);
+  console.log("Password: " + password);
+  res.redirect("/campaign");
 });
 
 app.post('/campaign/:id/delete', (req, res) => {
