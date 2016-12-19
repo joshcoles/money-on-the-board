@@ -1,24 +1,30 @@
 require('dotenv').config();
 
-
-const PORT                = 4000;
+// ============== Dependencies =================
 const express             = require('express');
-const app                 = express();
 const bodyParser          = require('body-parser');
-// const WebSocketServer     = require('ws');
+
+
+const app                 = express();
+const PORT                = 4000;
+
 
 app.set('view engine', 'ejs');
-app.set('views', '../client/public/views');
-app.use('/dist', express.static('../client/dist'));
 
-// app.use(express.static('public'));
+// const WebSocketServer  = require('ws');
+
+// ============== Middleware =================
+
+app.use('/dist', express.static('../client/dist'));
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Homepage - Informs users about MOTB and presents campaign page
+
+
+// ============== Routes ===================
+
 app.get('/', (req, res) => {
   res.render('landing-page');
 });
-
 
 app.get('/campaigns', (req, res) => {
   res.render('index');
