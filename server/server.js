@@ -20,24 +20,20 @@ app.get('/', (req, res) => {
 });
 
 
-app.get('/campaign', (req, res) => {
+app.get('/campaigns', (req, res) => {
   res.render('index');
 });
 
-app.get('/campaign/new', (req, res) => {
+app.get('/campaigns/new', (req, res) => {
   res.render('campaign-new');
 });
 
-app.get('/testroute', (req, res) => {
-  res.render('campaign-new');
+app.get('/campaigns/:id', (req, res) => {
 });
 
-app.get('/campaign/:id', (req, res) => {
-});
-
-app.post('/campaign/new', (req, res) => {
+app.post('/campaigns', (req, res) => {
   console.log('***Form Submitted***')
-  let game = req.param("game")
+  let game = req.body.game;
   let campaign_name = req.body.campaign_name;
   let charity_name = req.body.charity_name;
   let charity_url = req.body.charity_url;
@@ -51,10 +47,10 @@ app.post('/campaign/new', (req, res) => {
   console.log("Hashtag: " + hashtag);
   console.log("Email: " + email);
   console.log("Password: " + password);
-  res.redirect("/campaign");
+  res.redirect("/campaigns");
 });
 
-app.post('/campaign/:id/delete', (req, res) => {
+app.delete('/campaigns/:id', (req, res) => {
 
 });
 
