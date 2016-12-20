@@ -1,0 +1,20 @@
+{
+  "name": "mock-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "local": "./node_modules/.bin/nodemon server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.14.0",
+    "moment": "^2.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
+}

@@ -2,6 +2,8 @@ var webpack = require('webpack');
 var WebpackDevServer = require('webpack-dev-server');
 var config = require('./webpack.config');
 
+const port = process.env.port || 3000;
+
 new WebpackDevServer(webpack(config), {
     publicPath: config.output.publicPath,
     watchOptions: {
@@ -11,8 +13,7 @@ new WebpackDevServer(webpack(config), {
   })
   .listen(3000, '0.0.0.0', function (err, result) {
     if (err) {
-      console.log(err);
+      console.error(err);
     }
-
-    console.log('Client Connected. Running at http://0.0.0.0:3000');
+    console.log(`Client Connected. Running at ${port}`);
   });
