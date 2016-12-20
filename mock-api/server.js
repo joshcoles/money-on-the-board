@@ -13,18 +13,7 @@ function shouldAdvancePeriod(gameRightNow) {
 }
 
 app.get('/api/campaigns/:id', (req, res) => {
-  const gameRightNow = Object.assign({}, game);
-  gameRightNow.periods = game.periods.slice(0, period + 1);
-  gameRightNow.periods[period] = Object.assign({}, game.periods[period]);
-  gameRightNow.periods[period].events = gameRightNow.periods[period].events.slice(0, periodEvent + 1);
-  gameRightNow.deleted_events = [];
-  res.json(gameRightNow);
-  if (shouldAdvancePeriod(gameRightNow)) {
-    period += 1;
-    periodEvent = 0;
-  } else {
-    periodEvent += 1;
-  }
+  res.json(game);
 });
 
 app.listen(app.get('port'), (err) => {
