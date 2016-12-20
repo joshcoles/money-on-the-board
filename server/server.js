@@ -1,4 +1,5 @@
-require('dotenv').config();
+const express = require('express');
+const request = require('request');
 
 // ============== Dependencies =================
 const express             = require('express');
@@ -6,8 +7,8 @@ const bodyParser          = require('body-parser');
 
 
 const app                 = express();
-const PORT                = 4000;
 
+app.set('port', process.env.port || 8080);
 
 app.set('view engine', 'ejs');
 
@@ -15,6 +16,7 @@ app.set('view engine', 'ejs');
 
 // ============== Middleware =================
 
+// app.use(express.static('public'));         // TODO: this got irrelevantized by Cerberus, right?
 app.use('/dist', express.static('../client/dist'));
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -58,8 +60,14 @@ app.post('/campaigns', (req, res) => {
 
 app.delete('/campaigns/:id', (req, res) => {
 
+
+app.get('/api/campaigns/:id', (req, res) => {
+  request('http://localhost:4000/api/campaigns/1', (err, response, body) => {
+    res.send(body);
+  });
 });
 
-app.listen(PORT, () => {
- console.log('App Listening on Port ', PORT);
+app.listen(app.get('port'), (err) => {
+  if (err) throw err;
+  console.log(`MOTB server running on port ${app.get('port')}`);
 });

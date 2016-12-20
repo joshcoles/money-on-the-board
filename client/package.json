@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Simple and lightweight Boilerplate for ReactJS projects",
   "scripts": {
+    "local": "./node_modules/.bin/nodemon server",
     "lint": "eslint src",
     "start": "node server.js"
   },
@@ -38,6 +39,7 @@
     "eslint": "2.7.0",
     "eslint-plugin-react": "5.2.2",
     "node-sass": "3.8.0",
+    "nodemon": "^1.11.0",
     "sass-loader": "4.0.0",
     "sockjs-client": "^1.1.1",
     "style-loader": "0.13.1",

@@ -2,7 +2,6 @@
 require('dotenv').config();
 
 module.exports = {
-
   client: 'pg',
   connection: {
     database: process.env.DB_DATABASE,
@@ -13,7 +12,7 @@ module.exports = {
     directory: './fixtures'
   },
   seeds: {
-      directory: './seeds'
+    directory: './fixtures'
   },
   pool: {
     min: 2,
@@ -22,5 +21,4 @@ module.exports = {
   migrations: {
     tableName: 'knex_migrations'
   }
-
 };
