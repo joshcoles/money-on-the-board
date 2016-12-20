@@ -1,0 +1,8 @@
+{
+  "user": "secret",
+  "password": "secret",
+  "database": "secret",
+  "hostname": "localhost",
+  "port": 5432,
+  "ssl": false
+}

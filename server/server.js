@@ -1,9 +1,8 @@
-const express = require('express');
-const request = require('request');
-
 // ============== Dependencies =================
+const express             = require('express');
+const request             = require('request');
 const bodyParser          = require('body-parser');
-
+const db                  = require('./db')
 
 const app                 = express();
 
@@ -54,6 +53,17 @@ app.post('/campaigns', (req, res) => {
   console.log("Hashtag: " + hashtag);
   console.log("Email: " + email);
   console.log("Password: " + password);
+
+  //Something like this??
+  // knex.insert([{first_name: commandLineFirstName, last_name: commandLineLastName, birthdate: commandLineDOB}]).into('famous_people')
+  //     .then(function (result) {
+  //         console.log(result);
+  //      })
+
+  db.insert({})
+  db.insert({name: charity_name, url: charity_url}).into('charities').insert.
+
+
   res.redirect("/campaigns");
 });
 
@@ -65,10 +75,6 @@ app.get('/api/campaigns/:id', (req, res) => {
     const pledge_events = ['gamesetup', 'faceoff', 'goal', 'shotsaved', 'hit', 'penalty', 'assist'];
     const pledge_events_array = [];
 
-    // res.send(body);
-    //Filter
-    // console.log("body test", body)
-    // console.log("json parse", JSON.parse(body))
     let gameObject = JSON.parse(body);
 
     gameObject.periods.forEach(function(period) {

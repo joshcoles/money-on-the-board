@@ -1,0 +1,8 @@
+{
+  "user": "vagrant",
+  "password": "motbdev",
+  "database": "motbdev",
+  "hostname": "localhost",
+  "port": 5432,
+  "ssl": false
+}

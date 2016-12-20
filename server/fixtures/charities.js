@@ -6,7 +6,6 @@ exports.seed = function(knex, Promise) {
       return Promise.all([
         // Inserts seed entries
         knex('charities').insert({
-          id: 1,
           campaign_id: 1,
           name: 'Ottawa Senators Foundation',
           url: 'www.sensfoundation.com'

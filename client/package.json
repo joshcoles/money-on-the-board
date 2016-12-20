@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Simple and lightweight Boilerplate for ReactJS projects",
   "scripts": {
-    "local": "./node_modules/.bin/nodemon server",
+    "local": "./node_modules/.bin/nodemon -L server",
     "lint": "eslint src",
     "start": "node server.js"
   },
