@@ -62,7 +62,26 @@ app.delete('/campaigns/:id', (req, res) => {
 
 app.get('/api/campaigns/:id', (req, res) => {
   request('http://localhost:4000/api/campaigns/1', (err, response, body) => {
-    res.send(body);
+    const pledge_events = ['gamesetup', 'faceoff', 'goal', 'shotsaved', 'hit', 'penalty', 'assist'];
+    const pledge_events_array = [];
+
+    // res.send(body);
+    //Filter
+    // console.log("body test", body)
+    // console.log("json parse", JSON.parse(body))
+    let gameObject = JSON.parse(body);
+
+    gameObject.periods.forEach(function(period) {
+      period.events.forEach(function(event) {
+        if (pledge_events.includes(event.event_type)) {
+          pledge_events_array.push("Time " + event.clock + ": " + event.description);
+        }
+      })
+    })
+    console.log("test pledge", pledge_events_array)
+    res.send(pledge_events_array[pledge_events_array.length-1])
+    // res.send(pledge_events_array)
+
   });
 });
 
