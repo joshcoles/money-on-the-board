@@ -2,7 +2,6 @@ const express = require('express');
 const request = require('request');
 
 // ============== Dependencies =================
-const express             = require('express');
 const bodyParser          = require('body-parser');
 
 
@@ -59,7 +58,7 @@ app.post('/campaigns', (req, res) => {
 });
 
 app.delete('/campaigns/:id', (req, res) => {
-
+});
 
 app.get('/api/campaigns/:id', (req, res) => {
   request('http://localhost:4000/api/campaigns/1', (err, response, body) => {
