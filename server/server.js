@@ -117,10 +117,10 @@ io.on('connection', function (socket) {
     });
   });
 
-  socket.emit('news', { hello: 'world' });
-  socket.on('my other event', function (data) {
-    console.log(data);
-  });
+  // socket.emit('news', { hello: 'world' });
+  // socket.on('my other event', function (data) {
+  //   console.log(data);
+  // });
 });
 
 server.listen(process.env.port || 8080, (err) => {
