@@ -114,6 +114,13 @@ app.post('/pledges/new', (req, res) => {
   console.log("Your in-game event: ", inGameEvent);
   console.log("Your pledge amount: ", pledgeAmount);
   res.redirect('/campaigns')
+
+  db.insert([{player_uuid: pledgePlayer, team_uuid: pledgeTeam, money: pledgeAmount, in_game_event_id: inGameEvent}])
+    .into('pledges')
+    .then(function(result) {
+      console.log("Pledge insert result", result);
+    })
+      res.redirect('/');
 });
 
 
