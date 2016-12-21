@@ -33,7 +33,7 @@ class Game extends Component {
     //   i++
     // }, 2000);
 
-    this.setState({events: pledge_events_array});
+  //   this.setState({events: pledge_events_array});
 
   }
 
