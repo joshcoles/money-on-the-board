@@ -1,5 +1,4 @@
 module.exports = {
-
   development: {
     client: 'postgresql',
     connection: {
@@ -8,7 +7,7 @@ module.exports = {
       password: 'development'
     },
     seeds: {
-    directory: './fixtures'
+      directory: './fixtures'
     },
   }
 }

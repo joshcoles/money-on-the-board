@@ -34,6 +34,7 @@ app.get('/campaigns/new', (req, res) => {
 });
 
 app.get('/campaigns/:id', (req, res) => {
+  res.send("good jorb, eh");
 });
 
 app.post('/campaigns', (req, res) => {
@@ -53,17 +54,48 @@ app.post('/campaigns', (req, res) => {
   console.log("Email: " + email);
   console.log("Password: " + password);
 
-  //Something like this??
-  // knex.insert([{first_name: commandLineFirstName, last_name: commandLineLastName, birthdate: commandLineDOB}]).into('famous_people')
-  //     .then(function (result) {
-  //         console.log(result);
-  //      })
 
-  db.insert({})
-  db.insert({name: charity_name, url: charity_url}).into('charities')
+  db.select('id').from('games').where({game_uuid: game}).then((game_ids) => {
+    if (game_ids.length != 1) {
+      res.send("game not found, be serious");
+    }
+    const game_id = game_ids[0].id;
+    db.insert([{name: charity_name, url: charity_url}])
+    .into('charities')
+    .returning('id')
+    .then(function(charity_ids) {
+      if (charity_ids.length != 1) {
+        console.error("number of found charities =", charity_ids.length);
+        res.redirect('campaigns/new');
+      }
+      const charity_id = charity_ids[0];
+      console.log("charity_id", charity_id);
 
-
-  res.redirect("/campaigns");
+      db.insert([{
+        handle: hashtag,
+        title: campaign_name,
+        charity_id: charity_id,
+        game_id: game_id,
+        admin_id: 1,       // this is total bullshit, we need to get this from the session or something
+      }])
+      .into('campaigns')
+      .returning('id')
+      .then(function(result) {
+        console.log("campaign insert result", result);
+        if (result.length === 1) {
+          const campaign_id = result[0];
+          res.redirect(`campaigns/${campaign_id}`);
+        } else {
+          console.error("number of found campaigns =", result.length);
+          res.redirect('campaigns/new');
+        }
+      })
+      .catch(function(error){
+        console.error("error when inserting campaign", error);
+        res.redirect('campaigns/new');
+      });
+    });
+  });
 });
 
 app.delete('/campaigns/:id', (req, res) => {
