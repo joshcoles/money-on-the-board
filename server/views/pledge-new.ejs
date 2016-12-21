@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<% include ./partials/_head %>
+<body>
+<% include ./partials/_header %>
+
+<div class="row">
+  <form class="col s12" action="/campaigns" method="POST">
+    <div class="row">
+      <label>Game</label>
+      <select name="game" class="browser-default selectpicker">
+        <option name="option1" value="" disabled selected>Choose your option</option>
+        <option value="4a130cc4-3bd4-42ad-ac93-484043a2d5bc">Sens vs Leafs</option>
+      </select>
+    </div>
+  </form>
+</div>
+
+
+
+<% include ./partials/_footer %>
+</body>
+</html>
