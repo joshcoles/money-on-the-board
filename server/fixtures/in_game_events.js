@@ -7,11 +7,26 @@ exports.seed = function(knex, Promise) {
         // Inserts seed entries
         knex('in_game_events').insert(
           {
-            event_type: 'gamesetup',
-            event_type: 'faceoff',
-            event_type: 'shotsaved',
-            event_type: 'hit',
-            event_type: 'penalty',
+            event_type: 'gamesetup'
+          }),
+        knex('in_game_events').insert(
+          {
+            event_type: 'faceoff'
+          }),
+        knex('in_game_events').insert(
+          {
+            event_type: 'shotsaved'
+          }),
+        knex('in_game_events').insert(
+          {
+            event_type: 'hit'
+          }),
+        knex('in_game_events').insert(
+          {
+            event_type: 'penalty'
+          }),
+        knex('in_game_events').insert(
+          {
             event_type: 'goal'
           })
       ]);

@@ -100,10 +100,20 @@ app.post('/campaigns', (req, res) => {
 
 app.get('/pledges/new', (req, res) => {
   res.render("pledge-new")
+
 });
 
 app.post('/pledges/new', (req, res) => {
   console.log("Form Submitted.")
+  let pledgeTeam = req.body.team;
+  let pledgePlayer = req.body.player;
+  let pledgeAmount = req.body.money;
+  let inGameEvent = req.body.inGameEvent;
+  console.log("Your pledge team: ", pledgeTeam);
+  console.log("Your pledge player: ", pledgePlayer);
+  console.log("Your in-game event: ", inGameEvent);
+  console.log("Your pledge amount: ", pledgeAmount);
+  res.redirect('/campaigns')
 });
 
 
