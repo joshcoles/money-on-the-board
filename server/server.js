@@ -54,7 +54,6 @@ app.post('/campaigns', (req, res) => {
   console.log("Email: " + email);
   console.log("Password: " + password);
 
-
   db.select('id').from('games').where({game_uuid: game}).then((game_ids) => {
     if (game_ids.length != 1) {
       res.send("game not found, be serious");
