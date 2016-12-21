@@ -4,8 +4,9 @@ var webpack = require('webpack');
 module.exports = {
   devtool: 'eval',
   entry: [
-    'webpack-dev-server/client?http://localhost:3000',
     './src/index.jsx'
+    // 'webpack-dev-server/client?http://localhost:8080',
+    // './src/index.jsx'
   ],
   output: {
     path: path.join(__dirname, 'dist'),
@@ -30,7 +31,7 @@ module.exports = {
       },
       {
         test: /\.json$/,
-        loader: 'json' 
+        loader: 'json'
       }
     ]
   }

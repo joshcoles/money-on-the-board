@@ -1,29 +1,28 @@
+
 // ============== Dependencies =================
 const express             = require('express');
 const request             = require('request');
+const app = express();
+const http = require('http');
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
 const bodyParser          = require('body-parser');
 const db                  = require('./db')
 
-const app                 = express();
-
-app.set('port', process.env.port || 8080);
-
 app.set('view engine', 'ejs');
-
-// const WebSocketServer  = require('ws');
 
 // ============== Middleware =================
 
-// app.use(express.static('public'));         // TODO: this got irrelevantized by Cerberus, right?
+
 app.use('/dist', express.static('../client/dist'));
 app.use(bodyParser.urlencoded({ extended: true }));
-
-
 
 // ============== Routes ===================
 
 app.get('/', (req, res) => {
+  console.log("Is this working?")
   res.render('landing-page');
+
 });
 
 app.get('/campaigns', (req, res) => {
@@ -117,12 +116,47 @@ app.get('/api/campaigns/:id', (req, res) => {
     })
     console.log("test pledge", pledge_events_array)
     res.send(pledge_events_array[pledge_events_array.length-1])
-    // res.send(pledge_events_array)
-
   });
 });
 
-app.listen(app.get('port'), (err) => {
-  if (err) throw err;
-  console.log(`MOTB server running on port ${app.get('port')}`);
+
+// ============== Sockets ==================
+
+io.on('connection', function (socket) {
+  request('http://localhost:4000/api/campaigns/1', (err, response, body) => {
+    const pledge_events = ['gamesetup', 'faceoff', 'goal', 'shotsaved', 'hit', 'penalty', 'assist'];
+
+    let gameObject = JSON.parse(body);
+
+    let filteredEvents = gameObject.periods.reduce(function (acc, period) {
+      return acc.concat(period.events);
+    }, []).filter(function (event) {
+      return pledge_events.includes(event.event_type);
+    });
+
+    let pledge_events_array = filteredEvents.map(function (event) {
+      return 'Time ' + event.clock + ': ' + event.description;
+    });
+
+    pledge_events_array.forEach(function (event_string, index) {
+      (function (event_string, delay) {
+        setTimeout(function () {
+        socket.emit('news', {event: event_string})
+      }, delay);
+      })(event_string, (index + 1) * 1000);
+
+    });
+  });
+
+  socket.emit('news', { hello: 'world' });
+  socket.on('my other event', function (data) {
+    console.log(data);
+  });
 });
+
+server.listen(process.env.port || 8080, (err) => {
+  if (err) throw err;
+  console.log(`MOTB server running`);
+});
+
+io.listen(server);
