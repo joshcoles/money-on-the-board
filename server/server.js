@@ -116,9 +116,44 @@ app.get('/api/campaigns/:id', (req, res) => {
     })
     console.log("test pledge", pledge_events_array)
     res.send(pledge_events_array[pledge_events_array.length-1])
-  });
+  })
 });
 
+app.get('/api/schedule', (req, res) => {
+  request('http://localhost:4000/api/schedule', (err, response, body) => {
+    let scheduleParsed = JSON.parse(body);
+    scheduleParsed.games.forEach(function(game) {
+      if (game.home.name === 'Ottawa Senators' || game.away.name === 'Ottawa Senators') {
+        console.log('===============')
+        console.log('Game ID: ', game.id);
+        console.log('Game Date: ', game.scheduled);
+        console.log('Game Away Team: ', game.away.name);
+        console.log('Game Home Team: ', game.home.name);
+      }
+    })
+    res.send(scheduleParsed);
+  })
+});
+
+app.get('/api/campaigns/:id/hometeam', (req, res) => {
+  request('http://localhost:4000/api/campaigns/1/hometeam', (err, response, body) => {
+    let hometeamParsed = JSON.parse(body);
+    hometeamParsed.players.forEach(function(player) {
+      console.log('Home Player: ', player.full_name);
+    })
+    res.send(hometeamParsed);
+  })
+});
+
+app.get('/api/campaigns/:id/awayteam', (req, res) => {
+  request('http://localhost:4000/api/campaigns/1/awayteam', (err, response, body) => {
+    let awayteamParsed = JSON.parse(body);
+    awayteamParsed.players.forEach(function(player) {
+      console.log('Away Player: ', player.full_name);
+    })
+    res.send(awayteamParsed);
+  })
+});
 
 // ============== Sockets ==================
 
