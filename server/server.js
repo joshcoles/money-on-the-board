@@ -61,7 +61,7 @@ app.post('/campaigns', (req, res) => {
   //      })
 
   db.insert({})
-  db.insert({name: charity_name, url: charity_url}).into('charities').insert.
+  db.insert({name: charity_name, url: charity_url}).into('charities')
 
 
   res.redirect("/campaigns");
