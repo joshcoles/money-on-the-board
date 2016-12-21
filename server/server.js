@@ -65,7 +65,7 @@ app.post('/campaigns', (req, res) => {
     .then(function(charity_ids) {
       if (charity_ids.length != 1) {
         console.error("number of found charities =", charity_ids.length);
-        res.redirect('campaigns/new');
+        res.redirect('/campaigns/new');
       }
       const charity_id = charity_ids[0];
       console.log("charity_id", charity_id);
@@ -86,16 +86,28 @@ app.post('/campaigns', (req, res) => {
           res.redirect(`campaigns/${campaign_id}`);
         } else {
           console.error("number of found campaigns =", result.length);
-          res.redirect('campaigns/new');
+          res.redirect('/campaigns/new');
         }
       })
       .catch(function(error){
         console.error("error when inserting campaign", error);
-        res.redirect('campaigns/new');
+        res.redirect('/campaigns/new');
       });
     });
   });
 });
+
+
+app.get('/pledges/new', (req, res) => {
+  res.render("pledge-new")
+});
+
+app.post('/pledges/new', (req, res) => {
+  console.log("Form Submitted.")
+});
+
+
+
 
 app.delete('/campaigns/:id', (req, res) => {
 });
