@@ -15,5 +15,5 @@ new WebpackDevServer(webpack(config), {
     if (err) {
       console.error(err);
     }
-    console.log(`Client Connected. Running at ${port}`);
+    console.log(`Client server running on port ${port}`);
   });

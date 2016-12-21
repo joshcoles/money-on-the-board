@@ -1,5 +1,5 @@
 const express = require('express');
-const game = require('./data/play-by-play.json');
+const game    = require('./data/play-by-play.json');
 
 let period = 0;
 let periodEvent = 0;
