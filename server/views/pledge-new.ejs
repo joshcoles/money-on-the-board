@@ -5,14 +5,71 @@
 <% include ./partials/_header %>
 
 <div class="row">
-  <form class="col s12" action="/campaigns" method="POST">
+  <form class="col s12" action="/pledges/new" method="POST">
     <div class="row">
-      <label>Game</label>
-      <select name="game" class="browser-default selectpicker">
-        <option name="option1" value="" disabled selected>Choose your option</option>
-        <option value="4a130cc4-3bd4-42ad-ac93-484043a2d5bc">Sens vs Leafs</option>
+
+     <label>Team</label>
+      <select name="team" class="browser-default selectpicker">
+        <option name="option1" value="" disabled selected>
+          Choose your Team
+        </option>
+        <option value="4416f5e2-0f24-11e2-8525-18a905767e44">
+          Ottawa Senators
+        </option>
+        <option value="441730a9-0f24-11e2-8525-18a905767e44">
+          Toronto Maple Leafs
+        </option>
       </select>
+
+      <label>Player</label>
+      <select name="player" class="browser-default selectpicker">
+        <option name="option1" value="" disabled selected>
+          Choose your Player</option>
+        <option name="option2" value="42fa3dcd-0f24-11e2-8525-18a905767e44">
+          Erik Karlsson
+        </option>
+        <option name="option3" value="ccba87dc-0f34-4203-8f8f-00b9b6b827ba">
+          Mark Stone
+        </option>
+        <option name="option4" value="431a2b9d-0f24-11e2-8525-18a905767e44">
+          Dion Phaneuf
+        </option>
+        <option name="option5" value="0992487d-52ee-4ec5-ac3a-9f4d583e60ac">
+          Curtis Lazar
+        </option>
+      </select>
+
+      <label>Event</label>
+      <select name="inGameEvent" class="browser-default selectpicker">
+        <option name="option1" value="" disabled selected>Choose your in-game event</option>
+        <option name="faceoff" value="faceoff">
+          Faceoff Won
+        </option>
+        <option name="shotsaved" value="shotsaved">
+          Shot Saved
+        </option>
+        <option name="hit" value="hit">
+          Hit
+        </option>
+        <option name="penalty" value="penalty">
+          Penalty
+        </option>
+        <option name="goal" value="goal">
+          Goal
+        </option>
+      </select>
+
+
+        <div class="row">
+        <div class="input-field col s12">
+          <input id="money" type="text" class="validate" name="money" placeholder="$">
+          <label class="active" for="money">Pledge Amount</label>
+        </div>
+      </div>
     </div>
+    <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+        <i class="material-icons right"></i>
+    </button>
   </form>
 </div>
 
