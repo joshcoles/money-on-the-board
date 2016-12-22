@@ -60,43 +60,33 @@ app.post('/campaigns', (req, res) => {
       res.send("game not found, be serious");
     }
     const game_id = game_ids[0].id;
-    db.insert([{name: charity_name, url: charity_url}])
-    .into('charities')
+    db.insert([{
+      handle: hashtag,
+      title: campaign_name,
+      game_id: game_id,
+      charity_name: charity_name,
+      charity_url: charity_url,
+      admin_id: 1,       // to be changed
+    }])
+    .into('campaigns')
     .returning('id')
-    .then(function(charity_ids) {
-      if (charity_ids.length != 1) {
-        console.error("number of found charities =", charity_ids.length);
+    .then(function(result) {
+      console.log("campaign insert result", result);
+      if (result.length === 1) {
+        const campaign_id = result[0];
+        res.redirect(`campaigns/${campaign_id}`);
+      } else {
+        console.error("number of found campaigns =", result.length);
         res.redirect('/campaigns/new');
       }
-      const charity_id = charity_ids[0];
-      console.log("charity_id", charity_id);
-
-      db.insert([{
-        handle: hashtag,
-        title: campaign_name,
-        charity_id: charity_id,
-        game_id: game_id,
-        admin_id: 1,       // this is total bullshit, we need to get this from the session or something
-      }])
-      .into('campaigns')
-      .returning('id')
-      .then(function(result) {
-        console.log("campaign insert result", result);
-        if (result.length === 1) {
-          const campaign_id = result[0];
-          res.redirect(`campaigns/${campaign_id}`);
-        } else {
-          console.error("number of found campaigns =", result.length);
-          res.redirect('/campaigns/new');
-        }
-      })
-      .catch(function(error){
-        console.error("error when inserting campaign", error);
-        res.redirect('/campaigns/new');
-      });
+    })
+    .catch(function(error){
+      console.error("error when inserting campaign", error);
+      res.redirect('/campaigns/new');
     });
   });
 });
+
 
 
 app.get('/pledges/new', (req, res) => {
@@ -114,7 +104,13 @@ app.post('/pledges/new', (req, res) => {
   console.log("Your pledge player: ", pledgePlayer);
   console.log("Your in-game event: ", inGameEvent);
   console.log("Your pledge amount: ", pledgeAmount);
-  res.redirect('/campaigns')
+
+  db.insert([{player_uuid: pledgePlayer, team_uuid: pledgeTeam, money: pledgeAmount, in_game_event_id: inGameEvent, user_id: 1, campaign_id: 1}])
+    .into('pledges')
+    .then(function(result) {
+      console.log("Pledge insert result", result);
+    })
+  res.redirect('/');
 });
 
 
