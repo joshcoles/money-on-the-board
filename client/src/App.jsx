@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
-// let eventArray = []
-// let test = 'Nazem Kadri won faceoff'
-// let pledgeArray = ['Nazem Kadri won faceoff', 'Shot on goal by Mitchell Marner', 'Matt Martin credited with hit']
+
 let dataArray = []
 
 class App extends Component {
@@ -9,52 +7,67 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      game: []
+      game: [],
+      pledges: [{
+        user_id: 1,
+        username: "Homer Simpon",
+        pledged: [
+          {id: 'i48dj', pledge_amount: 2.00, pledge_event: 'Matt Martin credited with hit', occurance: 0, owes: 0.00},
+          {id: 'is820', pledge_amount: 5.00, pledge_event: 'Goal scored by Auston Matthews', occurance: 0, owes: 0.00},
+          {id: 'zo09s', pledge_amount: 1.00, pledge_event: 'saved by Frederik Andersen',occurance: 0, owes: 0.00}
+        ]
+      }, {
+        user_id: 2,
+        username: "Peter Griffin",
+        pledged:[
+          {id: 'v8ud8', pledge_amount: 2.00, pledge_event: 'Goal scored by Derick Brassard', occurance: 0, owes: 0.00},
+          {id: 'x29in', pledge_amount: 5.00, pledge_event: 'Zack Smith credited with hit', occurance: 0, owes: 0.00},
+          {id: 'asdf8', pledge_amount: 1.00, pledge_event: 'Goal scored by Erik Karlsson', occurance: 0, owes: 0.00}
+        ]
+      }]
     };
   }
 
   componentDidMount() {
-
-    // this.socket = io.connect('http://localhost:8080');
-    // console.log('connecting to web socket');
-    // this.socket.on('news', (data) => {
-    //   let values = Object.values(data)
-    //     pledgeArray.forEach((pledge) => {
-    //       if (values[0].includes(pledge)) {
-    //         this.setState({pledges: pledge})
-    //       }
-    //     })
-    //     eventArray.push(values[0]);
-    //     this.setState({events: eventArray});
-    // });
     this.props.socket.on('game-event', data => {
 
       dataArray.push(data)
 
+      this.state.pledges.forEach((user) => {
+        user.pledged.forEach((pledge) => {
+          if(data.includes(pledge.pledge_event)){
+            pledge.occurance = pledge.occurance + 1;
+            pledge.owes = pledge.occurance * pledge.pledge_amount
+            this.setState({occurance : pledge.occurance});
+            this.setState({occurance : pledge.owes});
+          }
+        })
+      })
       this.setState({game : dataArray});
-      console.log("dataArray", dataArray)
+      console.log(this.state.pledges)
     });
 
   }
 
-
-   // <ol>
-   //       {this.state.game.periods.reverse().map(period =>
-   //         period.events.reverse().map(event =>
-   //           <li>{event.description}</li>
-   //         )
-   //       )}
-   //     </ol>
-
   render() {
     return (
       <div>
-       <h1>Money On The Board</h1>
-       <ol>
-         {this.state.game.map(event =>
+      <h1>Pledges</h1>
+      <ul>
+      {this.state.pledges.map(pledge =>
+        pledge.pledged.map(userPledge =>
+          <li>{pledge.username}: Event: {userPledge.pledge_event}, Amount: {userPledge.pledge_amount}, Occurance: {userPledge.occurance}, Owes: {userPledge.owes} </li>
+          )
+        )}
+      </ul>
+
+
+      <h1>Game Feef</h1>
+        <ul>
+          {this.state.game.map(event =>
           <li> {event} </li>
           )}
-       </ol>
+        </ul>
 
      </div>
     );

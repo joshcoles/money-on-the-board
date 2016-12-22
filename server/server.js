@@ -269,42 +269,35 @@ let p = 0;
 let e = 0;
 
 function shouldAdvancePeriod(gameRightNow) {
-  console.log(gameRightNow)
   return gameRightNow.periods[p].events.length >= gameRightNow.periods[p].events.length && p < gameRightNow.periods.length - 1;
 }
 
 function pollGame() {
-console.log("e", e)
-console.log('p', p)
- request('http://localhost:4000/api/campaigns/1', (err, response, body) => {
+  console.log("e", e)
+  console.log('p', p)
+  request('http://localhost:4000/api/campaigns/1', (err, response, body) => {
     const filter_events = ['goal', 'shotsaved', 'hit', 'penalty', 'assist'];
-
     let gameData = JSON.parse(body)
-     const gameRightNow = Object.assign({}, gameData);
-     // console.log("GD", gameData)
-     // console.log("GRN", gameRightNow)
+    const gameRightNow = Object.assign({}, gameData);
     let period_length = gameData.periods.length
     let length = gameData.periods[p].events.length
     let gameEvent = gameData.periods[p].events[length - 1]
     let gameEventType = gameData.periods[p].events[length - 1].event_type
-    let gameEventTypeDescription = gameData.periods[p].events[length - 1].description
+
     if (filter_events.includes(gameEventType)){
-      // console.log("filtered GET", gameEventType)
       let gameEventTypeDescription = gameData.periods[p].events[length - 1].description
-      // console.log("FGED", gameEventTypeDescription)
-      io.emit('game-event', gameEventTypeDescription);
-
-
-  }
-  if (shouldAdvancePeriod(gameRightNow)) {
-       p += 1;
-       e = 0;
-     } else {
+      let gameEventTypeClock = gameData.periods[p].events[length - 1].clock
+      let timeEvent = (gameEventTypeClock + " : " + gameEventTypeDescription)
+      io.emit('game-event', timeEvent);
+    }
+    if (shouldAdvancePeriod(gameRightNow)) {
+      p += 1;
+      e = 0;
+    } else {
        e += 1;
-     }
-
-      setTimeout(pollGame, 500);
- });
+    }
+    setTimeout(pollGame, 500);
+  });
 }
 
 pollGame();
