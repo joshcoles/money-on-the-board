@@ -7,13 +7,15 @@ exports.up = function(knex, Promise) {
     }),
     knex.schema.createTable('users', function(table){
       table.increments('id');
-      table.string('twitter');
-      table.string('email');
+      table.string('username').unique().notNullable();
+      table.string('password').notNullable();
+      table.string('email').unique().notNullable();
+      table.string('twitter').unique();
     }),
     knex.schema.createTable('admins', function(table){
       table.increments('id');
-      table.string('name');
-      table.string('email');
+      table.string('name').unique();
+      table.string('email').unique();
     }),
     knex.schema.createTable('games', function(table){
       table.increments('id');
