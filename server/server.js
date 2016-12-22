@@ -1,12 +1,17 @@
 
 // ============== Dependencies =================
+
 const request = require('request');
 const express = require('express');
 const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 const bodyParser = require('body-parser');
-const db = require('./db')
+const db = require('./db');
+const bcrypt = require('bcrypt');
+const passport = require('passport');
+const LocalStrategy = ('passport-local').Strategy;
+
 
 app.set('port', process.env.port || 8080);
 app.set('view engine', 'ejs');
@@ -17,13 +22,62 @@ app.use(express.static('public'));
 // app.use('/dist', express.static('../client/dist'));
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// passport.use(new LocalStrategy(
+//   function(username, password, done) {
+//     User.findOne({ username: username }, function(err, user) {
+//       if(err) { return done(err); }
+//       if(!user) {
+//         return done(null, false, { message: "Incorrect username." });
+//       }
+//       if(!user.validPassword(password)) {
+//         return done(null, false, { message: "Incorrect password"});
+//       }
+//       return done(null, user);
+//     })
+//   }
+// ));
+
 // ============== Routes ===================
 
 app.get('/', (req, res) => {
   console.log("Is this working?")
   res.render('landing-page');
-
 });
+
+app.get('/users/new', (req, res) => {
+  res.render('signup');
+});
+
+app.post('/users/new', (req, res) => {
+  console.log('FORM SUBMITTED');
+  // console.log(username);
+  // console.log(email);
+  console.log('Password: ', req.body.password);
+  if (req.body.password === req.body.confirm_password) {
+    let username = req.body.username;
+    let email = req.body.email;
+    let password = bcrypt.hashSync(req.body.password, 10);
+    db.insert([{ username: username, password: password, email: email }])
+    .into('users')
+    .then(function (result) {
+      console.log('User created successfully!', result);
+      console.log('Password Hash: ', password);
+    })
+  } else {
+    alert('Passwords do not match!!!');
+  }
+
+
+  res.redirect('/index');
+});
+
+// app.post('/login',
+//   passport.authenticate('local', {
+//     successRedirect: '/',
+//     failureRedirect: '/login',
+//     failureFlash: true
+//   })
+// );
 
 app.get('/campaigns', (req, res) => {
   res.render('index');
@@ -86,8 +140,6 @@ app.post('/campaigns', (req, res) => {
   });
 });
 
-
-
 app.get('/pledges/new', (req, res) => {
   res.render("pledge-new")
 
@@ -112,9 +164,6 @@ app.post('/pledges/new', (req, res) => {
   res.redirect('/');
 });
 
-
-
-
 app.delete('/campaigns/:id', (req, res) => {
 });
 
@@ -136,8 +185,6 @@ app.delete('/campaigns/:id', (req, res) => {
 //     res.send(pledge_events_array[pledge_events_array.length-1])
 //   })
 // });
-
-
 
 app.get('/api/schedule', (req, res) => {
   request('http://localhost:4000/api/schedule', (err, response, body) => {
