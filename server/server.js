@@ -44,6 +44,29 @@ app.get('/', (req, res) => {
   res.render('landing-page');
 });
 
+app.get('/initialState', (req, res) => {
+  res.json({
+    game: [],
+    pledges: [{
+      user_id: 1,
+      username: "Homer Simpon",
+      pledged: [
+        {id: 'i48dj', pledge_amount: 2.00, pledge_event: 'Matt Martin credited with hit', occurance: 0, owes: 0.00},
+        {id: 'is820', pledge_amount: 5.00, pledge_event: 'Goal scored by Auston Matthews', occurance: 0, owes: 0.00},
+        {id: 'zo09s', pledge_amount: 1.00, pledge_event: 'saved by Frederik Andersen',occurance: 0, owes: 0.00}
+      ]
+    }, {
+      user_id: 2,
+      username: "Peter Griffin",
+      pledged:[
+        {id: 'v8ud8', pledge_amount: 2.00, pledge_event: 'Goal scored by Derick Brassard', occurance: 0, owes: 0.00},
+        {id: 'x29in', pledge_amount: 5.00, pledge_event: 'Zack Smith credited with hit', occurance: 0, owes: 0.00},
+        {id: 'asdf8', pledge_amount: 1.00, pledge_event: 'Goal scored by Erik Karlsson', occurance: 0, owes: 0.00}
+      ]
+    }]
+  });
+});
+
 app.get('/users/new', (req, res) => {
   res.render('signup');
 });
@@ -100,6 +123,7 @@ app.post('/campaigns', (req, res) => {
   let hashtag = req.body.hashtag;
   let email = req.body.email;
   let password = req.body.password;
+
   console.log("Game: " + game);
   console.log("Campaign name: " + campaign_name);
   console.log("Charity name: " + charity_name);
