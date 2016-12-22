@@ -10,7 +10,8 @@ const bodyParser = require('body-parser');
 const db = require('./db');
 const bcrypt = require('bcrypt');
 const passport = require('passport');
-const LocalStrategy = ('passport-local').Strategy;
+const localStrategy = require('passport-local').Strategy;
+const session = require("express-session");
 
 
 app.set('port', process.env.port || 8080);
@@ -18,24 +19,38 @@ app.set('view engine', 'ejs');
 
 // ============== Middleware =================
 
+app.use(session({
+  secret: 'get that money',
+  resave: false,
+  saveUninitialized: true
+}));
+
+
 app.use(express.static('public'));
 // app.use('/dist', express.static('../client/dist'));
 app.use(bodyParser.urlencoded({ extended: true }));
-
-// passport.use(new LocalStrategy(
-//   function(username, password, done) {
-//     User.findOne({ username: username }, function(err, user) {
-//       if(err) { return done(err); }
-//       if(!user) {
-//         return done(null, false, { message: "Incorrect username." });
-//       }
-//       if(!user.validPassword(password)) {
-//         return done(null, false, { message: "Incorrect password"});
-//       }
-//       return done(null, user);
-//     })
-//   }
-// ));
+app.use(passport.initialize());
+passport.use(new localStrategy(
+  function(username, password, done) {
+    console.log(username);
+    console.log(password);
+    db.select('username').from('users').where({username: username}).where({password: password})
+      .then(user => {
+      if (!user) {
+        return done(null, false, { message: 'Did not authenticate' });
+      }
+      passport.serializeUser((user, done) => {
+        return done(null, user);
+      });
+      passport.deserializeUser((user, done) => {
+        return done(null, user);
+      });
+      req.session.user = current_user;
+      console.log("I'm logged in!");
+      console.log(req.session.user);
+    });
+  }
+));
 
 // ============== Routes ===================
 
@@ -71,13 +86,11 @@ app.post('/users/new', (req, res) => {
   res.redirect('/index');
 });
 
-// app.post('/login',
-//   passport.authenticate('local', {
-//     successRedirect: '/',
-//     failureRedirect: '/login',
-//     failureFlash: true
-//   })
-// );
+app.post('/login',
+  passport.authenticate('local', { successRedirect: '/',
+                                   failureRedirect: '/login',
+                                   failureFlash: true });
+);
 
 app.get('/campaigns', (req, res) => {
   res.render('index');
