@@ -11,7 +11,7 @@ const db = require('./db');
 const bcrypt = require('bcrypt');
 const passport = require('passport');
 const localStrategy = require('passport-local').Strategy;
-const session = require("express-session");
+const session = require("passport.session");
 
 
 app.set('port', process.env.port || 8080);
@@ -27,15 +27,17 @@ app.use(session({
 
 
 app.use(express.static('public'));
-// app.use('/dist', express.static('../client/dist'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(passport.initialize());
+
 passport.use(new localStrategy(
   function(username, password, done) {
     console.log(username);
     console.log(password);
+    //bcrypt compare password here
     db.select('username').from('users').where({username: username}).where({password: password})
       .then(user => {
+        console.log(username, password);
       if (!user) {
         return done(null, false, { message: 'Did not authenticate' });
       }
@@ -45,7 +47,6 @@ passport.use(new localStrategy(
       passport.deserializeUser((user, done) => {
         return done(null, user);
       });
-      req.session.user = current_user;
       console.log("I'm logged in!");
       console.log(req.session.user);
     });
@@ -65,8 +66,6 @@ app.get('/users/new', (req, res) => {
 
 app.post('/users/new', (req, res) => {
   console.log('FORM SUBMITTED');
-  // console.log(username);
-  // console.log(email);
   console.log('Password: ', req.body.password);
   if (req.body.password === req.body.confirm_password) {
     let username = req.body.username;
@@ -81,15 +80,15 @@ app.post('/users/new', (req, res) => {
   } else {
     alert('Passwords do not match!!!');
   }
-
-
   res.redirect('/index');
 });
 
-app.post('/login',
+
+app.post('/login', (req, res) => {
   passport.authenticate('local', { successRedirect: '/',
                                    failureRedirect: '/login',
                                    failureFlash: true });
+  }
 );
 
 app.get('/campaigns', (req, res) => {
