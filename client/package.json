@@ -51,7 +51,6 @@
     "json-loader": "^0.5.4",
     "react": "15.2.1",
     "react-dom": "15.2.1",
-    "ws": "^1.1.1",
-    "socket.io": "^1.7.2"
+    "socket.io-client": "^1.7.2"
   }
 }
