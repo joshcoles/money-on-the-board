@@ -6,11 +6,12 @@ exports.seed = function(knex, Promise) {
       return Promise.all([
         // Inserts seed entries
         knex('campaigns').insert({
-          charity_id: 1,
           game_id: 1,
           admin_id: 1,
           handle: '@SensMotB',
-          title: 'Eric - Senators vs Leafs'
+          title: 'Eric - Senators vs Leafs',
+          charity_name: 'Senators Foundation',
+          charity_url: 'www.donate.com',
         })
       ]);
     });
