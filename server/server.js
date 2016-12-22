@@ -1,13 +1,13 @@
 
 // ============== Dependencies =================
-const express             = require('express');
-const request             = require('request');
+const express = require('express');
+const request = require('request');
 const app = express();
 const http = require('http');
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
-const bodyParser          = require('body-parser');
-const db                  = require('./db')
+const bodyParser = require('body-parser');
+const db = require('./db')
 
 app.set('view engine', 'ejs');
 
