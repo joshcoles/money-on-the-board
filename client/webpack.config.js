@@ -14,24 +14,28 @@ module.exports = {
   },
   module: {
     loaders: [
+      { test: /\.json$/,
+        loaders: ['json-loader']
+      },
       {
         test: /\.jsx?$/,
         loaders: ['babel'],
         include: path.join(__dirname, 'src')
       },
       {
-        test: /\.jsx?$/,
-        loader: 'babel-loader',
-        exclude: /node_modules/
-      },
-      {
         test: /\.scss$/,
         loaders: ["style", "css", "sass"]
-      },
-      {
-        test: /\.json$/,
-        loader: 'json'
       }
     ]
+  },
+  resolve: {
+    extensions: ['', '.webpack.js', '.web.js', '.js']
+  },
+  node: {
+    console: true,
+    fs: 'empty',
+    net: 'empty',
+    tls: 'empty',
+    dns: 'empty'
   }
-}
+};
