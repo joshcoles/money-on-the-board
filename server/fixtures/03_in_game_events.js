@@ -28,7 +28,15 @@ exports.seed = function(knex, Promise) {
         knex('in_game_events').insert(
           {
             event_type: 'goal'
-          })
+          }),
+        knex('in_game_events').insert(
+        {
+          event_type: 'fight'
+        }),
+        knex('in_game_events').insert(
+        {
+          event_type: 'assist'
+        })
       ]);
     });
 };

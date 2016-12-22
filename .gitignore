@@ -4,3 +4,4 @@ node_modules
 config/settings.json
 data
 sample-data
+client/dist/bundle.js

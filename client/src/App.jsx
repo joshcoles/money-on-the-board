@@ -2,16 +2,14 @@ import React, {Component} from 'react';
 // let eventArray = []
 // let test = 'Nazem Kadri won faceoff'
 // let pledgeArray = ['Nazem Kadri won faceoff', 'Shot on goal by Mitchell Marner', 'Matt Martin credited with hit']
-
+let dataArray = []
 
 class App extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      game: {
-        periods: []
-      }
+      game: []
     };
   }
 
@@ -30,22 +28,34 @@ class App extends Component {
     //     this.setState({events: eventArray});
     // });
     this.props.socket.on('game-event', data => {
-      this.setState({game : data});
+
+      dataArray.push(data)
+
+      this.setState({game : dataArray});
+      console.log("dataArray", dataArray)
     });
 
   }
+
+
+   // <ol>
+   //       {this.state.game.periods.reverse().map(period =>
+   //         period.events.reverse().map(event =>
+   //           <li>{event.description}</li>
+   //         )
+   //       )}
+   //     </ol>
 
   render() {
     return (
       <div>
        <h1>Money On The Board</h1>
        <ol>
-         {this.state.game.periods.reverse().map(period =>
-           period.events.reverse().map(event =>
-             <li>{event.description}</li>
-           )
-         )}
+         {this.state.game.map(event =>
+          <li> {event} </li>
+          )}
        </ol>
+
      </div>
     );
   }

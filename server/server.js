@@ -1,12 +1,17 @@
 
 // ============== Dependencies =================
+
 const request = require('request');
 const express = require('express');
 const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 const bodyParser = require('body-parser');
-const db = require('./db')
+const db = require('./db');
+const bcrypt = require('bcrypt');
+const passport = require('passport');
+const LocalStrategy = ('passport-local').Strategy;
+
 
 app.set('port', process.env.port || 8080);
 app.set('view engine', 'ejs');
@@ -17,13 +22,62 @@ app.use(express.static('public'));
 // app.use('/dist', express.static('../client/dist'));
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// passport.use(new LocalStrategy(
+//   function(username, password, done) {
+//     User.findOne({ username: username }, function(err, user) {
+//       if(err) { return done(err); }
+//       if(!user) {
+//         return done(null, false, { message: "Incorrect username." });
+//       }
+//       if(!user.validPassword(password)) {
+//         return done(null, false, { message: "Incorrect password"});
+//       }
+//       return done(null, user);
+//     })
+//   }
+// ));
+
 // ============== Routes ===================
 
 app.get('/', (req, res) => {
   console.log("Is this working?")
   res.render('landing-page');
-
 });
+
+app.get('/users/new', (req, res) => {
+  res.render('signup');
+});
+
+app.post('/users/new', (req, res) => {
+  console.log('FORM SUBMITTED');
+  // console.log(username);
+  // console.log(email);
+  console.log('Password: ', req.body.password);
+  if (req.body.password === req.body.confirm_password) {
+    let username = req.body.username;
+    let email = req.body.email;
+    let password = bcrypt.hashSync(req.body.password, 10);
+    db.insert([{ username: username, password: password, email: email }])
+    .into('users')
+    .then(function (result) {
+      console.log('User created successfully!', result);
+      console.log('Password Hash: ', password);
+    })
+  } else {
+    alert('Passwords do not match!!!');
+  }
+
+
+  res.redirect('/index');
+});
+
+// app.post('/login',
+//   passport.authenticate('local', {
+//     successRedirect: '/',
+//     failureRedirect: '/login',
+//     failureFlash: true
+//   })
+// );
 
 app.get('/campaigns', (req, res) => {
   res.render('index');
@@ -59,44 +113,32 @@ app.post('/campaigns', (req, res) => {
       res.send("game not found, be serious");
     }
     const game_id = game_ids[0].id;
-    db.insert([{name: charity_name, url: charity_url}])
-    .into('charities')
+    db.insert([{
+      handle: hashtag,
+      title: campaign_name,
+      game_id: game_id,
+      charity_name: charity_name,
+      charity_url: charity_url,
+      admin_id: 1,       // to be changed
+    }])
+    .into('campaigns')
     .returning('id')
-    .then(function(charity_ids) {
-      if (charity_ids.length != 1) {
-        console.error("number of found charities =", charity_ids.length);
+    .then(function(result) {
+      console.log("campaign insert result", result);
+      if (result.length === 1) {
+        const campaign_id = result[0];
+        res.redirect(`campaigns/${campaign_id}`);
+      } else {
+        console.error("number of found campaigns =", result.length);
         res.redirect('/campaigns/new');
       }
-      const charity_id = charity_ids[0];
-      console.log("charity_id", charity_id);
-
-      db.insert([{
-        handle: hashtag,
-        title: campaign_name,
-        charity_id: charity_id,
-        game_id: game_id,
-        admin_id: 1,       // this is total bullshit, we need to get this from the session or something
-      }])
-      .into('campaigns')
-      .returning('id')
-      .then(function(result) {
-        console.log("campaign insert result", result);
-        if (result.length === 1) {
-          const campaign_id = result[0];
-          res.redirect(`campaigns/${campaign_id}`);
-        } else {
-          console.error("number of found campaigns =", result.length);
-          res.redirect('/campaigns/new');
-        }
-      })
-      .catch(function(error){
-        console.error("error when inserting campaign", error);
-        res.redirect('/campaigns/new');
-      });
+    })
+    .catch(function(error){
+      console.error("error when inserting campaign", error);
+      res.redirect('/campaigns/new');
     });
   });
 });
-
 
 app.get('/pledges/new', (req, res) => {
   res.render("pledge-new")
@@ -113,11 +155,14 @@ app.post('/pledges/new', (req, res) => {
   console.log("Your pledge player: ", pledgePlayer);
   console.log("Your in-game event: ", inGameEvent);
   console.log("Your pledge amount: ", pledgeAmount);
-  res.redirect('/campaigns')
+
+  db.insert([{player_uuid: pledgePlayer, team_uuid: pledgeTeam, money: pledgeAmount, in_game_event_id: inGameEvent, user_id: 1, campaign_id: 1}])
+    .into('pledges')
+    .then(function(result) {
+      console.log("Pledge insert result", result);
+    })
+  res.redirect('/');
 });
-
-
-
 
 app.delete('/campaigns/:id', (req, res) => {
 });
@@ -140,8 +185,6 @@ app.delete('/campaigns/:id', (req, res) => {
 //     res.send(pledge_events_array[pledge_events_array.length-1])
 //   })
 // });
-
-
 
 app.get('/api/schedule', (req, res) => {
   request('http://localhost:4000/api/schedule', (err, response, body) => {
@@ -208,11 +251,59 @@ app.get('/api/campaigns/:id/awayteam', (req, res) => {
 //   });
 // });
 
+
+// let gameObject = JSON.parse(body);
+
+//     gameObject.periods.forEach(function(period) {
+//       period.events.forEach(function(event) {
+//         if (pledge_events.includes(event.event_type)) {
+//           pledge_events_array.push("Time " + event.clock + ": " + event.description);
+//         }
+//       })
+//     })
+//     console.log("test pledge", pledge_events_array)
+//     res.send(pledge_events_array[pledge_events_array.length-1])
+//   })
+
+let p = 0;
+let e = 0;
+
+function shouldAdvancePeriod(gameRightNow) {
+  console.log(gameRightNow)
+  return gameRightNow.periods[p].events.length >= gameRightNow.periods[p].events.length && p < gameRightNow.periods.length - 1;
+}
+
 function pollGame() {
+console.log("e", e)
+console.log('p', p)
  request('http://localhost:4000/api/campaigns/1', (err, response, body) => {
-   // TODO FILTER THE EVENTS AND ONLY EMIT ON RELEVANT ONES
-   io.emit('game-event', JSON.parse(body));
-   setTimeout(pollGame, 1000);
+    const filter_events = ['goal', 'shotsaved', 'hit', 'penalty', 'assist'];
+
+    let gameData = JSON.parse(body)
+     const gameRightNow = Object.assign({}, gameData);
+     // console.log("GD", gameData)
+     // console.log("GRN", gameRightNow)
+    let period_length = gameData.periods.length
+    let length = gameData.periods[p].events.length
+    let gameEvent = gameData.periods[p].events[length - 1]
+    let gameEventType = gameData.periods[p].events[length - 1].event_type
+    let gameEventTypeDescription = gameData.periods[p].events[length - 1].description
+    if (filter_events.includes(gameEventType)){
+      console.log("filtered GET", gameEventType)
+      let gameEventTypeDescription = gameData.periods[p].events[length - 1].description
+      console.log("FGED", gameEventTypeDescription)
+      io.emit('game-event', gameEventTypeDescription);
+
+
+  }
+  if (shouldAdvancePeriod(gameRightNow)) {
+       p += 1;
+       e = 0;
+     } else {
+       e += 1;
+     }
+
+      setTimeout(pollGame, 500);
  });
 }
 

@@ -7,18 +7,15 @@ exports.up = function(knex, Promise) {
     }),
     knex.schema.createTable('users', function(table){
       table.increments('id');
-      table.string('twitter');
-      table.string('email');
+      table.string('username').unique().notNullable();
+      table.string('password').notNullable();
+      table.string('email').unique().notNullable();
+      table.string('twitter').unique();
     }),
     knex.schema.createTable('admins', function(table){
       table.increments('id');
-      table.string('name');
-      table.string('email');
-    }),
-    knex.schema.createTable('charities', function(table){
-      table.increments('id');
-      table.string('name');
-      table.string('url');
+      table.string('name').unique();
+      table.string('email').unique();
     }),
     knex.schema.createTable('games', function(table){
       table.increments('id');
@@ -26,7 +23,8 @@ exports.up = function(knex, Promise) {
     }),
     knex.schema.createTable('campaigns', function(table){
       table.increments('id');
-      table.integer('charity_id').references('id').inTable('charities').notNullable();
+      table.string('charity_name');
+      table.string('charity_url');
       table.integer('game_id').references('id').inTable('games').notNullable();
       table.integer('admin_id').references('id').inTable('admins').notNullable();
       table.string('handle');
@@ -51,7 +49,6 @@ exports.down = function(knex, Promise) {
     knex.schema.dropTable('in_game_events'),
     knex.schema.dropTable('users'),
     knex.schema.dropTable('games'),
-    knex.schema.dropTable('charities'),
     knex.schema.dropTable('admins'),
   ])
 };
