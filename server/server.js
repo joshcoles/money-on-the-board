@@ -26,6 +26,10 @@ app.get('/', (req, res) => {
 
 });
 
+app.get('/users/new', (req, res) => {
+  res.render('signup');
+});
+
 app.get('/campaigns', (req, res) => {
   res.render('index');
 });
@@ -86,8 +90,6 @@ app.post('/campaigns', (req, res) => {
     });
   });
 });
-
-
 
 app.get('/pledges/new', (req, res) => {
   res.render("pledge-new")
