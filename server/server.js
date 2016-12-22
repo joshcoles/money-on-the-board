@@ -289,9 +289,9 @@ console.log('p', p)
     let gameEventType = gameData.periods[p].events[length - 1].event_type
     let gameEventTypeDescription = gameData.periods[p].events[length - 1].description
     if (filter_events.includes(gameEventType)){
-      console.log("filtered GET", gameEventType)
+      // console.log("filtered GET", gameEventType)
       let gameEventTypeDescription = gameData.periods[p].events[length - 1].description
-      console.log("FGED", gameEventTypeDescription)
+      // console.log("FGED", gameEventTypeDescription)
       io.emit('game-event', gameEventTypeDescription);
 
 
