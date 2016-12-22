@@ -1,20 +1,20 @@
 
 // ============== Dependencies =================
-const express             = require('express');
-const request             = require('request');
+const request = require('request');
+const express = require('express');
 const app = express();
-const http = require('http');
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
-const bodyParser          = require('body-parser');
-const db                  = require('./db')
+const bodyParser = require('body-parser');
+const db = require('./db')
 
+app.set('port', process.env.port || 8080);
 app.set('view engine', 'ejs');
 
 // ============== Middleware =================
 
-
-app.use('/dist', express.static('../client/dist'));
+app.use(express.static('public'));
+// app.use('/dist', express.static('../client/dist'));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // ============== Routes ===================
@@ -118,24 +118,26 @@ app.post('/pledges/new', (req, res) => {
 app.delete('/campaigns/:id', (req, res) => {
 });
 
-app.get('/api/campaigns/:id', (req, res) => {
-  request('http://localhost:4000/api/campaigns/1', (err, response, body) => {
-    const pledge_events = ['gamesetup', 'faceoff', 'goal', 'shotsaved', 'hit', 'penalty', 'assist'];
-    const pledge_events_array = [];
+// app.get('/api/campaigns/:id', (req, res) => {
+//   request('http://localhost:4000/api/campaigns/1', (err, response, body) => {
+//     const pledge_events = ['gamesetup', 'faceoff', 'goal', 'shotsaved', 'hit', 'penalty', 'assist'];
+//     const pledge_events_array = [];
 
-    let gameObject = JSON.parse(body);
+//     let gameObject = JSON.parse(body);
 
-    gameObject.periods.forEach(function(period) {
-      period.events.forEach(function(event) {
-        if (pledge_events.includes(event.event_type)) {
-          pledge_events_array.push("Time " + event.clock + ": " + event.description);
-        }
-      })
-    })
-    console.log("test pledge", pledge_events_array)
-    res.send(pledge_events_array[pledge_events_array.length-1])
-  })
-});
+//     gameObject.periods.forEach(function(period) {
+//       period.events.forEach(function(event) {
+//         if (pledge_events.includes(event.event_type)) {
+//           pledge_events_array.push("Time " + event.clock + ": " + event.description);
+//         }
+//       })
+//     })
+//     console.log("test pledge", pledge_events_array)
+//     res.send(pledge_events_array[pledge_events_array.length-1])
+//   })
+// });
+
+
 
 app.get('/api/schedule', (req, res) => {
   request('http://localhost:4000/api/schedule', (err, response, body) => {
@@ -175,41 +177,44 @@ app.get('/api/campaigns/:id/awayteam', (req, res) => {
 
 // ============== Sockets ==================
 
-io.on('connection', function (socket) {
-  request('http://localhost:4000/api/campaigns/1', (err, response, body) => {
-    const pledge_events = ['gamesetup', 'faceoff', 'goal', 'shotsaved', 'hit', 'penalty', 'assist'];
+// io.on('connection', function (socket) {
+//   request('http://localhost:4000/api/campaigns/1', (err, response, body) => {
+//     const pledge_events = ['gamesetup', 'faceoff', 'goal', 'shotsaved', 'hit', 'penalty', 'assist'];
 
-    let gameObject = JSON.parse(body);
+//     let gameObject = JSON.parse(body);
 
-    let filteredEvents = gameObject.periods.reduce(function (acc, period) {
-      return acc.concat(period.events);
-    }, []).filter(function (event) {
-      return pledge_events.includes(event.event_type);
-    });
+//     let filteredEvents = gameObject.periods.reduce(function (acc, period) {
+//       return acc.concat(period.events);
+//     }, []).filter(function (event) {
+//       return pledge_events.includes(event.event_type);
+//     });
 
-    let pledge_events_array = filteredEvents.map(function (event) {
-      return 'Time ' + event.clock + ': ' + event.description;
-    });
+//     let pledge_events_array = filteredEvents.map(function (event) {
+//       return 'Time ' + event.clock + ': ' + event.description;
+//     });
 
-    pledge_events_array.forEach(function (event_string, index) {
-      (function (event_string, delay) {
-        setTimeout(function () {
-        socket.emit('news', {event: event_string})
-      }, delay);
-      })(event_string, (index + 1) * 1000);
+//     pledge_events_array.forEach(function (event_string, index) {
+//       (function (event_string, delay) {
+//         setTimeout(function () {
+//         socket.emit('news', {event: event_string})
+//       }, delay);
+//       })(event_string, (index + 1) * 1000);
 
-    });
-  });
+//     });
+//   });
+// });
 
-  // socket.emit('news', { hello: 'world' });
-  // socket.on('my other event', function (data) {
-  //   console.log(data);
-  // });
+function pollGame() {
+ request('http://localhost:4000/api/campaigns/1', (err, response, body) => {
+   // TODO FILTER THE EVENTS AND ONLY EMIT ON RELEVANT ONES
+   io.emit('game-event', JSON.parse(body));
+   setTimeout(pollGame, 1000);
+ });
+}
+
+pollGame();
+
+server.listen(app.get('port'), (err) => {
+ if (err) throw err;
+ console.log(`MOTB server running on port ${app.get('port')}`);
 });
-
-server.listen(process.env.port || 8080, (err) => {
-  if (err) throw err;
-  console.log(`MOTB server running`);
-});
-
-io.listen(server);
