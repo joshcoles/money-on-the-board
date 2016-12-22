@@ -7,6 +7,8 @@ require("../styles/application.scss");
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App.jsx';
+import io from 'socket.io-client';
 
+const socket = io.connect();
 
-ReactDOM.render(<App />, document.getElementById('react-root'));
+ReactDOM.render(<App socket={socket} />, document.getElementById('react-root'));
