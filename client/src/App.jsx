@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
-// let eventArray = []
-// let test = 'Nazem Kadri won faceoff'
-// let pledgeArray = ['Nazem Kadri won faceoff', 'Shot on goal by Mitchell Marner', 'Matt Martin credited with hit']
+
 let dataArray = []
 
 class App extends Component {
@@ -9,52 +7,66 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      game: []
+      game: [],
+      pledges: []
+    }
+  }
+
+  get onSocketData()
+  {
+    return data => {
+      dataArray.push(data)
+
+      if(!this.state || !this.state.pledges) { return; }
+
+      this.state.pledges.forEach((user) => {
+        user.pledged.forEach((pledge) => {
+          if(data.includes(pledge.pledge_event)){
+            pledge.occurance = pledge.occurance + 1;
+            pledge.owes = pledge.occurance * pledge.pledge_amount
+            this.setState({occurance : pledge.occurance});
+            this.setState({occurance : pledge.owes});
+          }
+        })
+      })
+      this.setState({game : dataArray});
+      console.log(this.state.pledges)
     };
   }
 
   componentDidMount() {
-
-    // this.socket = io.connect('http://localhost:8080');
-    // console.log('connecting to web socket');
-    // this.socket.on('news', (data) => {
-    //   let values = Object.values(data)
-    //     pledgeArray.forEach((pledge) => {
-    //       if (values[0].includes(pledge)) {
-    //         this.setState({pledges: pledge})
-    //       }
-    //     })
-    //     eventArray.push(values[0]);
-    //     this.setState({events: eventArray});
-    // });
-    this.props.socket.on('game-event', data => {
-
-      dataArray.push(data)
-
-      this.setState({game : dataArray});
-      console.log("dataArray", dataArray)
-    });
-
+    fetch('/initialState')
+      .then(response => response.json())
+      .then(data => {
+        console.log('Got initial data from server', data);
+        this.setState(data);
+        this.props.socket.on('game-event', this.onSocketData);
+      })
   }
 
-
-   // <ol>
-   //       {this.state.game.periods.reverse().map(period =>
-   //         period.events.reverse().map(event =>
-   //           <li>{event.description}</li>
-   //         )
-   //       )}
-   //     </ol>
+  componentWillUnmount() {
+    this.props.socket.removeListener('game-event', this.onSocketData);
+  }
 
   render() {
     return (
       <div>
-       <h1>Money On The Board</h1>
-       <ol>
-         {this.state.game.map(event =>
+      <h1>Pledges</h1>
+      <ul>
+      {this.state && this.state.pledges && this.state.pledges.map(pledge =>
+        pledge.pledged.map(userPledge =>
+          <li>{pledge.username}: Event: {userPledge.pledge_event}, Amount: {userPledge.pledge_amount}, Occurance: {userPledge.occurance}, Owes: {userPledge.owes} </li>
+          )
+        )}
+      </ul>
+
+
+      <h1>Game Feef</h1>
+        <ul>
+          {this.state && this.state.game && this.state.game.map(event =>
           <li> {event} </li>
           )}
-       </ol>
+        </ul>
 
      </div>
     );

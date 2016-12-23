@@ -10,7 +10,12 @@ const bodyParser = require('body-parser');
 const db = require('./db');
 const bcrypt = require('bcrypt');
 const passport = require('passport');
-const LocalStrategy = ('passport-local').Strategy;
+const LocalStrategy = require('passport-local').Strategy;
+const session = require('cookie-session');
+
+const util = require('util');
+
+const inspect = (o, d = 1) => { console.log(util.inspect(o, { colors: true, depth: d }))};
 
 
 app.set('port', process.env.port || 8080);
@@ -21,27 +26,83 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 // app.use('/dist', express.static('../client/dist'));
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(session({
+  name: 'purplecatattack',
+  keys: ['toranto', 'bimbimbop']
+}));
 
-// passport.use(new LocalStrategy(
-//   function(username, password, done) {
-//     User.findOne({ username: username }, function(err, user) {
-//       if(err) { return done(err); }
-//       if(!user) {
-//         return done(null, false, { message: "Incorrect username." });
-//       }
-//       if(!user.validPassword(password)) {
-//         return done(null, false, { message: "Incorrect password"});
-//       }
-//       return done(null, user);
-//     })
-//   }
-// ));
+
+// function that compares user input password with stored password
+function comparePass(userPassword, databasePassword) {
+  return bcrypt.compareSync(userPassword, databasePassword);
+};
+
+passport.use(new LocalStrategy((username, password, done) => {
+  db('users').where({ username }).first()
+  .then((user) => {
+    if(!user) return done(null, false);
+    if(!comparePass(password, user.password)) {
+      return done(null, false);
+    } else {
+      return done(null, user);
+    }
+  })
+  .catch((err) => { console.log('Here?'); return done(err); });
+}));
+
+passport.serializeUser((user, done) => {
+  console.info('Serializing user');
+  if(!user) { done(new Error("User is not present")); }
+  done(null, user.id);
+});
+
+passport.deserializeUser((id, done) => {
+  console.info('Deserializing user', id);
+  db('users').where({id}).first()
+    .then((user) => { done(null, user); })
+    .catch((err) => { done(err, null); });
+});
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use((req, res, next) => {
+  console.log('Setting locals');
+  res.locals.user = req.user;
+  console.log('Username: ', res.locals.user.username);
+  currentUser = res.locals.user.username;
+  next();
+})
 
 // ============== Routes ===================
 
 app.get('/', (req, res) => {
-  console.log("Is this working?")
+  console.log("Is this working?");
+  inspect(res.locals);
   res.render('landing-page');
+});
+
+app.get('/initialState', (req, res) => {
+  res.json({
+    game: [],
+    pledges: [{
+      user_id: 1,
+      username: "Homer Simpon",
+      pledged: [
+        {id: 'i48dj', pledge_amount: 2.00, pledge_event: 'Matt Martin credited with hit', occurance: 0, owes: 0.00},
+        {id: 'is820', pledge_amount: 5.00, pledge_event: 'Goal scored by Auston Matthews', occurance: 0, owes: 0.00},
+        {id: 'zo09s', pledge_amount: 1.00, pledge_event: 'saved by Frederik Andersen',occurance: 0, owes: 0.00}
+      ]
+    }, {
+      user_id: 2,
+      username: "Peter Griffin",
+      pledged:[
+        {id: 'v8ud8', pledge_amount: 2.00, pledge_event: 'Goal scored by Derick Brassard', occurance: 0, owes: 0.00},
+        {id: 'x29in', pledge_amount: 5.00, pledge_event: 'Zack Smith credited with hit', occurance: 0, owes: 0.00},
+        {id: 'asdf8', pledge_amount: 1.00, pledge_event: 'Goal scored by Erik Karlsson', occurance: 0, owes: 0.00}
+      ]
+    }]
+  });
 });
 
 app.get('/users/new', (req, res) => {
@@ -66,18 +127,20 @@ app.post('/users/new', (req, res) => {
   } else {
     alert('Passwords do not match!!!');
   }
-
-
   res.redirect('/index');
 });
 
-// app.post('/login',
-//   passport.authenticate('local', {
-//     successRedirect: '/',
-//     failureRedirect: '/login',
-//     failureFlash: true
-//   })
-// );
+// function to handle post response
+function handleResponse(res, code, statusMsg) {
+  res.status(code).json({status: statusMsg});
+};
+
+app.post('/login', passport.authenticate('local', { failureRedirect: '/login' }), (req, res) => {
+  // if(err) { handleResponse(res, 500, 'error'); }
+  // if(!user) { handleResponse(res, 404, 'user not found'); }
+  // if(user) { handleResponse(res, 200, 'success'); }
+  res.redirect('/');
+});
 
 app.get('/campaigns', (req, res) => {
   res.render('index');
@@ -100,6 +163,7 @@ app.post('/campaigns', (req, res) => {
   let hashtag = req.body.hashtag;
   let email = req.body.email;
   let password = req.body.password;
+
   console.log("Game: " + game);
   console.log("Campaign name: " + campaign_name);
   console.log("Charity name: " + charity_name);
@@ -108,7 +172,8 @@ app.post('/campaigns', (req, res) => {
   console.log("Email: " + email);
   console.log("Password: " + password);
 
-  db.select('id').from('games').where({game_uuid: game}).then((game_ids) => {
+  db.select('id').from('games').where({game_uuid: game})
+  .then(game_ids => {
     if (game_ids.length != 1) {
       res.send("game not found, be serious");
     }
@@ -141,7 +206,7 @@ app.post('/campaigns', (req, res) => {
 });
 
 app.get('/pledges/new', (req, res) => {
-  res.render("pledge-new")
+  res.render("pledge-new");
 
 });
 
@@ -269,42 +334,35 @@ let p = 0;
 let e = 0;
 
 function shouldAdvancePeriod(gameRightNow) {
-  console.log(gameRightNow)
   return gameRightNow.periods[p].events.length >= gameRightNow.periods[p].events.length && p < gameRightNow.periods.length - 1;
 }
 
 function pollGame() {
-console.log("e", e)
-console.log('p', p)
- request('http://localhost:4000/api/campaigns/1', (err, response, body) => {
+  console.log("e", e)
+  console.log('p', p)
+  request('http://localhost:4000/api/campaigns/1', (err, response, body) => {
     const filter_events = ['goal', 'shotsaved', 'hit', 'penalty', 'assist'];
-
     let gameData = JSON.parse(body)
-     const gameRightNow = Object.assign({}, gameData);
-     // console.log("GD", gameData)
-     // console.log("GRN", gameRightNow)
+    const gameRightNow = Object.assign({}, gameData);
     let period_length = gameData.periods.length
     let length = gameData.periods[p].events.length
     let gameEvent = gameData.periods[p].events[length - 1]
     let gameEventType = gameData.periods[p].events[length - 1].event_type
-    let gameEventTypeDescription = gameData.periods[p].events[length - 1].description
+
     if (filter_events.includes(gameEventType)){
-      console.log("filtered GET", gameEventType)
       let gameEventTypeDescription = gameData.periods[p].events[length - 1].description
-      console.log("FGED", gameEventTypeDescription)
-      io.emit('game-event', gameEventTypeDescription);
-
-
-  }
-  if (shouldAdvancePeriod(gameRightNow)) {
-       p += 1;
-       e = 0;
-     } else {
+      let gameEventTypeClock = gameData.periods[p].events[length - 1].clock
+      let timeEvent = (gameEventTypeClock + " : " + gameEventTypeDescription)
+      io.emit('game-event', timeEvent);
+    }
+    if (shouldAdvancePeriod(gameRightNow)) {
+      p += 1;
+      e = 0;
+    } else {
        e += 1;
-     }
-
-      setTimeout(pollGame, 500);
- });
+    }
+    setTimeout(pollGame, 500);
+  });
 }
 
 pollGame();
