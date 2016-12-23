@@ -128,7 +128,6 @@ function handleResponse(res, code, statusMsg) {
 };
 
 app.post('/login', passport.authenticate('local', { failureRedirect: '/login' }), (req, res) => {
-
   res.redirect('/');
 });
 
