@@ -10,7 +10,12 @@ const bodyParser = require('body-parser');
 const db = require('./db');
 const bcrypt = require('bcrypt');
 const passport = require('passport');
-const LocalStrategy = ('passport-local').Strategy;
+const LocalStrategy = require('passport-local').Strategy;
+const session = require('cookie-session');
+
+const util = require('util');
+
+const inspect = (o, d = 1) => { console.log(util.inspect(o, { colors: true, depth: d }))};
 
 
 app.set('port', process.env.port || 8080);
@@ -21,26 +26,59 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 // app.use('/dist', express.static('../client/dist'));
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(session({
+  name: 'purplecatattack',
+  keys: ['toranto', 'bimbimbop']
+}));
 
-// passport.use(new LocalStrategy(
-//   function(username, password, done) {
-//     User.findOne({ username: username }, function(err, user) {
-//       if(err) { return done(err); }
-//       if(!user) {
-//         return done(null, false, { message: "Incorrect username." });
-//       }
-//       if(!user.validPassword(password)) {
-//         return done(null, false, { message: "Incorrect password"});
-//       }
-//       return done(null, user);
-//     })
-//   }
-// ));
+
+// function that compares user input password with stored password
+function comparePass(userPassword, databasePassword) {
+  return bcrypt.compareSync(userPassword, databasePassword);
+};
+
+passport.use(new LocalStrategy((username, password, done) => {
+  db('users').where({ username }).first()
+  .then((user) => {
+    if(!user) return done(null, false);
+    if(!comparePass(password, user.password)) {
+      return done(null, false);
+    } else {
+      return done(null, user);
+    }
+  })
+  .catch((err) => { console.log('Here?'); return done(err); });
+}));
+
+passport.serializeUser((user, done) => {
+  console.info('Serializing user');
+  if(!user) { done(new Error("User is not present")); }
+  done(null, user.id);
+});
+
+passport.deserializeUser((id, done) => {
+  console.info('Deserializing user', id);
+  db('users').where({id}).first()
+    .then((user) => { done(null, user); })
+    .catch((err) => { done(err, null); });
+});
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use((req, res, next) => {
+  console.log('Setting locals');
+  res.locals.user = req.user;
+  console.log('Username: ', res.locals.user.username);
+  currentUser = res.locals.user.username;
+  next();
+})
 
 // ============== Routes ===================
 
 app.get('/', (req, res) => {
-  console.log("Is this working?")
+  console.log("Is this working?");
+  inspect(res.locals);
   res.render('landing-page');
 });
 
@@ -66,18 +104,20 @@ app.post('/users/new', (req, res) => {
   } else {
     alert('Passwords do not match!!!');
   }
-
-
   res.redirect('/index');
 });
 
-// app.post('/login',
-//   passport.authenticate('local', {
-//     successRedirect: '/',
-//     failureRedirect: '/login',
-//     failureFlash: true
-//   })
-// );
+// function to handle post response
+function handleResponse(res, code, statusMsg) {
+  res.status(code).json({status: statusMsg});
+};
+
+app.post('/login', passport.authenticate('local', { failureRedirect: '/login' }), (req, res) => {
+  // if(err) { handleResponse(res, 500, 'error'); }
+  // if(!user) { handleResponse(res, 404, 'user not found'); }
+  // if(user) { handleResponse(res, 200, 'success'); }
+  res.redirect('/');
+});
 
 app.get('/campaigns', (req, res) => {
   res.render('index');
@@ -108,7 +148,8 @@ app.post('/campaigns', (req, res) => {
   console.log("Email: " + email);
   console.log("Password: " + password);
 
-  db.select('id').from('games').where({game_uuid: game}).then((game_ids) => {
+  db.select('id').from('games').where({game_uuid: game})
+  .then(game_ids => {
     if (game_ids.length != 1) {
       res.send("game not found, be serious");
     }
@@ -141,7 +182,7 @@ app.post('/campaigns', (req, res) => {
 });
 
 app.get('/pledges/new', (req, res) => {
-  res.render("pledge-new")
+  res.render("pledge-new");
 
 });
 
