@@ -51,15 +51,11 @@ passport.use(new LocalStrategy((username, password, done) => {
 }));
 
 passport.serializeUser((user, done) => {
-  console.info('Serializing user');
-  console.log('User: ', user.id);
-  console.log('Name: ', user.name);
   if(!user) { done(new Error("User is not present")); }
   done(null, user.id);
 });
 
 passport.deserializeUser((id, done) => {
-  console.info('Deserializing user', id);
   db('users').where({id}).first()
     .then((user) => { done(null, user); })
     .catch((err) => { done(err, null); });
@@ -69,26 +65,14 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use((req, res, next) => {
-  // console.log('Setting locals');
-<<<<<<< HEAD
-  if(req.session.user) {
-    res.locals.user = req.user;
-    console.log('Username: ', res.locals.user.username);
-    currentUser = res.locals.user.username;
-  } 
-=======
-
   res.locals.currentUser = req.user;
   res.locals.isAuthenticated = !!req.user;
-
->>>>>>> user-auth
   next();
 })
 
 // ============== Routes ===================
 
 app.get('/', (req, res) => {
-  console.log("Is this working?");
   inspect(res.locals);
   res.render('landing-page');
 });
@@ -123,10 +107,6 @@ app.get('/users/new', (req, res) => {
 });
 
 app.post('/users/new', (req, res) => {
-  console.log('FORM SUBMITTED');
-  // console.log(username);
-  // console.log(email);
-  console.log('Password: ', req.body.password);
   if (req.body.password === req.body.confirm_password) {
     let username = req.body.username;
     let email = req.body.email;
@@ -134,8 +114,6 @@ app.post('/users/new', (req, res) => {
     db.insert([{ username: username, password: password, email: email }])
     .into('users')
     .then(function (result) {
-      console.log('User created successfully!', result);
-      console.log('Password Hash: ', password);
     })
   } else {
     alert('Passwords do not match!!!');
@@ -150,10 +128,7 @@ function handleResponse(res, code, statusMsg) {
 };
 
 app.post('/login', passport.authenticate('local', { failureRedirect: '/login' }), (req, res) => {
-  // if(err) { handleResponse(res, 500, 'error'); }
-  // if(!user) { handleResponse(res, 404, 'user not found'); }
-  // if(user) { handleResponse(res, 200, 'success'); }
-  // req.session.user = 'username';
+
   res.redirect('/');
 });
 
