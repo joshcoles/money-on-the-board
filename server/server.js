@@ -107,19 +107,28 @@ app.get('/users/new', (req, res) => {
 });
 
 app.post('/users/new', (req, res) => {
+  console.log("Req: ", req)
   if (req.body.password === req.body.confirm_password) {
     let username = req.body.username;
     let email = req.body.email;
     let password = bcrypt.hashSync(req.body.password, 10);
-    db.insert([{ username: username, password: password, email: email }])
+    let user = { username: username, password: password, email: email };
+    db.insert([user])
     .into('users')
-    .then(function (result) {
-    })
+    .returning('id').then((userIDs) => {
+      user.id = userIDs[0];
+      req.login(user, (err) => {
+        if (!err) {
+          res.redirect('/');
+        } else {
+          res.send("ERROR");
+        }
+        console.log("Made it to the end.");
+      });
+    });
   } else {
-    alert('Passwords do not match!!!');
+    res.send("You goofed!");
   }
-  req.session.user = username;
-  res.redirect('/');
 });
 
 // function to handle post response
@@ -131,8 +140,6 @@ app.post('/login', passport.authenticate('local', { failureRedirect: '/login' })
 
   res.redirect('/');
 });
-
-
 
 app.post('/logout', (req, res) => {
   req.logout();
