@@ -7,10 +7,11 @@ exports.seed = function(knex, Promise) {
         // Inserts seed entries
         knex('users').insert(
           {
-            username: 'user',
+            username: 'admin',
             password: 'hashedpassword',
-            email: 'user@user.com',
+            email: 'admin@user.com',
             twitter: '@fun',
+            admin: true
           })
       ]);
     });

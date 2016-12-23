@@ -21,6 +21,7 @@
     "bcrypt": "^1.0.1",
     "body-parser": "^1.15.2",
     "bookshelf": "^0.10.2",
+    "cookie-session": "^2.0.0-alpha.2",
     "dotenv": "^2.0.0",
     "ejs": "^2.5.5",
     "express": "^4.14.0",
