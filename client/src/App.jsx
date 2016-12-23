@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 
 let dataArray = []
-
+let newTotalPledges = []
 class App extends Component {
 
   constructor(props) {
@@ -35,6 +35,8 @@ class App extends Component {
           console.log("pledge owe", pledge.owes)
 
           if(data.includes(pledge.pledge_event)){
+            newTotalPledges = user.totalPledges.push(pledge.pledge_amount)
+
             pledge.occurance = pledge.occurance + 1;
 
             pledge.owes = pledge.occurance * pledge.pledge_amount
@@ -43,14 +45,13 @@ class App extends Component {
             this.setState({occurance : pledge.occurance});
             this.setState({owes : pledge.owes});
 
-
+            // console.log(this.state.pledges)
           }
         })
       })
-
+this.setState({totalPledges: newTotalPledges})
       this.setState({game : dataArray});
-      console.log(this.state.pledges)
-
+      // console.log(this.state.pledges)
     };
   }
 
@@ -58,7 +59,7 @@ class App extends Component {
     fetch('/initialState')
       .then(response => response.json())
       .then(data => {
-        console.log('Got initial data from server', data);
+        // console.log('Got initial data from server', data);
         this.setState(data);
         this.props.socket.on('game-event', this.onSocketData);
       })
@@ -71,12 +72,17 @@ class App extends Component {
   render() {
     return (
       <div>
-      <h1>leaderboard</h1>
-       <ul>
-         {this.state.leaderboard.map(leader =>
-         <li> USER: {leader.user} , OWED: {leader.totalAmountOwed}</li>
-          )}
-       </ul>
+
+      <h1>Leaderboard</h1>
+      <ul>
+        {this.state.pledges.map(total =>
+        <li> {total.username}, {total.totalPledges.reduce(function(a, b) {
+          return a + b;
+        }, 0)
+      } </li>
+        )}
+      </ul>
+
       <h1>Pledges</h1>
       <ul>
       {this.state && this.state.pledges && this.state.pledges.map(pledge =>
