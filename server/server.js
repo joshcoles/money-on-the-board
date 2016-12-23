@@ -123,7 +123,6 @@ app.post('/users/new', (req, res) => {
         } else {
           res.send("ERROR");
         }
-        console.log("Made it to the end.");
       });
     });
   } else {
@@ -154,11 +153,12 @@ app.get('/campaigns/new', (req, res) => {
 });
 
 app.get('/campaigns/:id', (req, res) => {
-  res.send("good jorb, eh");
+  res.render('index')
 });
 
 app.post('/campaigns', (req, res) => {
   console.log('***Form Submitted***')
+
   let game = req.body.game;
   let campaign_name = req.body.campaign_name;
   let charity_name = req.body.charity_name;
@@ -166,7 +166,7 @@ app.post('/campaigns', (req, res) => {
   let hashtag = req.body.hashtag;
   let email = req.body.email;
   let password = req.body.password;
-
+  let currentUser = res.locals.currentUser
   console.log("Game: " + game);
   console.log("Campaign name: " + campaign_name);
   console.log("Charity name: " + charity_name);
@@ -174,6 +174,7 @@ app.post('/campaigns', (req, res) => {
   console.log("Hashtag: " + hashtag);
   console.log("Email: " + email);
   console.log("Password: " + password);
+  console.log("CurrentUser.id: " + currentUser.id);
 
   db.select('id').from('games').where({game_uuid: game})
   .then(game_ids => {
@@ -187,7 +188,7 @@ app.post('/campaigns', (req, res) => {
       game_id: game_id,
       charity_name: charity_name,
       charity_url: charity_url,
-      admin_id: 1,       // to be changed
+      user_id: currentUser.id,
     }])
     .into('campaigns')
     .returning('id')
