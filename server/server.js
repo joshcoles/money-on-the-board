@@ -52,6 +52,8 @@ passport.use(new LocalStrategy((username, password, done) => {
 
 passport.serializeUser((user, done) => {
   console.info('Serializing user');
+  console.log('User: ', user.id);
+  console.log('Name: ', user.name);
   if(!user) { done(new Error("User is not present")); }
   done(null, user.id);
 });
@@ -67,10 +69,15 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use((req, res, next) => {
-  console.log('Setting locals');
-  res.locals.user = req.user;
-  console.log('Username: ', res.locals.user.username);
-  currentUser = res.locals.user.username;
+  // console.log('Setting locals');
+  if(req.user) {
+    res.locals.user = req.user;
+    console.log('Username: ', res.locals.user);
+    currentUser = res.locals.user;
+    console.log('Current User: ', currentUser.username);
+  } else {
+    currentUser = 'Guest';
+  }
   next();
 })
 
@@ -104,7 +111,8 @@ app.post('/users/new', (req, res) => {
   } else {
     alert('Passwords do not match!!!');
   }
-  res.redirect('/index');
+  req.session.user = username;
+  res.redirect('/');
 });
 
 // function to handle post response
@@ -116,6 +124,12 @@ app.post('/login', passport.authenticate('local', { failureRedirect: '/login' })
   // if(err) { handleResponse(res, 500, 'error'); }
   // if(!user) { handleResponse(res, 404, 'user not found'); }
   // if(user) { handleResponse(res, 200, 'success'); }
+  // req.session.user = 'username';
+  res.redirect('/');
+});
+
+app.post('/logout', (req, res) => {
+  req.logout();
   res.redirect('/');
 });
 
