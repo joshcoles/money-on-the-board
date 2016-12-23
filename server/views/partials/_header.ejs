@@ -1,20 +1,26 @@
 <header>
   <nav>
     <div class="nav-wrapper">
-    <a href="#" class="brand-logo" style="color: #D4A00F;">Logo</a>
+      <form action="/<%= isAuthenticated ? 'logout' : 'login' %>" method="post">
+      <a href="#" class="brand-logo" style="color: #D4A00F;">Logo</a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><p><%= currentUser %></p></li>
+        <% if(isAuthenticated) { %>
+        <li><a>Welcome, <%= currentUser.username %></a></li>
+        <% } %>
         <li><a href="/">Home</a></li>
         <li><a href="/campaigns/new">Create</a></li>
         <li><a href="/users/new">Signup</a></li>
         <li>
-          <form action="/login" method="post">
-            <li><input type="submit" value="Log In"/></li>
-            <li><input type="text" name="username" placeholder="username"/></li>
-            <li><input type="text" name="password" placeholder="password"/></li>
-          </form>
+        <% if(isAuthenticated) { %>
+        <li><input type="submit" value="Log Out" class="btn"/></li>
+        <% } else { %>
+        <li><input type="text" name="username" placeholder="username"/></li>
+        <li><input type="password" name="password" placeholder="password"/></li>
+        <li><input type="submit" value="Log In" class="btn" /></li>
+        <% } %>
         </li>
       </ul>
+      </form>
     </div>
   </nav>
 </header>
