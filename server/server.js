@@ -67,10 +67,12 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use((req, res, next) => {
-  console.log('Setting locals');
-  res.locals.user = req.user;
-  console.log('Username: ', res.locals.user.username);
-  currentUser = res.locals.user.username;
+  // console.log('Setting locals');
+  if(req.session.user) {
+    res.locals.user = req.user;
+    console.log('Username: ', res.locals.user.username);
+    currentUser = res.locals.user.username;
+  } 
   next();
 })
 
