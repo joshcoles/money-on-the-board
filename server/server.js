@@ -52,6 +52,8 @@ passport.use(new LocalStrategy((username, password, done) => {
 
 passport.serializeUser((user, done) => {
   console.info('Serializing user');
+  console.log('User: ', user.id);
+  console.log('Name: ', user.name);
   if(!user) { done(new Error("User is not present")); }
   done(null, user.id);
 });
@@ -67,10 +69,19 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use((req, res, next) => {
-  console.log('Setting locals');
-  res.locals.user = req.user;
-  console.log('Username: ', res.locals.user.username);
-  currentUser = res.locals.user.username;
+  // console.log('Setting locals');
+<<<<<<< HEAD
+  if(req.session.user) {
+    res.locals.user = req.user;
+    console.log('Username: ', res.locals.user.username);
+    currentUser = res.locals.user.username;
+  } 
+=======
+
+  res.locals.currentUser = req.user;
+  res.locals.isAuthenticated = !!req.user;
+
+>>>>>>> user-auth
   next();
 })
 
@@ -88,6 +99,7 @@ app.get('/initialState', (req, res) => {
     pledges: [{
       user_id: 1,
       username: "Homer Simpon",
+      totalPledges: [],
       pledged: [
         {id: 'i48dj', pledge_amount: 2.00, pledge_event: 'Matt Martin credited with hit', occurance: 0, owes: 0.00},
         {id: 'is820', pledge_amount: 5.00, pledge_event: 'Goal scored by Auston Matthews', occurance: 0, owes: 0.00},
@@ -96,6 +108,7 @@ app.get('/initialState', (req, res) => {
     }, {
       user_id: 2,
       username: "Peter Griffin",
+      totalPledges: [],
       pledged:[
         {id: 'v8ud8', pledge_amount: 2.00, pledge_event: 'Goal scored by Derick Brassard', occurance: 0, owes: 0.00},
         {id: 'x29in', pledge_amount: 5.00, pledge_event: 'Zack Smith credited with hit', occurance: 0, owes: 0.00},
@@ -127,7 +140,8 @@ app.post('/users/new', (req, res) => {
   } else {
     alert('Passwords do not match!!!');
   }
-  res.redirect('/index');
+  req.session.user = username;
+  res.redirect('/');
 });
 
 // function to handle post response
@@ -139,6 +153,12 @@ app.post('/login', passport.authenticate('local', { failureRedirect: '/login' })
   // if(err) { handleResponse(res, 500, 'error'); }
   // if(!user) { handleResponse(res, 404, 'user not found'); }
   // if(user) { handleResponse(res, 200, 'success'); }
+  // req.session.user = 'username';
+  res.redirect('/');
+});
+
+app.post('/logout', (req, res) => {
+  req.logout();
   res.redirect('/');
 });
 
