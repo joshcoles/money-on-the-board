@@ -8,7 +8,15 @@ class App extends Component {
     super(props);
     this.state = {
       game: [],
-      pledges: []
+      pledges: [],
+      leaderboard: [
+        {user: 'Homer',
+         totalAmountOwed: 0
+       },
+       {user: 'Peter',
+        totalAmountOwed: 0
+      }
+      ]
     }
   }
 
@@ -20,14 +28,23 @@ class App extends Component {
       if(!this.state || !this.state.pledges) { return; }
 
       this.state.pledges.forEach((user) => {
+        console.log("user", user)
         user.pledged.forEach((pledge) => {
+          console.log("pledge", pledge)
+
+          console.log("pledge owe", pledge.owes)
+
           if(data.includes(pledge.pledge_event)){
             newTotalPledges = user.totalPledges.push(pledge.pledge_amount)
 
             pledge.occurance = pledge.occurance + 1;
+
             pledge.owes = pledge.occurance * pledge.pledge_amount
+            console.log("pledge OWE", pledge.owes)
+            console.log("pledge Occ", pledge.occurance)
             this.setState({occurance : pledge.occurance});
             this.setState({owes : pledge.owes});
+
             // console.log(this.state.pledges)
           }
         })
@@ -55,6 +72,7 @@ this.setState({totalPledges: newTotalPledges})
   render() {
     return (
       <div>
+
       <h1>Leaderboard</h1>
       <ul>
         {this.state.pledges.map(total =>
