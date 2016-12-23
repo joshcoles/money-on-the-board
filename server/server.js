@@ -70,14 +70,10 @@ app.use(passport.session());
 
 app.use((req, res, next) => {
   // console.log('Setting locals');
-  if(req.user) {
-    res.locals.user = req.user;
-    console.log('Username: ', res.locals.user);
-    currentUser = res.locals.user;
-    console.log('Current User: ', currentUser.username);
-  } else {
-    currentUser = 'Guest';
-  }
+
+  res.locals.currentUser = req.user;
+  res.locals.isAuthenticated = !!req.user;
+
   next();
 })
 
