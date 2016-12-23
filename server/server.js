@@ -88,6 +88,7 @@ app.get('/initialState', (req, res) => {
     pledges: [{
       user_id: 1,
       username: "Homer Simpon",
+      totalPledges: [],
       pledged: [
         {id: 'i48dj', pledge_amount: 2.00, pledge_event: 'Matt Martin credited with hit', occurance: 0, owes: 0.00},
         {id: 'is820', pledge_amount: 5.00, pledge_event: 'Goal scored by Auston Matthews', occurance: 0, owes: 0.00},
@@ -96,6 +97,7 @@ app.get('/initialState', (req, res) => {
     }, {
       user_id: 2,
       username: "Peter Griffin",
+      totalPledges: [],
       pledged:[
         {id: 'v8ud8', pledge_amount: 2.00, pledge_event: 'Goal scored by Derick Brassard', occurance: 0, owes: 0.00},
         {id: 'x29in', pledge_amount: 5.00, pledge_event: 'Zack Smith credited with hit', occurance: 0, owes: 0.00},
