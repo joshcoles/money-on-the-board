@@ -77,7 +77,7 @@ app.get('/', (req, res) => {
   res.render('landing-page');
 });
 
-app.get('/initialState', (req, res) => {
+app.get('/pledges', (req, res) => {
   res.json({
     game: [],
     pledges: [{
@@ -200,50 +200,65 @@ app.post('/campaigns', (req, res) => {
 });
 
 app.get('/pledges/new', (req, res) => {
-  res.render("pledge-new");
 
+
+
+  res.render("pledge-new");
 });
 
 app.post('/pledges/new', (req, res) => {
-  console.log("Form Submitted.")
+  let teamID = req.body.team
   let pledgeTeam = req.body.team;
   let pledgePlayer = req.body.player;
   let pledgeAmount = req.body.money;
   let inGameEvent = req.body.inGameEvent;
-  console.log("Your pledge team: ", pledgeTeam);
-  console.log("Your pledge player: ", pledgePlayer);
-  console.log("Your in-game event: ", inGameEvent);
-  console.log("Your pledge amount: ", pledgeAmount);
 
-  db.insert([{player_uuid: pledgePlayer, team_uuid: pledgeTeam, money: pledgeAmount, in_game_event_id: inGameEvent, user_id: 1, campaign_id: 1}])
+  request(`http://localhost:4000/api/campaigns/team/${teamID}`, (err, response, body) => {
+    team = JSON.parse(body)
+    team.players.forEach((player) => {
+      // console.log("This is a player and ID: ", player.full_name, player.id)
+      if(player.id === pledgePlayer) {
+      eventPlayerName = player.full_name
+      }
+
+    })
+    switch (inGameEvent) {
+       case '6':
+       eventString = `Goal scored by ${eventPlayerName}`;
+       break;
+       case '9':
+       eventString = `${eventPlayerName}`;
+       break;
+       case '4':
+       eventString = `${eventPlayerName} credited with`;
+       break;
+       case '5':
+       eventString = `Penalty to ${eventPlayerName}`;
+       break;
+       case '2':
+       eventString = `${eventPlayerName} won faceoff`;
+       break;
+       case '3':
+       eventString = `saved by ${eventPlayerName}`;
+       break;
+    }
+    console.log("IGE", eventString)
+
+    db.insert([{player_uuid: pledgePlayer, team_uuid: pledgeTeam, money: pledgeAmount, in_game_event_id: inGameEvent, user_id: 1, campaign_id: 1, event_string: eventString}])
     .into('pledges')
     .then(function(result) {
       console.log("Pledge insert result", result);
     })
+
+  })
+  console.log("Form Submitted.")
+
   res.redirect('/');
 });
 
 app.delete('/campaigns/:id', (req, res) => {
 });
 
-// app.get('/api/campaigns/:id', (req, res) => {
-//   request('http://localhost:4000/api/campaigns/1', (err, response, body) => {
-//     const pledge_events = ['gamesetup', 'faceoff', 'goal', 'shotsaved', 'hit', 'penalty', 'assist'];
-//     const pledge_events_array = [];
-
-//     let gameObject = JSON.parse(body);
-
-//     gameObject.periods.forEach(function(period) {
-//       period.events.forEach(function(event) {
-//         if (pledge_events.includes(event.event_type)) {
-//           pledge_events_array.push("Time " + event.clock + ": " + event.description);
-//         }
-//       })
-//     })
-//     console.log("test pledge", pledge_events_array)
-//     res.send(pledge_events_array[pledge_events_array.length-1])
-//   })
-// });
 
 app.get('/api/schedule', (req, res) => {
   request('http://localhost:4000/api/schedule', (err, response, body) => {
@@ -281,49 +296,8 @@ app.get('/api/campaigns/:id/awayteam', (req, res) => {
   })
 });
 
-// ============== Sockets ==================
-
-// io.on('connection', function (socket) {
-//   request('http://localhost:4000/api/campaigns/1', (err, response, body) => {
-//     const pledge_events = ['gamesetup', 'faceoff', 'goal', 'shotsaved', 'hit', 'penalty', 'assist'];
-
-//     let gameObject = JSON.parse(body);
-
-//     let filteredEvents = gameObject.periods.reduce(function (acc, period) {
-//       return acc.concat(period.events);
-//     }, []).filter(function (event) {
-//       return pledge_events.includes(event.event_type);
-//     });
-
-//     let pledge_events_array = filteredEvents.map(function (event) {
-//       return 'Time ' + event.clock + ': ' + event.description;
-//     });
-
-//     pledge_events_array.forEach(function (event_string, index) {
-//       (function (event_string, delay) {
-//         setTimeout(function () {
-//         socket.emit('news', {event: event_string})
-//       }, delay);
-//       })(event_string, (index + 1) * 1000);
-
-//     });
-//   });
-// });
-
-
-// let gameObject = JSON.parse(body);
-
-//     gameObject.periods.forEach(function(period) {
-//       period.events.forEach(function(event) {
-//         if (pledge_events.includes(event.event_type)) {
-//           pledge_events_array.push("Time " + event.clock + ": " + event.description);
-//         }
-//       })
-//     })
-//     console.log("test pledge", pledge_events_array)
-//     res.send(pledge_events_array[pledge_events_array.length-1])
-//   })
-
+//=============SOCKET=================//
+//========SENDS GAME EVENTS===========//
 let p = 0;
 let e = 0;
 
@@ -332,8 +306,8 @@ function shouldAdvancePeriod(gameRightNow) {
 }
 
 function pollGame() {
-  console.log("e", e)
-  console.log('p', p)
+  // console.log("e", e)
+  // console.log('p', p)
   request('http://localhost:4000/api/campaigns/1', (err, response, body) => {
     const filter_events = ['goal', 'shotsaved', 'hit', 'penalty', 'assist'];
     let gameData = JSON.parse(body)
@@ -350,10 +324,11 @@ function pollGame() {
       io.emit('game-event', timeEvent);
     }
     if (shouldAdvancePeriod(gameRightNow)) {
+
       p += 1;
       e = 0;
     } else {
-       e += 1;
+      e += 1;
     }
     setTimeout(pollGame, 500);
   });
