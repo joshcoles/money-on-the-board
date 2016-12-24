@@ -56,7 +56,7 @@ this.setState({totalPledges: newTotalPledges})
   }
 
   componentDidMount() {
-    fetch('/initialState')
+    fetch('/pledges')
       .then(response => response.json())
       .then(data => {
         // console.log('Got initial data from server', data);

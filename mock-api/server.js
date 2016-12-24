@@ -1,8 +1,8 @@
 const express = require('express');
 const sched   = require('./sample-data/sportsradar-schedule.json')
 const game    = require('./data/play-by-play.json');
-const home    = require('./sample-data/sportsradar-roster-ottawa.json');
-const away    = require('./sample-data/sportsradar-roster-toronto.json');
+const away    = require('./sample-data/sportsradar-roster-ottawa.json');
+const home    = require('./sample-data/sportsradar-roster-toronto.json');
 
 let period = 0;
 let periodEvent = 0;
@@ -34,11 +34,11 @@ app.get('/api/schedule', (req, res) => {
   res.json(sched);
 });
 
-app.get('/api/campaigns/:id/hometeam', (req, res) => {
+app.get('/api/campaigns/team/441730a9-0f24-11e2-8525-18a905767e44', (req, res) => {
   res.json(home);
 });
 
-app.get('/api/campaigns/:id/awayteam', (req, res) => {
+app.get('/api/campaigns/team/4416f5e2-0f24-11e2-8525-18a905767e44', (req, res) => {
   res.json(away);
 });
 
