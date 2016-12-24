@@ -266,7 +266,7 @@ app.post('/campaigns/:id/pledges/new', (req, res) => {
        eventString = `saved by ${eventPlayerName}`;
        break;
     }
-    console.log("IGE", eventString)
+    // console.log("IGE", eventString)
 
     db.insert([{player_uuid: pledgePlayer, team_uuid: pledgeTeam, money: pledgeAmount, in_game_event_id: inGameEvent, user_id: 1, campaign_id: 1, event_string: eventString}])
     .into('pledges')
