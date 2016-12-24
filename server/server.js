@@ -227,18 +227,11 @@ app.post('/campaigns', (req, res) => {
   });
 });
 
-
-app.post('/campaigns/:id/pledges/new', (req, res) => {
-  console.log("Form Submitted.")
-
 app.get('/pledges/new', (req, res) => {
-
-
-
   res.render("pledge-new");
 });
 
-app.post('/pledges/new', (req, res) => {
+app.post('/campaigns/:id/pledges/new', (req, res) => {
   let teamID = req.body.team
   let pledgeTeam = req.body.team;
   let pledgePlayer = req.body.player;
