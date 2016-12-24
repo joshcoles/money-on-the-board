@@ -13,6 +13,10 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const session = require('cookie-session');
 
+
+const home    = require('../mock-api/sample-data/sportsradar-roster-ottawa.json');
+const away    = require('../mock-api/sample-data/sportsradar-roster-toronto.json');
+
 const util = require('util');
 
 const inspect = (o, d = 1) => { console.log(util.inspect(o, { colors: true, depth: d }))};
@@ -206,11 +210,34 @@ app.get('/pledges/new', (req, res) => {
 });
 
 app.post('/pledges/new', (req, res) => {
+
+  let teamUuid = req.body.team
+
+  request(`http://localhost:4000/api/campaigns/${teamUuid}/hometeam`, (err, response, body) => {
+   team = JSON.parse(body)
+
+
+
+
+
+
+ })
+
+
   console.log("Form Submitted.")
   let pledgeTeam = req.body.team;
   let pledgePlayer = req.body.player;
   let pledgeAmount = req.body.money;
   let inGameEvent = req.body.inGameEvent;
+
+
+
+  switch (inGameEvent) {
+    case '6':
+    inGameEvent = `Goal scored by ${pledgePlayer}`;
+    break;
+  }
+
   console.log("Your pledge team: ", pledgeTeam);
   console.log("Your pledge player: ", pledgePlayer);
   console.log("Your in-game event: ", inGameEvent);
@@ -332,6 +359,8 @@ function shouldAdvancePeriod(gameRightNow) {
   return gameRightNow.periods[p].events.length >= gameRightNow.periods[p].events.length && p < gameRightNow.periods.length - 1;
 }
 
+
+
 function pollGame() {
   console.log("e", e)
   console.log('p', p)
@@ -354,9 +383,13 @@ function pollGame() {
       p += 1;
       e = 0;
     } else {
-       e += 1;
+      if (p === p.length - 1 && e === e.length - 1) {
+        return;
+      } else {
+        e += 1;
+      }
     }
-    setTimeout(pollGame, 500);
+    setTimeout(pollGame, 100);
   });
 }
 

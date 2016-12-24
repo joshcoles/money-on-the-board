@@ -69,38 +69,50 @@ this.setState({totalPledges: newTotalPledges})
     this.props.socket.removeListener('game-event', this.onSocketData);
   }
 
+  flip() {
+    $('.card').toggleClass('flipped');
+  }
+
   render() {
     return (
       <div>
-
-      <h1>Leaderboard</h1>
-      <ul>
-        {this.state.pledges.map(total =>
-        <li> {total.username}, {total.totalPledges.reduce(function(a, b) {
-          return a + b;
-        }, 0)
-      } </li>
-        )}
-      </ul>
-
-      <h1>Pledges</h1>
-      <ul>
-      {this.state && this.state.pledges && this.state.pledges.map(pledge =>
-        pledge.pledged.map(userPledge =>
-          <li>{pledge.username}: Event: {userPledge.pledge_event}, Amount: {userPledge.pledge_amount}, Occurance: {userPledge.occurance}, Owes: {userPledge.owes} </li>
-          )
-        )}
-      </ul>
+        <div class="leaderboard">
+          <h1>Leaderboard</h1>
+            <ul>
+              {this.state.pledges.map(total =>
+              <li> {total.username}, {total.totalPledges.reduce(function(a, b) {
+                return a + b;
+              }, 0)}
+              </li>
+              )}
+            </ul>
+        </div>
 
 
-      <h1>Game Feef</h1>
-        <ul>
-          {this.state && this.state.game && this.state.game.map(event =>
-          <li> {event} </li>
-          )}
-        </ul>
+        <section class="container">
+          <div class="card" onclick="flip()">
+            <div class="front">
+              <h1>Pledges</h1>
+                <ul>
+                {this.state && this.state.pledges && this.state.pledges.map(pledge =>
+                  pledge.pledged.map(userPledge =>
+                    <li>{pledge.username}: Event: {userPledge.pledge_event}, Amount: {userPledge.pledge_amount}, Occurance: {userPledge.occurance}, Owes: {userPledge.owes} </li>
+                    )
+                  )}
+                </ul>
+            </div>
 
-     </div>
+             <div class="back">
+              <h1>Game Feef</h1>
+                <ul>
+                  {this.state && this.state.game && this.state.game.map(event =>
+                  <li> {event} </li>
+                  )}
+                </ul>
+             </div>
+          </div>
+        </section>
+      </div>
     );
   }
 }
