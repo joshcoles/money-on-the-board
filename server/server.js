@@ -281,7 +281,7 @@ app.post('/campaigns/:id/pledges/new', (req, res) => {
   })
   console.log("Form Submitted.")
 
-  res.redirect('/');
+  res.redirect('/campaigns/:id');
 });
 
 app.delete('/campaigns/:id', (req, res) => {
