@@ -5,7 +5,7 @@
 <% include ./partials/_header %>
 
 <div class="row">
-  <form class="col s12" action="/pledges/new" method="POST">
+  <form class="col s12" action="/campaigns/<%= campaign_id %>/pledges/new" method="POST">
     <div class="row">
 
      <label>Team</label>

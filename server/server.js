@@ -70,6 +70,8 @@ app.use((req, res, next) => {
   next();
 })
 
+
+
 // ============== Routes ===================
 
 app.get('/', (req, res) => {
@@ -144,8 +146,23 @@ app.post('/logout', (req, res) => {
   res.redirect('/');
 });
 
+app.get('/campaigns/:id/pledges/new', (req, res) => {
+  let campaign_id = req.params.id
+  res.render('pledge-new', {campaign_id: campaign_id});
+});
+
 app.get('/campaigns', (req, res) => {
-  res.render('index');
+  db.select('title', 'id').from('campaigns')
+    .then(campaigns => {
+      res.render('campaign-list', {campaigns});
+    });
+   // .returning(['title', 'charity_name'])
+  // .then((result) => {
+    // let campaignInfo = {
+    //   title: title,
+    //   charity_name: charity_name
+    // }
+  // });
 });
 
 app.get('/campaigns/new', (req, res) => {
@@ -153,12 +170,13 @@ app.get('/campaigns/new', (req, res) => {
 });
 
 app.get('/campaigns/:id', (req, res) => {
-  res.render('index')
+  let campaign_id = req.params.id
+  res.render('index', {campaign_id: campaign_id})
 });
 
 app.post('/campaigns', (req, res) => {
   console.log('***Form Submitted***')
-
+  console.log('request body: ', req.body)
   let game = req.body.game;
   let campaign_name = req.body.campaign_name;
   let charity_name = req.body.charity_name;
@@ -209,23 +227,22 @@ app.post('/campaigns', (req, res) => {
   });
 });
 
-app.get('/pledges/new', (req, res) => {
-  res.render("pledge-new");
 
-});
 
-app.post('/pledges/new', (req, res) => {
+app.post('/campaigns/:id/pledges/new', (req, res) => {
   console.log("Form Submitted.")
   let pledgeTeam = req.body.team;
   let pledgePlayer = req.body.player;
   let pledgeAmount = req.body.money;
   let inGameEvent = req.body.inGameEvent;
+  let campaign_id = req.params.id;
+  let user_id = res.locals.currentUser.id
   console.log("Your pledge team: ", pledgeTeam);
   console.log("Your pledge player: ", pledgePlayer);
   console.log("Your in-game event: ", inGameEvent);
   console.log("Your pledge amount: ", pledgeAmount);
 
-  db.insert([{player_uuid: pledgePlayer, team_uuid: pledgeTeam, money: pledgeAmount, in_game_event_id: inGameEvent, user_id: 1, campaign_id: 1}])
+  db.insert([{player_uuid: pledgePlayer, team_uuid: pledgeTeam, money: pledgeAmount, in_game_event_id: inGameEvent, user_id: user_id, campaign_id: campaign_id}])
     .into('pledges')
     .then(function(result) {
       console.log("Pledge insert result", result);
