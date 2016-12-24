@@ -210,7 +210,7 @@ app.post('/campaigns', (req, res) => {
     }])
     .into('campaigns')
     .returning('id')
-    .then(function(result) {
+    .then((result) => {
       console.log("campaign insert result", result);
       if (result.length === 1) {
         const campaign_id = result[0];
@@ -220,7 +220,7 @@ app.post('/campaigns', (req, res) => {
         res.redirect('/campaigns/new');
       }
     })
-    .catch(function(error){
+    .catch((error) => {
       console.error("error when inserting campaign", error);
       res.redirect('/campaigns/new');
     });
@@ -274,7 +274,7 @@ app.post('/campaigns/:id/pledges/new', (req, res) => {
 
     db.insert([{player_uuid: pledgePlayer, team_uuid: pledgeTeam, money: pledgeAmount, in_game_event_id: inGameEvent, user_id: 1, campaign_id: 1, event_string: eventString}])
     .into('pledges')
-    .then(function(result) {
+    .then((result) => {
       console.log("Pledge insert result", result);
     })
 
@@ -291,7 +291,7 @@ app.delete('/campaigns/:id', (req, res) => {
 app.get('/api/schedule', (req, res) => {
   request('http://localhost:4000/api/schedule', (err, response, body) => {
     let scheduleParsed = JSON.parse(body);
-    scheduleParsed.games.forEach(function(game) {
+    scheduleParsed.games.forEach((game) => {
       if (game.home.name === 'Ottawa Senators' || game.away.name === 'Ottawa Senators') {
         console.log('===============')
         console.log('Game ID: ', game.id);
@@ -307,7 +307,7 @@ app.get('/api/schedule', (req, res) => {
 app.get('/api/campaigns/:id/hometeam', (req, res) => {
   request('http://localhost:4000/api/campaigns/1/hometeam', (err, response, body) => {
     let hometeamParsed = JSON.parse(body);
-    hometeamParsed.players.forEach(function(player) {
+    hometeamParsed.players.forEach((player) => {
       console.log('Home Player: ', player.full_name);
     })
     res.send(hometeamParsed);
@@ -317,7 +317,7 @@ app.get('/api/campaigns/:id/hometeam', (req, res) => {
 app.get('/api/campaigns/:id/awayteam', (req, res) => {
   request('http://localhost:4000/api/campaigns/1/awayteam', (err, response, body) => {
     let awayteamParsed = JSON.parse(body);
-    awayteamParsed.players.forEach(function(player) {
+    awayteamParsed.players.forEach((player) => {
       console.log('Away Player: ', player.full_name);
     })
     res.send(awayteamParsed);
