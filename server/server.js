@@ -227,11 +227,7 @@ app.post('/campaigns', (req, res) => {
   });
 });
 
-
 app.get('/pledges/new', (req, res) => {
-
-
-
   res.render("pledge-new");
 });
 
