@@ -1,4 +1,4 @@
-.container {
+/*.container {
   height: 260px;
   perspective: 800px;
   position: relative;
@@ -55,9 +55,9 @@
   -o-transform: rotateY( 180deg );
 }
 
-.card.flipped {
+.card.flip {
   transform: rotateY( 180deg );
   -webkit-transform: rotateY( 180deg );
   -moz-transform: rotateY( 180deg );
   -o-transform: rotateY( 180deg );
-}
+}*/
