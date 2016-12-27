@@ -331,9 +331,15 @@ function shouldAdvancePeriod(gameRightNow) {
   return gameRightNow.periods[p].events.length >= gameRightNow.periods[p].events.length && p < gameRightNow.periods.length - 1;
 }
 
+function endGame(gameRightNow) {
+  let length = gameRightNow.periods[p].events.length
+  return gameRightNow.periods[p].events[length - 1].event_type === 'endperiod' && gameRightNow.periods[p].events[length - 1].description === 'End of 1st OT.'
+  // return gameRightNow.periods[p].events[length - 1].event_type === 'endperiod' && gameRightNow.deleted_events --- review for later - deleted.events is not tied to event or event_type
+}
+
 function pollGame() {
-  // console.log("e", e)
-  // console.log('p', p)
+  console.log("e", e)
+  console.log('p', p)
   request('http://localhost:4000/api/campaigns/1', (err, response, body) => {
     const filter_events = ['goal', 'shotsaved', 'hit', 'penalty', 'assist'];
     let gameData = JSON.parse(body)
@@ -350,13 +356,16 @@ function pollGame() {
       io.emit('game-event', timeEvent);
     }
     if (shouldAdvancePeriod(gameRightNow)) {
-
       p += 1;
       e = 0;
     } else {
       e += 1;
     }
-    setTimeout(pollGame, 500);
+    if (endGame(gameRightNow)) {
+      console.log("Game Over");
+    } else {
+    setTimeout(pollGame, 100);
+    }
   });
 }
 

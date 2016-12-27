@@ -27,7 +27,6 @@ const gameRightNow = Object.assign({}, game);
  } else {
    periodEvent += 1;
  }
-
 });
 
 app.get('/api/schedule', (req, res) => {
