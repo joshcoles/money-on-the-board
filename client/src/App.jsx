@@ -16,7 +16,8 @@ class App extends Component {
        {user: 'Peter',
         totalAmountOwed: 0
       }
-      ]
+      ],
+      isFlip: true
     }
   }
 
@@ -73,10 +74,11 @@ this.setState({totalPledges: newTotalPledges})
     $('.card').toggleClass('flipped');
   }
 
+
   render() {
     return (
       <div>
-        <div class="leaderboard">
+        <div className="leaderboard">
           <h1>Leaderboard</h1>
             <ul>
               {this.state.pledges.map(total =>
@@ -88,10 +90,9 @@ this.setState({totalPledges: newTotalPledges})
             </ul>
         </div>
 
-
-        <section class="container">
-          <div class="card" onclick="flip()">
-            <div class="front">
+        <section className="container">
+          <div className="card">
+            <div className="front">
               <h1>Pledges</h1>
                 <ul>
                 {this.state && this.state.pledges && this.state.pledges.map(pledge =>
@@ -102,7 +103,7 @@ this.setState({totalPledges: newTotalPledges})
                 </ul>
             </div>
 
-             <div class="back">
+             <div className="back">
               <h1>Game Feef</h1>
                 <ul>
                   {this.state && this.state.game && this.state.game.map(event =>
