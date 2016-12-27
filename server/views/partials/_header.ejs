@@ -1,7 +1,7 @@
 <header>
   <nav>
     <div class="nav-wrapper">
-      <form autocomplete="new-password" action="/<%= isAuthenticated ? 'logout' : 'login' %>" method="post">
+      <form action="/<%= isAuthenticated ? 'logout' : 'login' %>" method="post">
       <a href="/" class="brand-logo">MOTB</a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
         <li><a href="/">Home</a></li>
@@ -14,8 +14,8 @@
         <li><input type="submit" value="Log Out" class="btn"/></li>
         <% } else { %>
         <li><a href="/users/new">Signup</a></li>
-        <li><input type="text" name="username" placeholder="username"/></li>
-        <li><input type="password" name="password" placeholder="password"/></li>
+        <li><input type="text" name="username" placeholder="username" value="" autocomplete="new-password"/></li>
+        <li><input type="password" name="password" placeholder="password" value="" autocomplete="new-password"/></li>
         <li><input type="submit" value="Log In" class="btn" /></li>
         <% } %>
         </li>
