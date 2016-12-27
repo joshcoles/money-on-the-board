@@ -5,7 +5,7 @@
 <% include ./partials/_header %>
 
 <div class="row">
-  <form class="col s12" action="/pledges/new" method="POST">
+  <form class="col s12" action="/campaigns/<%= campaign_id %>/pledges/new" method="POST">
     <div class="row">
 
      <label>Team</label>
@@ -24,7 +24,8 @@
       <label>Player</label>
       <select name="player" class="browser-default selectpicker">
         <option name="option1" value="" disabled selected>
-          Choose your Player</option>
+          Choose your Player
+        </option>
         <option name="option2" value="42fa3dcd-0f24-11e2-8525-18a905767e44">
           Erik Karlsson
         </option>

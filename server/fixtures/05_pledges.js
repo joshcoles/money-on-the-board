@@ -12,7 +12,9 @@ exports.seed = function(knex, Promise) {
             campaign_id: 1,
             player_uuid: '42fa3dcd-0f24-11e2-8525-18a905767e44',
             team_uuid: '4416f5e2-0f24-11e2-8525-18a905767e44',
-            money: 5.00})
+            money: 5.00,
+            event_string: 'Chris Neil registered a hit'
+          })
       ]);
     });
 };

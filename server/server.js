@@ -74,6 +74,8 @@ app.use((req, res, next) => {
   next();
 })
 
+
+
 // ============== Routes ===================
 
 app.get('/', (req, res) => {
@@ -81,7 +83,7 @@ app.get('/', (req, res) => {
   res.render('landing-page');
 });
 
-app.get('/initialState', (req, res) => {
+app.get('/pledges', (req, res) => {
   res.json({
     game: [],
     pledges: [{
@@ -111,19 +113,27 @@ app.get('/users/new', (req, res) => {
 });
 
 app.post('/users/new', (req, res) => {
+  console.log("Req: ", req)
   if (req.body.password === req.body.confirm_password) {
     let username = req.body.username;
     let email = req.body.email;
     let password = bcrypt.hashSync(req.body.password, 10);
-    db.insert([{ username: username, password: password, email: email }])
+    let user = { username: username, password: password, email: email };
+    db.insert([user])
     .into('users')
-    .then(function (result) {
-    })
+    .returning('id').then((userIDs) => {
+      user.id = userIDs[0];
+      req.login(user, (err) => {
+        if (!err) {
+          res.redirect('/');
+        } else {
+          res.send("ERROR");
+        }
+      });
+    });
   } else {
-    alert('Passwords do not match!!!');
+    res.send("You goofed!");
   }
-  req.session.user = username;
-  res.redirect('/');
 });
 
 // function to handle post response
@@ -132,7 +142,6 @@ function handleResponse(res, code, statusMsg) {
 };
 
 app.post('/login', passport.authenticate('local', { failureRedirect: '/login' }), (req, res) => {
-
   res.redirect('/');
 });
 
@@ -141,8 +150,23 @@ app.post('/logout', (req, res) => {
   res.redirect('/');
 });
 
+app.get('/campaigns/:id/pledges/new', (req, res) => {
+  let campaign_id = req.params.id
+  res.render('pledge-new', {campaign_id: campaign_id});
+});
+
 app.get('/campaigns', (req, res) => {
-  res.render('index');
+  db.select('title', 'id').from('campaigns')
+    .then(campaigns => {
+      res.render('campaign-list', {campaigns});
+    });
+   // .returning(['title', 'charity_name'])
+  // .then((result) => {
+    // let campaignInfo = {
+    //   title: title,
+    //   charity_name: charity_name
+    // }
+  // });
 });
 
 app.get('/campaigns/new', (req, res) => {
@@ -150,11 +174,13 @@ app.get('/campaigns/new', (req, res) => {
 });
 
 app.get('/campaigns/:id', (req, res) => {
-  res.send("good jorb, eh");
+  let campaign_id = req.params.id
+  res.render('index', {campaign_id: campaign_id})
 });
 
 app.post('/campaigns', (req, res) => {
   console.log('***Form Submitted***')
+  console.log('request body: ', req.body)
   let game = req.body.game;
   let campaign_name = req.body.campaign_name;
   let charity_name = req.body.charity_name;
@@ -162,7 +188,7 @@ app.post('/campaigns', (req, res) => {
   let hashtag = req.body.hashtag;
   let email = req.body.email;
   let password = req.body.password;
-
+  let currentUser = res.locals.currentUser
   console.log("Game: " + game);
   console.log("Campaign name: " + campaign_name);
   console.log("Charity name: " + charity_name);
@@ -170,6 +196,7 @@ app.post('/campaigns', (req, res) => {
   console.log("Hashtag: " + hashtag);
   console.log("Email: " + email);
   console.log("Password: " + password);
+  console.log("CurrentUser.id: " + currentUser.id);
 
   db.select('id').from('games').where({game_uuid: game})
   .then(game_ids => {
@@ -183,11 +210,11 @@ app.post('/campaigns', (req, res) => {
       game_id: game_id,
       charity_name: charity_name,
       charity_url: charity_url,
-      admin_id: 1,       // to be changed
+      user_id: currentUser.id,
     }])
     .into('campaigns')
     .returning('id')
-    .then(function(result) {
+    .then((result) => {
       console.log("campaign insert result", result);
       if (result.length === 1) {
         const campaign_id = result[0];
@@ -197,7 +224,7 @@ app.post('/campaigns', (req, res) => {
         res.redirect('/campaigns/new');
       }
     })
-    .catch(function(error){
+    .catch((error) => {
       console.error("error when inserting campaign", error);
       res.redirect('/campaigns/new');
     });
@@ -206,8 +233,8 @@ app.post('/campaigns', (req, res) => {
 
 app.get('/pledges/new', (req, res) => {
   res.render("pledge-new");
-
 });
+
 
 app.post('/pledges/new', (req, res) => {
 
@@ -216,67 +243,71 @@ app.post('/pledges/new', (req, res) => {
   request(`http://localhost:4000/api/campaigns/${teamUuid}/hometeam`, (err, response, body) => {
    team = JSON.parse(body)
 
-
-
-
-
-
  })
-
+});
 
   console.log("Form Submitted.")
+
+app.post('/campaigns/:id/pledges/new', (req, res) => {
+  let teamID = req.body.team
   let pledgeTeam = req.body.team;
   let pledgePlayer = req.body.player;
   let pledgeAmount = req.body.money;
   let inGameEvent = req.body.inGameEvent;
+  let user_id = res.locals.currentUser.id;
+  let campaign_id = req.params.id;
 
+  request(`http://localhost:4000/api/campaigns/team/${teamID}`, (err, response, body) => {
+    team = JSON.parse(body)
+    team.players.forEach((player) => {
+      // console.log("This is a player and ID: ", player.full_name, player.id)
+      if(player.id === pledgePlayer) {
+      eventPlayerName = player.full_name
+      }
 
+    })
+    switch (inGameEvent) {
+       case '6':
+       eventString = `Goal scored by ${eventPlayerName}`;
+       break;
+       case '9':
+       eventString = `${eventPlayerName}`;
+       break;
+       case '4':
+       eventString = `${eventPlayerName} credited with`;
+       break;
+       case '5':
+       eventString = `Penalty to ${eventPlayerName}`;
+       break;
+       case '2':
+       eventString = `${eventPlayerName} won faceoff`;
+       break;
+       case '3':
+       eventString = `saved by ${eventPlayerName}`;
+       break;
+    }
+    // console.log("IGE", eventString)
 
-  switch (inGameEvent) {
-    case '6':
-    inGameEvent = `Goal scored by ${pledgePlayer}`;
-    break;
-  }
-
-  console.log("Your pledge team: ", pledgeTeam);
-  console.log("Your pledge player: ", pledgePlayer);
-  console.log("Your in-game event: ", inGameEvent);
-  console.log("Your pledge amount: ", pledgeAmount);
-
-  db.insert([{player_uuid: pledgePlayer, team_uuid: pledgeTeam, money: pledgeAmount, in_game_event_id: inGameEvent, user_id: 1, campaign_id: 1}])
+    db.insert([{player_uuid: pledgePlayer, team_uuid: pledgeTeam, money: pledgeAmount, in_game_event_id: inGameEvent, user_id: user_id, campaign_id: campaign_id, event_string: eventString}])
     .into('pledges')
-    .then(function(result) {
+    .then((result) => {
       console.log("Pledge insert result", result);
     })
-  res.redirect('/');
+
+  })
+  console.log("Form Submitted.")
+
+  res.redirect('/campaigns/:id');
 });
 
 app.delete('/campaigns/:id', (req, res) => {
 });
 
-// app.get('/api/campaigns/:id', (req, res) => {
-//   request('http://localhost:4000/api/campaigns/1', (err, response, body) => {
-//     const pledge_events = ['gamesetup', 'faceoff', 'goal', 'shotsaved', 'hit', 'penalty', 'assist'];
-//     const pledge_events_array = [];
-
-//     let gameObject = JSON.parse(body);
-
-//     gameObject.periods.forEach(function(period) {
-//       period.events.forEach(function(event) {
-//         if (pledge_events.includes(event.event_type)) {
-//           pledge_events_array.push("Time " + event.clock + ": " + event.description);
-//         }
-//       })
-//     })
-//     console.log("test pledge", pledge_events_array)
-//     res.send(pledge_events_array[pledge_events_array.length-1])
-//   })
-// });
 
 app.get('/api/schedule', (req, res) => {
   request('http://localhost:4000/api/schedule', (err, response, body) => {
     let scheduleParsed = JSON.parse(body);
-    scheduleParsed.games.forEach(function(game) {
+    scheduleParsed.games.forEach((game) => {
       if (game.home.name === 'Ottawa Senators' || game.away.name === 'Ottawa Senators') {
         console.log('===============')
         console.log('Game ID: ', game.id);
@@ -292,7 +323,7 @@ app.get('/api/schedule', (req, res) => {
 app.get('/api/campaigns/:id/hometeam', (req, res) => {
   request('http://localhost:4000/api/campaigns/1/hometeam', (err, response, body) => {
     let hometeamParsed = JSON.parse(body);
-    hometeamParsed.players.forEach(function(player) {
+    hometeamParsed.players.forEach((player) => {
       console.log('Home Player: ', player.full_name);
     })
     res.send(hometeamParsed);
@@ -302,56 +333,15 @@ app.get('/api/campaigns/:id/hometeam', (req, res) => {
 app.get('/api/campaigns/:id/awayteam', (req, res) => {
   request('http://localhost:4000/api/campaigns/1/awayteam', (err, response, body) => {
     let awayteamParsed = JSON.parse(body);
-    awayteamParsed.players.forEach(function(player) {
+    awayteamParsed.players.forEach((player) => {
       console.log('Away Player: ', player.full_name);
     })
     res.send(awayteamParsed);
   })
 });
 
-// ============== Sockets ==================
-
-// io.on('connection', function (socket) {
-//   request('http://localhost:4000/api/campaigns/1', (err, response, body) => {
-//     const pledge_events = ['gamesetup', 'faceoff', 'goal', 'shotsaved', 'hit', 'penalty', 'assist'];
-
-//     let gameObject = JSON.parse(body);
-
-//     let filteredEvents = gameObject.periods.reduce(function (acc, period) {
-//       return acc.concat(period.events);
-//     }, []).filter(function (event) {
-//       return pledge_events.includes(event.event_type);
-//     });
-
-//     let pledge_events_array = filteredEvents.map(function (event) {
-//       return 'Time ' + event.clock + ': ' + event.description;
-//     });
-
-//     pledge_events_array.forEach(function (event_string, index) {
-//       (function (event_string, delay) {
-//         setTimeout(function () {
-//         socket.emit('news', {event: event_string})
-//       }, delay);
-//       })(event_string, (index + 1) * 1000);
-
-//     });
-//   });
-// });
-
-
-// let gameObject = JSON.parse(body);
-
-//     gameObject.periods.forEach(function(period) {
-//       period.events.forEach(function(event) {
-//         if (pledge_events.includes(event.event_type)) {
-//           pledge_events_array.push("Time " + event.clock + ": " + event.description);
-//         }
-//       })
-//     })
-//     console.log("test pledge", pledge_events_array)
-//     res.send(pledge_events_array[pledge_events_array.length-1])
-//   })
-
+//=============SOCKET=================//
+//========SENDS GAME EVENTS===========//
 let p = 0;
 let e = 0;
 
@@ -359,7 +349,11 @@ function shouldAdvancePeriod(gameRightNow) {
   return gameRightNow.periods[p].events.length >= gameRightNow.periods[p].events.length && p < gameRightNow.periods.length - 1;
 }
 
-
+function endGame(gameRightNow) {
+  let length = gameRightNow.periods[p].events.length
+  return gameRightNow.periods[p].events[length - 1].event_type === 'endperiod' && gameRightNow.periods[p].events[length - 1].description === 'End of 1st OT.'
+  // return gameRightNow.periods[p].events[length - 1].event_type === 'endperiod' && gameRightNow.deleted_events --- review for later - deleted.events is not tied to event or event_type
+}
 
 function pollGame() {
   console.log("e", e)
@@ -383,13 +377,13 @@ function pollGame() {
       p += 1;
       e = 0;
     } else {
-      if (p === p.length - 1 && e === e.length - 1) {
-        return;
-      } else {
-        e += 1;
-      }
+      e += 1;
     }
-    setTimeout(pollGame, 100);
+    if (endGame(gameRightNow)) {
+      console.log("Game Over");
+    } else {
+    setTimeout(pollGame, 500);
+    }
   });
 }
 
