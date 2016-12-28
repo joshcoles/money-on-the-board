@@ -84,7 +84,8 @@ class App extends Component {
 
   handleOnFlip(flipped) {
     if (flipped) {
-      this.refs.backButton.getDOMNode().focus();
+      // this.refs.backButton.getDOMNode().focus();
+      ReactDOM.getDOMNode(this.refs.backButton).focus();
     }
   }
 
@@ -94,7 +95,7 @@ class App extends Component {
       <div>
 
          <FlipCard
-            disabled={false}
+            disabled={true}
             flipped={this.state.isFlipped}
             onFlip={this.handleOnFlip}
           >
