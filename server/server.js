@@ -147,8 +147,40 @@ app.post('/logout', (req, res) => {
 });
 
 app.get('/campaigns/:id/pledges/new', (req, res) => {
-  let campaign_id = req.params.id
-  res.render('pledge-new', {campaign_id: campaign_id});
+  let campaign_id = req.params.id;
+  let away_roster = [];
+  let home_roster = [];
+  db.select('game_id').from('campaigns').where({id: campaign_id})
+  .then(game => {
+    let game_id = game[0].game_id
+    db.select('game_uuid').from('games').where({id: game_id})
+    .then(gameUUID => {
+      let game_uuid = gameUUID[0].game_uuid
+      request('http://localhost:4000/api/schedule', (err, response, body) => {
+        let gameObject = JSON.parse(body)
+        gameObject.games.forEach((game) => {
+          if (game.id === game_uuid) {
+            let away_id = game.away.id
+            let home_id = game.home.id
+            request(`http://localhost:4000/api/campaigns/team/${away_id}`, (err, response, body) => {
+              let awayObject = JSON.parse(body)
+              awayObject.players.forEach((player) => {
+                away_roster.push({id: player.id, name: player.full_name})
+              })
+            })
+            request(`http://localhost:4000/api/campaigns/team/${home_id}`, (err, response, body) => {
+              let awayObject = JSON.parse(body)
+              awayObject.players.forEach((player) => {
+                home_roster.push({id: player.id, name: player.full_name})
+              })
+  console.log(home_roster)
+  res.render('pledge-new', {campaign_id: campaign_id, away_roster: away_roster, home_roster: home_roster});
+            })
+          }
+        })
+      })
+    })
+  })
 });
 
 app.get('/campaigns', (req, res) => {
@@ -227,9 +259,11 @@ app.post('/campaigns', (req, res) => {
   });
 });
 
-app.get('/pledges/new', (req, res) => {
-  res.render("pledge-new");
-});
+// app.get('/campaigns/:id/pledges/new', (req, res) => {
+//   let campaign_id = req.params.id;
+//   res.send(req.params.id);
+//   // res.render("pledge-new");
+// });
 
 app.post('/campaigns/:id/pledges/new', (req, res) => {
   let teamID = req.body.team
@@ -338,8 +372,8 @@ function endGame(gameRightNow) {
 }
 
 function pollGame() {
-  console.log("e", e)
-  console.log('p', p)
+  // console.log("e", e)
+  // console.log('p', p)
   request('http://localhost:4000/api/campaigns/1', (err, response, body) => {
     const filter_events = ['goal', 'shotsaved', 'hit', 'penalty', 'assist'];
     let gameData = JSON.parse(body)
