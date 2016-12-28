@@ -2,11 +2,12 @@
   <!-- Compiled and minified CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
 
-  <!--JQuery-->
+   <!--JQuery-->
   <script
   src="https://code.jquery.com/jquery-3.1.1.min.js"
   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
   crossorigin="anonymous"></script>
+
 
   <!-- Compiled and minified JavaScript -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
@@ -14,6 +15,27 @@
   <!-- Twitter widget source -->
   <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-  <title>Money on the Board</title>
+  <script type="text/javascript">
+var options = {
+    '4416f5e2-0f24-11e2-8525-18a905767e44': <%= home_roster %>,
+    '441730a9-0f24-11e2-8525-18a905767e44': <%= away_roster %>,
+
+};
+
+$(function() {
+    $('#team').change(function() {
+        var x = $('#team').val()
+        for (var index in options[x]) {
+            $('#player').append('<option value="' + options[x][index].id + '">' + options[x][index].name + '</option>')
+        };
+    });
+});​
+
+
+
+
+  </script>
+
+ <title>Money on the Board</title>
 </head>
 
