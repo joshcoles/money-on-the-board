@@ -76,7 +76,7 @@ this.setState({totalPledges: newTotalPledges})
       <h1>Leaderboard</h1>
       <ul>
         {this.state.pledges.map(total =>
-        <li> {total.username}, {total.totalPledges.reduce(function(a, b) {
+        <li> User {total.username}, Total: {total.totalPledges.reduce(function(a, b) {
           return a + b;
         }, 0)
       } </li>
@@ -87,7 +87,7 @@ this.setState({totalPledges: newTotalPledges})
       <ul>
       {this.state && this.state.pledges && this.state.pledges.map(pledge =>
         pledge.pledged.map(userPledge =>
-          <li>{pledge.username}: Event: {userPledge.pledge_event}, Amount: {userPledge.pledge_amount}, Occurance: {userPledge.occurance}, Owes: {userPledge.owes} </li>
+          <li><strong>User:</strong> {pledge.username}: <strong>Event:</strong> {userPledge.pledge_event}, <strong>Amount:</strong> {userPledge.pledge_amount}, <strong>Occurance:</strong> {userPledge.occurance}, <strong>Owes:</strong> {userPledge.owes} </li>
           )
         )}
       </ul>

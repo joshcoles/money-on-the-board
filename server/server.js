@@ -24,7 +24,6 @@ app.set('view engine', 'ejs');
 // ============== Middleware =================
 
 app.use(express.static('public'));
-// app.use('/dist', express.static('../client/dist'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(session({
   name: 'purplecatattack',
@@ -70,8 +69,6 @@ app.use((req, res, next) => {
   next();
 })
 
-
-
 // ============== Routes ===================
 
 app.get('/', (req, res) => {
@@ -79,12 +76,10 @@ app.get('/', (req, res) => {
   res.render('landing-page');
 });
 
-app.get('/pledges', (req, res) => {
+app.get('/seedpledges', (req, res) => {
   res.json({
-    game: [],
     pledges: [{
       user_id: 1,
-      username: "Homer Simpon",
       totalPledges: [],
       pledged: [
         {id: 'i48dj', pledge_amount: 2.00, pledge_event: 'Matt Martin credited with hit', occurance: 0, owes: 0.00},
@@ -93,7 +88,6 @@ app.get('/pledges', (req, res) => {
       ]
     }, {
       user_id: 2,
-      username: "Peter Griffin",
       totalPledges: [],
       pledged:[
         {id: 'v8ud8', pledge_amount: 2.00, pledge_event: 'Goal scored by Derick Brassard', occurance: 0, owes: 0.00},
@@ -103,6 +97,33 @@ app.get('/pledges', (req, res) => {
     }]
   });
 });
+
+app.get('/pledges', (req, res) => {
+  let allPledges = {
+    pledges: []
+  }
+  db.select().from('pledges').returning().then(result => {
+    let pledgingUsers = result.forEach(pledge => {
+      console.log(pledge);
+      allPledges.pledges.push({
+        user_id: pledge.user_id,
+        username: pledge.user_id,
+        totalPledges: [],
+        pledged: [
+          {
+            id: pledge.id,
+            pledge_amount: parseInt(pledge.money),
+            pledge_event: pledge.event_string,
+            occurance: 0,
+            owes: 0
+          }
+        ]
+      });
+  });
+    res.json(allPledges)
+  });
+})
+
 
 app.get('/users/new', (req, res) => {
   res.render('signup');
