@@ -13,6 +13,10 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const session = require('cookie-session');
 
+
+const home    = require('../mock-api/sample-data/sportsradar-roster-ottawa.json');
+const away    = require('../mock-api/sample-data/sportsradar-roster-toronto.json');
+
 const util = require('util');
 
 const inspect = (o, d = 1) => { console.log(util.inspect(o, { colors: true, depth: d }))};
@@ -252,6 +256,19 @@ app.get('/pledges/new', (req, res) => {
   res.render("pledge-new");
 });
 
+
+app.post('/pledges/new', (req, res) => {
+
+  let teamUuid = req.body.team
+
+  request(`http://localhost:4000/api/campaigns/${teamUuid}/hometeam`, (err, response, body) => {
+   team = JSON.parse(body)
+
+ })
+});
+
+  console.log("Form Submitted.")
+
 app.post('/campaigns/:id/pledges/new', (req, res) => {
   let teamID = req.body.team
   let pledgeTeam = req.body.team;
@@ -260,6 +277,7 @@ app.post('/campaigns/:id/pledges/new', (req, res) => {
   let inGameEvent = req.body.inGameEvent;
   let user_id = res.locals.currentUser.id;
   let campaign_id = req.params.id;
+
   request(`http://localhost:4000/api/campaigns/team/${teamID}`, (err, response, body) => {
     team = JSON.parse(body)
     team.players.forEach((player) => {
@@ -385,7 +403,7 @@ function pollGame() {
     if (endGame(gameRightNow)) {
       console.log("Game Over");
     } else {
-    setTimeout(pollGame, 100);
+    setTimeout(pollGame, 500);
     }
   });
 }
