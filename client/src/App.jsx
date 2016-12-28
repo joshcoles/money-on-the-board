@@ -9,7 +9,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isFlipped: false,
+      isFlipped: '',
       game: [],
       pledges: [],
       leaderboard: [
@@ -20,7 +20,10 @@ class App extends Component {
         totalAmountOwed: 0
        }
       ]
-    }
+    };
+    this.handleOnFlip = this.handleOnFlip.bind(this);
+    this.showBack = this.showBack.bind(this);
+    this.showFront = this.showFront.bind(this);
   }
 
   get onSocketData()
@@ -68,7 +71,7 @@ class App extends Component {
   }
 
   // Flip for Leaderboard and Pledges //
-  // this in showBack and ShowFront are null
+  // this in showBack and showFront are null
 
   showBack() {
     this.setState({
@@ -89,7 +92,6 @@ class App extends Component {
     }
   }
 
-
   render() {
     return (
       <div>
@@ -101,7 +103,7 @@ class App extends Component {
           >
             <div className="front">
             <div className="leaderboard">
-              <button type="button" onClick={this.showBack}>To Pledges</button>
+              <button type="button" onClick={this.showBack}>Flip it!</button>
                 <h1>Leaderboard</h1>
                   <ul>
                     {this.state.pledges.map(total =>
@@ -116,7 +118,7 @@ class App extends Component {
 
             <div className="back">
             <div className="pledges">
-             <button type="button" ref="backButton" onClick={this.showFront}>To Leaderboard</button>
+             <button type="button" ref="backButton" onClick={this.showFront}>Flip it!</button>
                 <h1>Pledges</h1>
                   <ul>
                   {this.state && this.state.pledges && this.state.pledges.map(pledge =>
