@@ -9,7 +9,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isFlipped: false,
+      isFlipped: '',
       game: [],
       pledges: [],
       leaderboard: [
@@ -20,7 +20,10 @@ class App extends Component {
         totalAmountOwed: 0
        }
       ]
-    }
+    };
+    this.handleOnFlip = this.handleOnFlip.bind(this);
+    this.showBack = this.showBack.bind(this);
+    this.showFront = this.showFront.bind(this);
   }
 
   get onSocketData()
@@ -68,7 +71,7 @@ class App extends Component {
   }
 
   // Flip for Leaderboard and Pledges //
-  // this in showBack and ShowFront are null
+  // this in showBack and showFront are null
 
   showBack() {
     this.setState({
@@ -88,12 +91,12 @@ class App extends Component {
     }
   }
 
-
   render() {
     return (
       <div>
+
          <FlipCard
-            disabled={false}
+            disabled={true}
             flipped={this.state.isFlipped}
             onFlip={this.handleOnFlip}
           >
