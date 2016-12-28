@@ -93,7 +93,7 @@ class App extends Component {
     return (
       <div>
          <FlipCard
-            disabled={true}
+            disabled={false}
             flipped={this.state.isFlipped}
             onFlip={this.handleOnFlip}
           >
