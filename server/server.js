@@ -211,13 +211,13 @@ app.get('/campaigns/:id/pledges/new', (req, res) => {
             request(`http://localhost:4000/api/campaigns/team/${away_id}`, (err, response, body) => {
               let awayObject = JSON.parse(body)
               awayObject.players.forEach((player) => {
-                away_roster.push(player.id + "|" + player.full_name)
+                away_roster.push({id: player.id, name: player.full_name})
               })
             })
             request(`http://localhost:4000/api/campaigns/team/${home_id}`, (err, response, body) => {
               let awayObject = JSON.parse(body)
               awayObject.players.forEach((player) => {
-                home_roster.push(player.id + "|" + player.full_name)
+                home_roster.push({id: player.id, name: player.full_name})
               })
   res.render('pledge-new', {campaign_id, away_roster, home_roster, away_id, home_id, away_name, home_name});
             })
