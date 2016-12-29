@@ -13,8 +13,8 @@
      <label>Team</label>
       <select id="team" name="team" onchange="populate('team','player')" class="browser-default selectpicker">
         <option value="" disabled selected>Choose your Team</option>
-        <option name="team" value="4416f5e2-0f24-11e2-8525-18a905767e44">Ottawa Senators</option>
-        <option name="team" value="441730a9-0f24-11e2-8525-18a905767e44">Toronto Maple Leafs</option>
+        <option name="team" value="<%= home_id %>"><%= home_name %></option>
+        <option name="team" value="<%= away_id %>"><%= away_name %></option>
       </select>
 
       <label>Player</label>

@@ -187,7 +187,9 @@ app.get('/campaigns/:id/pledges/new', (req, res) => {
         gameObject.games.forEach((game) => {
           if (game.id === game_uuid) {
             let away_id = game.away.id
+            let away_name = game.away.name
             let home_id = game.home.id
+            let home_name = game.home.name
             request(`http://localhost:4000/api/campaigns/team/${away_id}`, (err, response, body) => {
               let awayObject = JSON.parse(body)
               awayObject.players.forEach((player) => {
@@ -201,7 +203,7 @@ app.get('/campaigns/:id/pledges/new', (req, res) => {
               })
   console.log(home_roster)
   console.log(away_roster)
-  res.render('pledge-new', {campaign_id, away_roster, home_roster});
+  res.render('pledge-new', {campaign_id, away_roster, home_roster, away_id, home_id, away_name, home_name});
             })
           }
         })
@@ -306,7 +308,7 @@ app.post('/pledges/new', (req, res) => {
   console.log("Form Submitted.")
 
 app.post('/campaigns/:id/pledges/new', (req, res) => {
-  let teamID = req.body.team
+  let teamID = req.body.team;
   let pledgeTeam = req.body.team;
   let pledgePlayer = req.body.player;
   let pledgeAmount = req.body.money;
