@@ -1,5 +1,7 @@
 
-// ============== Dependencies =================
+//=========================================//
+//=========== DEPENDENCIES ================//
+//=========================================//
 const request = require('request');
 const express = require('express');
 const app = express();
@@ -72,13 +74,19 @@ app.use((req, res, next) => {
   next();
 })
 
-// ============== Routes ===================
+//=========================================//
+//============== Routes ===================//
+//=========================================//
 
 app.get('/', (req, res) => {
   inspect(res.locals);
   res.render('landing-page');
 });
 
+//=========================================//
+//============ SEED PLEDGES ===============//
+//======== CURRENTLY NOT IN USE ===========//
+//=========================================//
 app.get('/seedpledges', (req, res) => {
   res.json({
     pledges: [{
@@ -101,6 +109,10 @@ app.get('/seedpledges', (req, res) => {
   });
 });
 
+//=========================================//
+//============== DB PLEDGES ===============//
+//=========== CURRENTLY IN USE ============//
+//=========================================//
 app.get('/pledges', (req, res) => {
   let allPledges = {
     pledges: []
@@ -128,7 +140,9 @@ app.get('/pledges', (req, res) => {
   });
 })
 
-
+//=========================================//
+//========== SIGN UP NEW USERS ============//
+//=========================================//
 app.get('/users/new', (req, res) => {
   res.render('signup');
 });
@@ -161,6 +175,9 @@ function handleResponse(res, code, statusMsg) {
   res.status(code).json({status: statusMsg});
 };
 
+//=========================================//
+//========== LOGIN/LOGOUT USERS ===========//
+//=========================================//
 app.post('/login', passport.authenticate('local', { failureRedirect: '/login' }), (req, res) => {
   res.redirect('/');
 });
@@ -170,6 +187,9 @@ app.post('/logout', (req, res) => {
   res.redirect('/');
 });
 
+//=========================================//
+//============ CREATE PLEDGES =============//
+//=========================================//
 app.get('/campaigns/:id/pledges/new', (req, res) => {
   let campaign_id = req.params.id;
   let away_roster = [];
@@ -223,9 +243,8 @@ app.post('/campaigns/:id/pledges/new', (req, res) => {
     team = JSON.parse(body)
     team.players.forEach((player) => {
       if(player.id === pledgePlayer) {
-      eventPlayerName = player.full_name
+        eventPlayerName = player.full_name
       }
-
     })
     switch (inGameEvent) {
        case '6':
@@ -256,6 +275,9 @@ app.post('/campaigns/:id/pledges/new', (req, res) => {
   res.redirect('/campaigns/:id');
 });
 
+//=========================================//
+//======= SHOW/CREATE CAMPAIGNS ===========//
+//=========================================//
 app.get('/campaigns', (req, res) => {
   db.select('title', 'id').from('campaigns')
   .then(campaigns => {
@@ -265,11 +287,6 @@ app.get('/campaigns', (req, res) => {
 
 app.get('/campaigns/new', (req, res) => {
   res.render('campaign-new');
-});
-
-app.get('/campaigns/:id', (req, res) => {
-  let campaign_id = req.params.id
-  res.render('index', {campaign_id: campaign_id})
 });
 
 app.post('/campaigns', (req, res) => {
@@ -328,6 +345,18 @@ app.post('/campaigns', (req, res) => {
 app.delete('/campaigns/:id', (req, res) => {
 });
 
+//=========================================//
+//====== SHOW CAMPAIGN REACT PAGE =========//
+//=========================================//
+app.get('/campaigns/:id', (req, res) => {
+  let campaign_id = req.params.id
+  res.render('index', {campaign_id: campaign_id})
+});
+
+
+//=========================================//
+//============ HANDLE API CALLS ===========//
+//=========================================//
 app.get('/api/schedule', (req, res) => {
   request('http://localhost:4000/api/schedule', (err, response, body) => {
     let scheduleParsed = JSON.parse(body);
@@ -364,8 +393,9 @@ app.get('/api/campaigns/:id/awayteam', (req, res) => {
   })
 });
 
-//=============SOCKET=================//
-//========SENDS GAME EVENTS===========//
+//=========================================//
+//============== SOCKETS ==================//
+//=========================================//
 let p = 0;
 let e = 0;
 
@@ -380,8 +410,6 @@ function endGame(gameRightNow) {
 }
 
 function pollGame() {
-  // console.log("e", e)
-  // console.log('p', p)
   request('http://localhost:4000/api/campaigns/1', (err, response, body) => {
     const filter_events = ['goal', 'shotsaved', 'hit', 'penalty', 'assist'];
     let gameData = JSON.parse(body)
@@ -410,7 +438,6 @@ function pollGame() {
     }
   });
 }
-
 pollGame();
 
 server.listen(app.get('port'), (err) => {
