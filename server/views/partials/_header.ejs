@@ -8,15 +8,10 @@
         <li><a href="/campaigns/new">Create</a></li>
         <% if(isAuthenticated) { %>
         <li><a>Welcome, <%= currentUser.username %>.</a></li>
-        <% } %>
-        <li>
-        <% if(isAuthenticated) { %>
         <li><input type="submit" value="Log Out" class="btn"/></li>
         <% } else { %>
         <li><a href="/users/new">Signup</a></li>
-        <li><input type="text" name="username" placeholder="username" value="" autocomplete="new-password"/></li>
-        <li><input type="password" name="password" placeholder="password" value="" autocomplete="new-password"/></li>
-        <li><input type="submit" value="Log In" class="btn" /></li>
+        <li><a href="/login">Login</a></li>
         <% } %>
         </li>
       </ul>

@@ -175,9 +175,16 @@ function handleResponse(res, code, statusMsg) {
   res.status(code).json({status: statusMsg});
 };
 
+
 //=========================================//
 //========== LOGIN/LOGOUT USERS ===========//
 //=========================================//
+
+app.get('/login', (req, res) => {
+  res.render('login');
+});
+
+
 app.post('/login', passport.authenticate('local', { failureRedirect: '/login' }), (req, res) => {
   res.redirect('/');
 });
@@ -342,7 +349,58 @@ app.post('/campaigns', (req, res) => {
   });
 });
 
-app.delete('/campaigns/:id', (req, res) => {
+
+app.post('/campaigns/:id/pledges/new', (req, res) => {
+  let teamID = req.body.team;
+  let pledgeTeam = req.body.team;
+  let pledgePlayer = req.body.player;
+  let pledgeAmount = req.body.money;
+  let inGameEvent = req.body.inGameEvent;
+  let user_id = res.locals.currentUser.id;
+  let username = res.locals.currentUser.username;
+  let campaign_id = req.params.id;
+  console.log("Res.locals: ", res.locals)
+
+  request(`http://localhost:4000/api/campaigns/team/${teamID}`, (err, response, body) => {
+    team = JSON.parse(body)
+    team.players.forEach((player) => {
+
+      if(player.id === pledgePlayer) {
+      eventPlayerName = player.full_name
+      }
+
+    })
+    switch (inGameEvent) {
+       case '6':
+       eventString = `Goal scored by ${eventPlayerName}`;
+       break;
+       case '9':
+       eventString = `${eventPlayerName}`;
+       break;
+       case '4':
+       eventString = `${eventPlayerName} credited with`;
+       break;
+       case '5':
+       eventString = `Penalty to ${eventPlayerName}`;
+       break;
+       case '2':
+       eventString = `${eventPlayerName} won faceoff`;
+       break;
+       case '3':
+       eventString = `saved by ${eventPlayerName}`;
+       break;
+    }
+
+
+    db.insert([{player_uuid: pledgePlayer, team_uuid: pledgeTeam, money: pledgeAmount, in_game_event_id: inGameEvent, user_id: user_id, campaign_id: campaign_id, event_string: eventString, username: username}])
+    .into('pledges')
+    .then((result) => {
+      console.log("Pledge insert result", result);
+    })
+
+  })
+  console.log("Form Submitted.")
+  res.redirect('/campaigns/:id');
 });
 
 //=========================================//
