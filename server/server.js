@@ -165,16 +165,17 @@ app.get('/campaigns/:id/pledges/new', (req, res) => {
             request(`http://localhost:4000/api/campaigns/team/${away_id}`, (err, response, body) => {
               let awayObject = JSON.parse(body)
               awayObject.players.forEach((player) => {
-                away_roster.push({id: player.id, name: player.full_name})
+                away_roster.push(player.id + "|" + player.full_name)
               })
             })
             request(`http://localhost:4000/api/campaigns/team/${home_id}`, (err, response, body) => {
               let awayObject = JSON.parse(body)
               awayObject.players.forEach((player) => {
-                home_roster.push({id: player.id, name: player.full_name})
+                home_roster.push(player.id + "|" + player.full_name)
               })
   console.log(home_roster)
-  res.render('pledge-new', {campaign_id: campaign_id, away_roster: away_roster, home_roster: home_roster});
+  console.log(away_roster)
+  res.render('pledge-new', {campaign_id, away_roster, home_roster});
             })
           }
         })
@@ -273,6 +274,7 @@ app.post('/campaigns/:id/pledges/new', (req, res) => {
   let inGameEvent = req.body.inGameEvent;
   let user_id = res.locals.currentUser.id;
   let campaign_id = req.params.id;
+  console.log("team ID: ", teamID)
   request(`http://localhost:4000/api/campaigns/team/${teamID}`, (err, response, body) => {
     team = JSON.parse(body)
     team.players.forEach((player) => {

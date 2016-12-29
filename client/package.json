@@ -52,6 +52,7 @@
     "pg": "^6.1.2",
     "react": "15.2.1",
     "react-dom": "15.2.1",
+    "react-flipcard": "^0.2.1",
     "socket.io-client": "^1.7.2"
   }
 }
