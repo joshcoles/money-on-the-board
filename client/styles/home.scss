@@ -1,0 +1,19 @@
+.gameFeed {
+  display: flex;
+  height: 600px;
+  margin-left: 600px;
+  background-color: blue;
+}
+
+.gameContent {
+  flex: 1;
+  height: 400px;
+  min-height: 0;
+  min-width: 0;
+  overflow: scroll;
+  background-color: red;
+}
+
+.panel-content {
+  height: 500px;
+}
