@@ -1,6 +1,5 @@
 
 // ============== Dependencies =================
-
 const request = require('request');
 const express = require('express');
 const app = express();
@@ -158,7 +157,6 @@ app.post('/users/new', (req, res) => {
   }
 });
 
-// function to handle post response
 function handleResponse(res, code, statusMsg) {
   res.status(code).json({status: statusMsg});
 };
@@ -201,8 +199,6 @@ app.get('/campaigns/:id/pledges/new', (req, res) => {
               awayObject.players.forEach((player) => {
                 home_roster.push(player.id + "|" + player.full_name)
               })
-  console.log(home_roster)
-  console.log(away_roster)
   res.render('pledge-new', {campaign_id, away_roster, home_roster, away_id, home_id, away_name, home_name});
             })
           }
@@ -212,18 +208,59 @@ app.get('/campaigns/:id/pledges/new', (req, res) => {
   })
 });
 
+app.post('/campaigns/:id/pledges/new', (req, res) => {
+  let teamID = req.body.team;
+  let pledgeTeam = req.body.team;
+  let pledgePlayer = req.body.player;
+  let pledgeAmount = req.body.money;
+  let inGameEvent = req.body.inGameEvent;
+  let user_id = res.locals.currentUser.id;
+  let username = res.locals.currentUser.username;
+  let campaign_id = req.params.id;
+  console.log("Res.locals: ", res.locals)
+
+  request(`http://localhost:4000/api/campaigns/team/${teamID}`, (err, response, body) => {
+    team = JSON.parse(body)
+    team.players.forEach((player) => {
+      if(player.id === pledgePlayer) {
+      eventPlayerName = player.full_name
+      }
+
+    })
+    switch (inGameEvent) {
+       case '6':
+       eventString = `Goal scored by ${eventPlayerName}`;
+       break;
+       case '9':
+       eventString = `${eventPlayerName}`;
+       break;
+       case '4':
+       eventString = `${eventPlayerName} credited with`;
+       break;
+       case '5':
+       eventString = `Penalty to ${eventPlayerName}`;
+       break;
+       case '2':
+       eventString = `${eventPlayerName} won faceoff`;
+       break;
+       case '3':
+       eventString = `saved by ${eventPlayerName}`;
+       break;
+    }
+    db.insert([{player_uuid: pledgePlayer, team_uuid: pledgeTeam, money: pledgeAmount, in_game_event_id: inGameEvent, user_id: user_id, campaign_id: campaign_id, event_string: eventString, username: username}])
+    .into('pledges')
+    .then((result) => {
+      console.log("Pledge insert result", result);
+    })
+  })
+  res.redirect('/campaigns/:id');
+});
+
 app.get('/campaigns', (req, res) => {
   db.select('title', 'id').from('campaigns')
-    .then(campaigns => {
-      res.render('campaign-list', {campaigns});
-    });
-   // .returning(['title', 'charity_name'])
-  // .then((result) => {
-    // let campaignInfo = {
-    //   title: title,
-    //   charity_name: charity_name
-    // }
-  // });
+  .then(campaigns => {
+    res.render('campaign-list', {campaigns});
+  });
 });
 
 app.get('/campaigns/new', (req, res) => {
@@ -288,82 +325,8 @@ app.post('/campaigns', (req, res) => {
   });
 });
 
-// app.get('/campaigns/:id/pledges/new', (req, res) => {
-//   let campaign_id = req.params.id;
-//   res.send(req.params.id);
-//   // res.render("pledge-new");
-// });
-
-
-app.post('/pledges/new', (req, res) => {
-
-  let teamUuid = req.body.team
-
-  request(`http://localhost:4000/api/campaigns/${teamUuid}/hometeam`, (err, response, body) => {
-   team = JSON.parse(body)
-
- })
-});
-
-  console.log("Form Submitted.")
-
-app.post('/campaigns/:id/pledges/new', (req, res) => {
-  let teamID = req.body.team;
-  let pledgeTeam = req.body.team;
-  let pledgePlayer = req.body.player;
-  let pledgeAmount = req.body.money;
-  let inGameEvent = req.body.inGameEvent;
-  let user_id = res.locals.currentUser.id;
-  let username = res.locals.currentUser.username;
-  let campaign_id = req.params.id;
-  console.log("Res.locals: ", res.locals)
-
-  request(`http://localhost:4000/api/campaigns/team/${teamID}`, (err, response, body) => {
-    team = JSON.parse(body)
-    team.players.forEach((player) => {
-      // console.log("This is a player and ID: ", player.full_name, player.id)
-      if(player.id === pledgePlayer) {
-      eventPlayerName = player.full_name
-      }
-
-    })
-    switch (inGameEvent) {
-       case '6':
-       eventString = `Goal scored by ${eventPlayerName}`;
-       break;
-       case '9':
-       eventString = `${eventPlayerName}`;
-       break;
-       case '4':
-       eventString = `${eventPlayerName} credited with`;
-       break;
-       case '5':
-       eventString = `Penalty to ${eventPlayerName}`;
-       break;
-       case '2':
-       eventString = `${eventPlayerName} won faceoff`;
-       break;
-       case '3':
-       eventString = `saved by ${eventPlayerName}`;
-       break;
-    }
-    // console.log("IGE", eventString)
-
-    db.insert([{player_uuid: pledgePlayer, team_uuid: pledgeTeam, money: pledgeAmount, in_game_event_id: inGameEvent, user_id: user_id, campaign_id: campaign_id, event_string: eventString, username: username}])
-    .into('pledges')
-    .then((result) => {
-      console.log("Pledge insert result", result);
-    })
-
-  })
-  console.log("Form Submitted.")
-
-  res.redirect('/campaigns/:id');
-});
-
 app.delete('/campaigns/:id', (req, res) => {
 });
-
 
 app.get('/api/schedule', (req, res) => {
   request('http://localhost:4000/api/schedule', (err, response, body) => {
