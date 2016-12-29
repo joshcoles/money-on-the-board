@@ -8,6 +8,7 @@ exports.seed = function(knex, Promise) {
         knex('pledges').insert(
           {
             user_id: 1,
+            username: "Bob",
             in_game_event_id: 6,
             campaign_id: 1,
             player_uuid: '42fa3dcd-0f24-11e2-8525-18a905767e44',

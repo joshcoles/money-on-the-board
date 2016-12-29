@@ -107,7 +107,7 @@ class App extends Component {
                 <h1>Leaderboard</h1>
                   <ul>
                     {this.state.pledges.map(total =>
-                    <li> {total.username}, {total.totalPledges.reduce(function(a, b) {
+                    <li className="right-align">User: {total.username}, {total.totalPledges.reduce(function(a, b) {
                       return a + b;
                     }, 0)}
                     </li>
@@ -123,7 +123,7 @@ class App extends Component {
                   <ul>
                   {this.state && this.state.pledges && this.state.pledges.map(pledge =>
                     pledge.pledged.map(userPledge =>
-                      <li>{pledge.username}: Event: {userPledge.pledge_event}, Amount: {userPledge.pledge_amount}, Occurance: {userPledge.occurance}, Owes: {userPledge.owes} </li>
+                      <li className="right-align">User: {userPledge.username}, Event: {userPledge.pledge_event}, Amount: {userPledge.pledge_amount}, Occurance: {userPledge.occurance}, Owes: {userPledge.owes}</li>
                       )
                     )}
                   </ul>

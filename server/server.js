@@ -116,6 +116,7 @@ app.get('/pledges', (req, res) => {
         pledged: [
           {
             id: pledge.id,
+            username: pledge.username,
             pledge_amount: parseInt(pledge.money),
             pledge_event: pledge.event_string,
             occurance: 0,
@@ -276,7 +277,9 @@ app.post('/campaigns/:id/pledges/new', (req, res) => {
   let pledgeAmount = req.body.money;
   let inGameEvent = req.body.inGameEvent;
   let user_id = res.locals.currentUser.id;
+  let username = res.locals.currentUser.username;
   let campaign_id = req.params.id;
+  console.log("Res.locals: ", res.locals)
 
   request(`http://localhost:4000/api/campaigns/team/${teamID}`, (err, response, body) => {
     team = JSON.parse(body)
@@ -309,7 +312,7 @@ app.post('/campaigns/:id/pledges/new', (req, res) => {
     }
     // console.log("IGE", eventString)
 
-    db.insert([{player_uuid: pledgePlayer, team_uuid: pledgeTeam, money: pledgeAmount, in_game_event_id: inGameEvent, user_id: user_id, campaign_id: campaign_id, event_string: eventString}])
+    db.insert([{player_uuid: pledgePlayer, team_uuid: pledgeTeam, money: pledgeAmount, in_game_event_id: inGameEvent, user_id: user_id, campaign_id: campaign_id, event_string: eventString, username: username}])
     .into('pledges')
     .then((result) => {
       console.log("Pledge insert result", result);
