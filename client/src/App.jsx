@@ -10,7 +10,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isFlipped: '',
+      isFlipped: false,
       game: [],
       pledges: [],
       leaderboard: [
