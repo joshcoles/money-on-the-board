@@ -122,7 +122,7 @@ app.get('/pledges', (req, res) => {
       console.log(pledge);
       allPledges.pledges.push({
         user_id: pledge.user_id,
-        username: pledge.user_id,
+        username: pledge.username,
         totalPledges: [],
         pledged: [
           {

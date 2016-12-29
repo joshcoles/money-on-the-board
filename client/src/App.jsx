@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import FlipCard from 'react-flipcard';
+import CustomScroll from 'react-custom-scroll';
 
 let dataArray = []
 let newTotalPledges = []
@@ -9,7 +10,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isFlipped: '',
+      isFlipped: false,
       game: [],
       pledges: [],
       leaderboard: [
@@ -132,16 +133,25 @@ class App extends Component {
           </FlipCard>
 
         <div>
+
          <div className="gameFeed">
-          <h1>Game Feef</h1>
-            <ul>
-              {this.state && this.state.game && this.state.game.map(event =>
-              <li> {event} </li>
-              )}
-            </ul>
-         </div>
+            <div className="panel">
+              <div className="panel-header">
+                <h1>Game Feef</h1>
+                <div className="panel-content">
+                    <ul className="gameContent">
+                      {this.state && this.state.game && this.state.game.map(event =>
+                     <CustomScroll flex="1">
+                      <li> {event} </li>
+                      </CustomScroll>
+                      )}
+                    </ul>
+                </div>
+              </div>
+            </div>
         </div>
       </div>
+    </div>
     );
   }
 }
