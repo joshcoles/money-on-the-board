@@ -13,6 +13,10 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const session = require('cookie-session');
 
+
+const home    = require('../mock-api/sample-data/sportsradar-roster-ottawa.json');
+const away    = require('../mock-api/sample-data/sportsradar-roster-toronto.json');
+
 const util = require('util');
 
 const inspect = (o, d = 1) => { console.log(util.inspect(o, { colors: true, depth: d }))};
@@ -24,7 +28,6 @@ app.set('view engine', 'ejs');
 // ============== Middleware =================
 
 app.use(express.static('public'));
-// app.use('/dist', express.static('../client/dist'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(session({
   name: 'purplecatattack',
@@ -70,8 +73,6 @@ app.use((req, res, next) => {
   next();
 })
 
-
-
 // ============== Routes ===================
 
 app.get('/', (req, res) => {
@@ -79,12 +80,10 @@ app.get('/', (req, res) => {
   res.render('landing-page');
 });
 
-app.get('/pledges', (req, res) => {
+app.get('/seedpledges', (req, res) => {
   res.json({
-    game: [],
     pledges: [{
       user_id: 1,
-      username: "Homer Simpon",
       totalPledges: [],
       pledged: [
         {id: 'i48dj', pledge_amount: 2.00, pledge_event: 'Matt Martin credited with hit', occurance: 0, owes: 0.00},
@@ -93,7 +92,6 @@ app.get('/pledges', (req, res) => {
       ]
     }, {
       user_id: 2,
-      username: "Peter Griffin",
       totalPledges: [],
       pledged:[
         {id: 'v8ud8', pledge_amount: 2.00, pledge_event: 'Goal scored by Derick Brassard', occurance: 0, owes: 0.00},
@@ -103,6 +101,33 @@ app.get('/pledges', (req, res) => {
     }]
   });
 });
+
+app.get('/pledges', (req, res) => {
+  let allPledges = {
+    pledges: []
+  }
+  db.select().from('pledges').returning().then(result => {
+    let pledgingUsers = result.forEach(pledge => {
+      console.log(pledge);
+      allPledges.pledges.push({
+        user_id: pledge.user_id,
+        username: pledge.user_id,
+        totalPledges: [],
+        pledged: [
+          {
+            id: pledge.id,
+            pledge_amount: parseInt(pledge.money),
+            pledge_event: pledge.event_string,
+            occurance: 0,
+            owes: 0
+          }
+        ]
+      });
+  });
+    res.json(allPledges)
+  });
+})
+
 
 app.get('/users/new', (req, res) => {
   res.render('signup');
@@ -266,6 +291,19 @@ app.post('/campaigns', (req, res) => {
 //   // res.render("pledge-new");
 // });
 
+
+app.post('/pledges/new', (req, res) => {
+
+  let teamUuid = req.body.team
+
+  request(`http://localhost:4000/api/campaigns/${teamUuid}/hometeam`, (err, response, body) => {
+   team = JSON.parse(body)
+
+ })
+});
+
+  console.log("Form Submitted.")
+
 app.post('/campaigns/:id/pledges/new', (req, res) => {
   let teamID = req.body.team
   let pledgeTeam = req.body.team;
@@ -274,7 +312,7 @@ app.post('/campaigns/:id/pledges/new', (req, res) => {
   let inGameEvent = req.body.inGameEvent;
   let user_id = res.locals.currentUser.id;
   let campaign_id = req.params.id;
-  console.log("team ID: ", teamID)
+
   request(`http://localhost:4000/api/campaigns/team/${teamID}`, (err, response, body) => {
     team = JSON.parse(body)
     team.players.forEach((player) => {
@@ -400,7 +438,7 @@ function pollGame() {
     if (endGame(gameRightNow)) {
       console.log("Game Over");
     } else {
-    setTimeout(pollGame, 100);
+    setTimeout(pollGame, 500);
     }
   });
 }
