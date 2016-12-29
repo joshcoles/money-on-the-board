@@ -163,6 +163,10 @@ function handleResponse(res, code, statusMsg) {
   res.status(code).json({status: statusMsg});
 };
 
+app.get('/login', (req, res) => {
+  res.render('login');
+});
+
 app.post('/login', passport.authenticate('local', { failureRedirect: '/login' }), (req, res) => {
   res.redirect('/');
 });
@@ -308,6 +312,7 @@ app.post('/pledges/new', (req, res) => {
   console.log("Form Submitted.")
 
 app.post('/campaigns/:id/pledges/new', (req, res) => {
+
   let teamID = req.body.team;
   let pledgeTeam = req.body.team;
   let pledgePlayer = req.body.player;
