@@ -6,3 +6,5 @@ footer.page-footer {
 
 .button {
   background-color: #e3383f; }
+  .button:hover {
+    background-color: #b52c32; }

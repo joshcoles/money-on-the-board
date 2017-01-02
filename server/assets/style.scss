@@ -8,4 +8,7 @@ footer.page-footer{
 
 .button {
   background-color: #e3383f;
+  &:hover {
+    background-color: #b52c32;
+  }
 }
