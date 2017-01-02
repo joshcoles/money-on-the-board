@@ -3,9 +3,104 @@
 <% include ./partials/_head %>
 <body>
 <% include ./partials/_header %>
-  <div>
-    <a class="waves-effect waves-light btn-large", href="/campaigns">Join a campaign</a>
-    <a class="waves-effect waves-light btn-large", href="/campaigns/new">Create a new campaign</a>
+
+<script type="text/javascript">
+   $(document).ready(function(){
+      $('.parallax').parallax();
+    });
+</script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<!-- call to action -->
+<div class="parallax-container valign-wrapper">
+  <div class="container">
+    <div class="row center">
+      <div class="col l10 offset-l1 valign">
+        <h2 class="center-align white-text call-to-action">Get Started</h2>
+        <a class="waves-effect waves-light btn-large", href="/campaigns">View campaigns</a>
+        <a class="waves-effect waves-light btn-large", href="/campaigns/new">Create a new campaign</a>
+      </div>
+    </div>
   </div>
+  <div class="parallax"><img src="http://activeforlife.com/wp/wp-content/uploads/2015/09/hockey-with-heart.jpg"></div>
+</div>
+
+<!-- how it works -->
+<div class="container">
+  <div class=row>
+    <h2 class="section-header">How it works</h2>
+  </div>
+  <div class="row">
+    <div class="col l6 m12 s12">
+      <div class="card medium indigo darken-4 z-depth-2">
+        <div class="card-content white-text">
+          <h3 class="center-align"><i class="fa  fa-check-square-o fa-3x" aria-hidden="true"></i></h3>
+          <div class="divider"></div>
+          <span class="card-title">Pledge</span>
+          <p>Make your pledges before the game. You can pledge on just about every in game event!</p>
+        </div>
+      </div>
+    </div>
+    <div class="col l6 m12 s12">
+      <div class="card medium indigo darken-1 z-depth-2">
+        <div class="card-content white-text">
+          <h3 class="center-align"><i class="fa  fa-bullhorn fa-3x" aria-hidden="true"></i></h3>
+          <div class="divider"></div>
+          <span class="card-title">Share</span>
+          <p>Share your pledges on social media! Challenge others to match your pledges or make their own!</p>
+        </div>
+      </div>
+    </div>
+    <div class="col l6 m12 s12">
+      <div class="card medium indigo darken-1 z-depth-2">
+        <div class="card-content white-text">
+          <h3 class="center-align"><i class="fa fa-binoculars fa-3x" aria-hidden="true"></i></h3>
+          <div class="divider"></div>
+          <span class="card-title">Watch</span>
+          <p>Watch the real time game feed display the in game events! As events happen, your pledges will be tracked and displayed on the leaderboard.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col l6 m12 s12">
+      <div class="card medium indigo darken-4 z-depth-2">
+        <div class="card-content white-text">
+          <h3 class="center-align"><i class="fa fa-heart fa-3x" aria-hidden="true"></i></h3>
+          <div class="divider"></div>
+          <span class="card-title">Donate</span>
+          <p>Check your pledges at the end of the game and make sure you donate!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="parallax-container valign-wrapper">
+  <div class="container">
+    <div class="row center">
+      <div class="col l10 offset-l1 valign">
+      </div>
+    </div>
+  </div>
+  <div class="parallax"><img src="http://www.wheelhousehockey.com/hs-fs/hubfs/WHH_-_Image_4.jpg?t=1435584606919&width=1910&name=WHH_-_Image_4.jpg"></div>
+</div>
+
+<!-- About -->
+<div class="container">
+  <div class="row">
+    <h2 class="section-header">About</h2>
+  </div>
+  <div class="row">
+  <p class="flow-text">Inspired by a charity campaign by Columbus Blue Jackets fans, Ottawa Senators fans have taken up the "Sens Money on the Board" cause, in which donations are pledged for specific in-game events.<br><br>
+
+    Money on the board is a hockey tradition in which a player or coach will pledge money on a locker-room whiteboard as extra incentive to score a game-winning goal or win a key game. #SensMotB is a grassroots Twitter campaign that encourages fans to put money on the board for various in-game events. Entries are encouraged to be as creative as possible. For example, Sens fans can pledge $6.50 for every Karlsson point, $10 for a Sens win, or $25 for a Chris Neil fight.<br><br>
+
+    All proceeds go directly to the Sens Foundation, the Ottawa Senators-run charity that raises funds and awareness for kids in the Ottawa community.
+    </p>
+  </div>
+</div>
+<% include ./partials/_footer %>
+  <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
 </body>
 </html>
