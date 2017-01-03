@@ -413,7 +413,10 @@ app.post('/campaigns/:id/pledges/new', (req, res) => {
 //=========================================//
 app.get('/campaigns/:id', (req, res) => {
   let campaign_id = req.params.id
-  res.render('index', {campaign_id: campaign_id})
+  db.select('handle').from('campaigns').where({id: campaign_id}).then(hashtag => {
+    let handle = hashtag[0].handle
+  res.render('index', {campaign_id: campaign_id, handle: handle})
+  })
 });
 
 

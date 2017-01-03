@@ -6,7 +6,7 @@
 <main>
 
   <a class="twitter-timeline"  width="300"
-  height="500" data-height="400" href="https://twitter.com/SensMotB">Tweets by SensMotB</a>
+  height="500" data-height="400" href="https://twitter.com/<%= handle %>">Tweets by <%= handle%></a>
 
   <% if(isAuthenticated) { %>
   <a class="btn button" href="/campaigns/<%= campaign_id %>/pledges/new">Make a pledge</a>
