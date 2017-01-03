@@ -108,7 +108,7 @@ class App extends Component {
                 <h1>Leaderboard</h1>
                   <ul>
                     {this.state.pledges.map(total =>
-                    <li className="right-align">User: {total.username}, {total.totalPledges.reduce(function(a, b) {
+                    <li className="leaderboard-user">User: {total.username}, {total.totalPledges.reduce(function(a, b) {
                       return a + b;
                     }, 0)}
                     </li>
