@@ -11,6 +11,7 @@
     <div class="row">
       <h5 class="form-title">Create New Campaign</h5>
     </div>
+
     <div class="row">
       <form class="col s12" action="/campaigns" method="POST">
         <div class="row">
@@ -40,20 +41,20 @@
         </div>
         <div class="row">
           <div class="input-field col s12">
-            <input id="hashtag" type="text" class="validate" name="hashtag"/>
-            <label class="active" for="hashtag">Hashtag</label>
+            <input id="description" type="text" class="validate" name="description"/>
+            <label class="active" for="description">Description</label>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s12">
-            <input id="email" type="email" class="validate" name="email" autocomplete="new-password"/>
-            <label class="active" for="email">Email</label>
+            <input id="image_url" type="text" class="validate" name="image_url"/>
+            <label class="active" for="image_url">Image URL</label>
           </div>
         </div>
-         <div class="row">
+        <div class="row">
           <div class="input-field col s12">
-            <input id="password" type="password" class="validate" name="password" autocomplete="new-password"/>
-            <label class="active" for="password">Password</label>
+            <input id="hashtag" type="text" class="validate" name="hashtag"/>
+            <label class="active" for="hashtag">Hashtag</label>
           </div>
         </div>
         <button class="btn waves-effect waves-light button" type="submit" name="action">Submit
@@ -100,14 +101,14 @@
       </div>
       <div class="row">
         <div class="input-field col s12">
-          <input id="email" type="email" class="validate" name="email" autocomplete="new-password"/>
-          <label class="active" for="email">Email</label>
+          <input id="description" type="text" class="validate" name="description"/>
+          <label class="active" for="description">Description</label>
         </div>
       </div>
-       <div class="row">
+      <div class="row">
         <div class="input-field col s12">
-          <input id="password" type="password" class="validate" name="password" autocomplete="new-password"/>
-          <label class="active" for="password">Password</label>
+          <input id="image_url" type="text" class="validate" name="image_url"/>
+          <label class="active" for="image_url">Image URL</label>
         </div>
       </div>
       <a class="waves-effect waves-light btn modal-trigger" href="#modal1">
@@ -121,7 +122,7 @@
   <div id="modal1" class="modal">
     <div class="modal-content">
       <h5>Login to Create Campaign</h5>
-      <form class="col s12" action="/login" method="POST">
+      <form class="col s12" action="/campaigns/new/login" method="POST">
         <div class="row">
           <div class="input-field col s12">
             <input id="username" type="text" class="validate" name="username" autocomplete="new-username">

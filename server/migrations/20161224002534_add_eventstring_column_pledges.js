@@ -9,8 +9,8 @@ exports.up = function(knex, Promise) {
 
 exports.down = function(knex, Promise) {
   return Promise.all([
-    knex.schema.table('users', function(table) {
-      table.dropColumn('admin');
+    knex.schema.table('pledges', function(table) {
+      table.dropColumn('event_string');
     })
   ])
 };
