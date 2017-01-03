@@ -1,9 +1,32 @@
 <!DOCTYPE html>
 <html>
-<% include ./partials/_head-pledges %>
+<% include ./partials/_head %>
+
+<!-- <script type="text/javascript" src="/scripts/populate-players.js"></script> -->
+
+<script type="text/javascript">
+  function populate(selectTeam, selectPlayer) {
+    var team = document.getElementById(selectTeam);
+    var player = document.getElementById(selectPlayer);
+    player.innerHTML = "";
+    if(team.value == <%- JSON.stringify(home_id) %>) {
+      var optionArray = <%- JSON.stringify(home_roster) %>
+    } else if(team.value == <%- JSON.stringify(away_id) %>) {
+      var optionArray = <%- JSON.stringify(away_roster) %>
+    }
+    for(var index in optionArray) {
+      var newOption = document.createElement("option");
+      newOption.value = optionArray[index].id
+      newOption.innerHTML = optionArray[index].name
+      player.options.add(newOption);
+    }
+  }
+</script>
+
 <body>
 <% include ./partials/_header %>
-</main>
+
+<main>
 
 <div class="row">
   <% if(!isAuthenticated) { %>
@@ -15,18 +38,18 @@
   <form class="col s12" action="/campaigns/<%= campaign_id %>/pledges/new" method="POST">
     <div class="row">
      <label>Team</label>
-      <select id="team" name="team" onchange="populate('team','player')" class="browser-default selectpicker">
+      <select id="team" name="team" onchange="populate('team','player')" class="">
         <option value="" disabled selected>Choose your Team</option>
         <option name="team" value="<%= home_id %>"><%= home_name %></option>
         <option name="team" value="<%= away_id %>"><%= away_name %></option>
       </select>
 
       <label>Player</label>
-      <select id="player" name="player" class="browser-default selectpicker">
+      <select id="player" name="player" class="browser-default">
       </select>
 
       <label>Event</label>
-      <select name="inGameEvent" class="browser-default selectpicker">
+      <select name="inGameEvent" class="">
         <option name="option1" value="" disabled selected>Choose your in-game event</option>
         <option name="goal" value="6">Goal</option>
         <option name="assist" value="8">
@@ -49,9 +72,9 @@
         </option>
       </select>
 
-        <label>Pledge Amount</label>
-          <input id="money" type="text" class="validate" name="money" placeholder="$">
-          <label class="active" for="money"></label>
+      <label>Pledge Amount</label>
+        <input id="money" type="text" class="validate" name="money" placeholder="$">
+        <label class="active" for="money"></label>
 
     </div>
     <button class="btn waves-effect waves-light button" type="submit" name="action">Submit
