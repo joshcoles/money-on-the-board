@@ -1,3 +1,13 @@
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
 nav {
   background-color: #004585;
 }
@@ -11,4 +21,16 @@ footer.page-footer{
   &:hover {
     background-color: #b52c32;
   }
+}
+
+.lp-button {
+  background-color: #e3383f;
+  width: 254px;
+  &:hover {
+    background-color: #b52c32;
+  }
+}
+
+.btn-logout {
+  margin-right: 20px;
 }
