@@ -11,7 +11,44 @@
   <% if(isAuthenticated) { %>
   <a class="btn button" href="/campaigns/<%= campaign_id %>/pledges/new">Make a pledge</a>
   <% } else { %>
-    <a class="btn button" href="/login">Login to make a pledge</a>
+
+  <a class="waves-effect waves-light btn button modal-trigger" href="#modal1">Login to make a pledge</a>
+
+  <div id="modal1" class="modal">
+    <div class="modal-content">
+      <h5>Login to make pledge</h5>
+      <form class="col s12" action="/campaigns/<%= campaign_id %>" method="POST">
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="username" type="text" class="validate" name="username" autocomplete="new-username">
+            <label for="username">Username</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="password" type="password" class="validate" name="password" autocomplete="new-password">
+            <label for="password">Password</label>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <a href="/users/new">Not a user? Register.</a>
+          <button class="btn waves-effect waves-light button" type="submit" name="action">Login
+          <i class="material-icons right"></i>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
   <% } %>
 
   <div id="react-root"></div>
