@@ -279,7 +279,7 @@ app.post('/campaigns/:id/pledges/new', (req, res) => {
       console.log("Pledge insert result", result);
     })
   })
-  res.redirect('/campaigns/:id');
+  res.redirect(`/campaigns/${req.params.id}`);
 });
 
 //=========================================//

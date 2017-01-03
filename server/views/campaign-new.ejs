@@ -5,6 +5,8 @@
 <% include ./partials/_header %>
 <main>
 
+  <% if (isAuthenticated) { %>
+
   <div class="row">
     <form class="col s12" action="/campaigns" method="POST">
       <div class="row">
@@ -55,6 +57,89 @@
       </button>
     </form>
   </div>
+
+  <% } else { %>
+
+  <div class="row">
+    <form class="col s12" action="/campaigns" method="POST">
+      <div class="row">
+        <label>Game</label>
+        <select name="game" class="browser-default selectpicker">
+          <option name="option1" value="" disabled selected>Choose your option</option>
+          <option value="4a130cc4-3bd4-42ad-ac93-484043a2d5bc">Sens vs Leafs</option>
+        </select>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="campaign_name" type="text" class="validate" name="campaign_name"/>
+          <label class="active" for="campaign_name">Name of Campaign</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="charity_name" type="text" class="validate" name="charity_name"/>
+          <label class="active" for="charity_name">Charity Name</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="charity_url" type="text" class="validate" name="charity_url"/>
+          <label class="active" for="charity_url">Charity URL</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="hashtag" type="text" class="validate" name="hashtag"/>
+          <label class="active" for="hashtag">Hashtag</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="email" type="email" class="validate" name="email" autocomplete="new-password"/>
+          <label class="active" for="email">Email</label>
+        </div>
+      </div>
+       <div class="row">
+        <div class="input-field col s12">
+          <input id="password" type="password" class="validate" name="password" autocomplete="new-password"/>
+          <label class="active" for="password">Password</label>
+        </div>
+      </div>
+      <a class="waves-effect waves-light btn modal-trigger" href="#modal1">
+        Create
+      </a>
+    </form>
+  </div>
+
+    <!-- Modal Structure -->
+
+  <div id="modal1" class="modal">
+    <div class="modal-content">
+      <h5>Login to Create Campaign</h5>
+      <form class="col s12" action="/login" method="POST">
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="username" type="text" class="validate" name="username" autocomplete="new-username">
+            <label for="username">Username</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="password" type="password" class="validate" name="password" autocomplete="new-password">
+            <label for="password">Password</label>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <a href="/users/new">Not a user? Register.</a>
+          <button class="btn waves-effect waves-light button" type="submit" name="action">Login
+          <i class="material-icons right"></i>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <% } %>
 
 </main>
 <% include ./partials/_footer %>
