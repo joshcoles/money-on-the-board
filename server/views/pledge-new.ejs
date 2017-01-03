@@ -28,60 +28,72 @@
 
 <main>
 
-<div class="row">
-  <% if(!isAuthenticated) { %>
+<div class="form-container card">
+  <div class="row">
+    <% if(!isAuthenticated) { %>
 
-    <p> You can't make a pledge unless you're logged in. You can log in <a href="/login">here</a>.</p>
+      <p> You can't make a pledge unless you're logged in. You can log in <a href="/login">here</a>.</p>
 
-  <% } else { %>
+    <% } else { %>
 
-  <form class="col s12" action="/campaigns/<%= campaign_id %>/pledges/new" method="POST">
-    <div class="row">
-     <label>Team</label>
-      <select id="team" name="team" onchange="populate('team','player')" class="">
-        <option value="" disabled selected>Choose your Team</option>
-        <option name="team" value="<%= home_id %>"><%= home_name %></option>
-        <option name="team" value="<%= away_id %>"><%= away_name %></option>
-      </select>
+    <form class="col s12" action="/campaigns/<%= campaign_id %>/pledges/new" method="POST">
+      <div class="row">
+        <h5>Make a Pledge</h5>
+      </div>
+      <div class="row">
+       <label>Team</label>
+        <select id="team" name="team" onchange="populate('team','player')" class="">
+          <option value="" disabled selected>Choose your Team</option>
+          <option class="team-option" name="team" value="<%= home_id %>"><%= home_name %></option>
+          <option class="team-option" name="team" value="<%= away_id %>"><%= away_name %></option>
+        </select>
+      </div>
 
-      <label>Player</label>
-      <select id="player" name="player" class="browser-default">
-      </select>
+      <div class="row">
+        <label>Player</label>
+        <select id="player" name="player" class="browser-default">
+        </select>
+      </div>
 
-      <label>Event</label>
-      <select name="inGameEvent" class="">
-        <option name="option1" value="" disabled selected>Choose your in-game event</option>
-        <option name="goal" value="6">Goal</option>
-        <option name="assist" value="8">
-          Assist
-        </option>
-        <option name="point" value="9">
-          Point
-        </option>
-        <option name="hit" value="4">
-          Hit
-        </option>
-        <option name="penalty" value="5">
-          Penalty
-        </option>
-        <option name="faceoff" value="2">
-          Faceoff Won
-        </option>
-        <option name="shotsaved" value="3">
-          Shot Saved
-        </option>
-      </select>
+      <div class="row">
+        <label>Event</label>
+        <select name="inGameEvent" class="">
+          <option name="option1" value="" disabled selected>Choose your in-game event</option>
+          <option name="goal" value="6">Goal</option>
+          <option name="assist" value="8">
+            Assist
+          </option>
+          <option name="point" value="9">
+            Point
+          </option>
+          <option name="hit" value="4">
+            Hit
+          </option>
+          <option name="penalty" value="5">
+            Penalty
+          </option>
+          <option name="faceoff" value="2">
+            Faceoff Won
+          </option>
+          <option name="shotsaved" value="3">
+            Shot Saved
+          </option>
+        </select>
+      </div>
 
-      <label>Pledge Amount</label>
-        <input id="money" type="text" class="validate" name="money" placeholder="$">
-        <label class="active" for="money"></label>
+      <div class="row">
+       <div class="input-field">
+         <input id="pledge" type="text" class="validate" name="pledge" placeholder="$"/>
+         <label class="active" for="money">Pledge Amount</label>
+       </div>
+     </div>
 
-    </div>
-    <button class="btn waves-effect waves-light button" type="submit" name="action">Submit
-        <i class="material-icons right"></i>
-    </button>
-  </form>
-  <% } %>
+      <button class="btn waves-effect waves-light button" type="submit" name="action">Submit
+          <i class="material-icons right"></i>
+      </button>
+    </form>
+    <% } %>
+  </div>
 </div>
 
 
