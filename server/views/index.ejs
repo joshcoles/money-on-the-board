@@ -5,8 +5,8 @@
 <% include ./partials/_header %>
 <main>
 
-  <a class="twitter-timeline"  width="300"
-  height="500" data-height="400" href="https://twitter.com/SensMotB">Tweets by SensMotB</a>
+  <!-- <a class="twitter-timeline"  width="300"
+  height="500" data-height="400" href="https://twitter.com/SensMotB">Tweets by SensMotB</a> -->
 
   <% if(isAuthenticated) { %>
   <a class="btn button" href="/campaigns/<%= campaign_id %>/pledges/new">Make a pledge</a>
@@ -16,6 +16,12 @@
 
   <div id="react-root"></div>
 
+  <row>
+    <div class="twitter-feed col s6">
+      <a class="twitter-timeline"  width="300"
+      height="500" data-height="400" href="https://twitter.com/SensMotB">Tweets by SensMotB</a>
+    </div>
+  </row>
 
 
   <script src="//localhost:3000/build/bundle.js"></script>
