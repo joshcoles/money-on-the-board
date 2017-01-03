@@ -45,6 +45,21 @@ input[type=text]:focus:not([readonly])+label {
   color: #004585;
 }
 
+input[type=email].valid {
+  border-bottom: 1px solid #D39f29;
+  box-shadow: 0 1px 0 0 #D39f29;
+}
+
+input[type=password].valid {
+  border-bottom: 1px solid #D39f29;
+  box-shadow: 0 1px 0 0 #D39f29;
+}
+
+input[type=text].valid {
+  border-bottom: 1px solid #D39f29;
+  box-shadow: 0 1px 0 0 #D39f29;
+}
+
 .button {
   background-color: #e3383f;
   &:hover {
