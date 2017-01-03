@@ -296,6 +296,11 @@ app.get('/campaigns/new', (req, res) => {
   res.render('campaign-new');
 });
 
+app.post('/campaigns/new/login', passport.authenticate('local', { failureRedirect: '/login' }), (req, res) => {
+  res.redirect('/campaigns/new');
+});
+
+
 app.post('/campaigns', (req, res) => {
   console.log('***Form Submitted***')
   console.log('request body: ', req.body)
