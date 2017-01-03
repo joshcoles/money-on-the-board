@@ -3,14 +3,15 @@
 <% include ./partials/_head %>
 <body>
 <% include ./partials/_header %>
+<main>
 
   <a class="twitter-timeline"  width="300"
   height="500" data-height="400" href="https://twitter.com/SensMotB">Tweets by SensMotB</a>
 
   <% if(isAuthenticated) { %>
-  <a class="btn" href="/campaigns/<%= campaign_id %>/pledges/new">Make a pledge</a>
+  <a class="btn button" href="/campaigns/<%= campaign_id %>/pledges/new">Make a pledge</a>
   <% } else { %>
-    <a class="btn" href="/login">Login to make a pledge</a>
+    <a class="btn button" href="/login">Login to make a pledge</a>
   <% } %>
 
   <div id="react-root"></div>
@@ -18,5 +19,7 @@
 
 
   <script src="//localhost:3000/build/bundle.js"></script>
+</main>
+
 </body>
 </html>

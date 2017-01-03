@@ -3,6 +3,7 @@
 <% include ./partials/_head-pledges %>
 <body>
 <% include ./partials/_header %>
+</main>
 
 <div class="row">
   <% if(!isAuthenticated) { %>
@@ -48,13 +49,12 @@
         </option>
       </select>
 
-
         <label>Pledge Amount</label>
           <input id="money" type="text" class="validate" name="money" placeholder="$">
           <label class="active" for="money"></label>
 
     </div>
-    <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+    <button class="btn waves-effect waves-light button" type="submit" name="action">Submit
         <i class="material-icons right"></i>
     </button>
   </form>
@@ -62,7 +62,8 @@
 </div>
 
 
-
+</main>
 <% include ./partials/_footer %>
+
 </body>
 </html>

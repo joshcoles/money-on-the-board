@@ -3,6 +3,7 @@
 <% include ./partials/_head %>
 <body>
 <% include ./partials/_header %>
+<main>
 
   <div class="row">
     <form class="col s12" action="/campaigns" method="POST">
@@ -49,13 +50,14 @@
           <label class="active" for="password">Password</label>
         </div>
       </div>
-      <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+      <button class="btn waves-effect waves-light button" type="submit" name="action">Submit
         <i class="material-icons right"></i>
       </button>
     </form>
   </div>
 
-
+</main>
 <% include ./partials/_footer %>
+
 </body>
 </html>
