@@ -96,7 +96,8 @@ class App extends Component {
   render() {
     return (
       <div>
-
+        <row>
+          <div className="col s6">
          <FlipCard
             disabled={true}
             flipped={this.state.isFlipped}
@@ -131,26 +132,29 @@ class App extends Component {
               </div>
               </div>
           </FlipCard>
+          </div>
+        </row>
 
-        <div>
-
-         <div className="gameFeed">
-            <div className="panel">
+        <row>
+          <div className=" col s6">
+            <div className="gameFeed">
+             <div className="panel">
               <div className="panel-header">
-                <h1>Game Feef</h1>
-                <div className="panel-content">
-                    <ul className="gameContent">
-                      {this.state && this.state.game && this.state.game.map(event =>
-                     <CustomScroll flex="1">
-                      <li> {event} </li>
-                      </CustomScroll>
-                      )}
-                    </ul>
+                  <h1>Game Feef</h1>
+                  <div className="panel-content">
+                      <ul className="gameContent">
+                        {this.state && this.state.game && this.state.game.map(event =>
+                       <CustomScroll flex="1">
+                        <li> {event} </li>
+                        </CustomScroll>
+                        )}
+                      </ul>
+                  </div>
                 </div>
               </div>
             </div>
-        </div>
-      </div>
+          </div>
+        </row>
     </div>
     );
   }
