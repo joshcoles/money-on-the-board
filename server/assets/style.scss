@@ -98,3 +98,22 @@ input[type=text].valid {
 .btn-logout {
   margin-right: 20px;
 }
+
+#pledge-error {
+  position: relative;
+  top: -1rem;
+  left: 0rem;
+  font-size: 0.8rem;
+  color: #ff4081;
+}
+
+#player-error {
+  position: relative;
+  top: 0rem;
+  left: 0rem;
+  font-size: 0.8rem;
+  color: #ff4081;
+}
+
+
+
