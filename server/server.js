@@ -13,6 +13,9 @@ const bcrypt = require('bcrypt');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const session = require('cookie-session');
+const api_key = 'key-95512dae377edc9ea6fe29d52c74f78d';
+const domain = 'sandboxaa6735332e75406fa7971145060d2387.mailgun.org';
+const mailgun = require('mailgun-js')({apiKey: api_key, domain: domain});
 
 
 const home    = require('../mock-api/sample-data/sportsradar-roster-ottawa.json');
@@ -343,6 +346,15 @@ app.post('/campaigns', (req, res) => {
       console.log("campaign insert result", result);
       if (result.length === 1) {
         const campaign_id = result[0];
+        let email_data = {
+          from: 'MOTB TEAM <postmaster@sandboxaa6735332e75406fa7971145060d2387.mailgun.org>',
+          to: currentUser.email,
+          subject: 'Your Campaign Details',
+          text: 'Thank you for making a campaign with Money on the Board!'
+        };
+        mailgun.messages().send(email_data, function (error, body) {
+          console.log(body);
+        });
         res.redirect(`campaigns/${campaign_id}`);
       } else {
         console.error("number of found campaigns =", result.length);
