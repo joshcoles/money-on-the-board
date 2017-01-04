@@ -77,6 +77,10 @@ input[type=text].valid {
   }
 }
 
+.call-to-action {
+  color: #d39f29;
+}
+
 .campaign-img {
   max-height: 284px;
   min-height: 284px;
@@ -85,8 +89,8 @@ input[type=text].valid {
 }
 
 .caption {
+  color: #b52c32;
   text-shadow: 1px 1px #000;
-  color: #d39f29;
 }
 
 .copywrite {
@@ -108,10 +112,6 @@ input[type=text].valid {
 
 .form-title {
   margin-left: 20px;
-}
-
-.call-to-action {
-  color: #d39f29;
 }
 
 .lp-button {

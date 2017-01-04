@@ -59,6 +59,9 @@ input[type=text].valid {
   .btn:focus {
     background-color: #b52c32; }
 
+.call-to-action {
+  color: #d39f29; }
+
 .campaign-img {
   max-height: 284px;
   min-height: 284px;
@@ -66,8 +69,8 @@ input[type=text].valid {
   min-width: 384px; }
 
 .caption {
-  text-shadow: 1px 1px #000;
-  color: #d39f29; }
+  color: #b52c32;
+  text-shadow: 1px 1px #000; }
 
 .copywrite {
   color: #d39f29; }
@@ -86,7 +89,7 @@ input[type=text].valid {
 .form-title {
   margin-left: 20px; }
 
-.call-to-action {
+.kids {
   color: #d39f29; }
 
 .lp-button {
