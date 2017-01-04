@@ -53,6 +53,9 @@ input[type=text]:focus:not([readonly]) + label {
   padding: 10px;
   width: 75%; }
 
+.form-title {
+  margin-left: 20px; }
+
 .lp-button {
   background-color: #e3383f;
   width: 254px; }

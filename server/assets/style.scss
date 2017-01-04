@@ -69,6 +69,10 @@ input[type=text]:focus:not([readonly])+label {
   width: 75%;
 }
 
+.form-title {
+  margin-left: 20px;
+}
+
 .lp-button {
   background-color: #e3383f;
   width: 254px;
