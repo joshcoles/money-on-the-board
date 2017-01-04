@@ -59,9 +59,16 @@ input[type=text].valid {
   box-shadow: 0 1px 0 0 #D39f29;
 }
 
-.button {
+.btn-logout {
+  margin-right: 20px;
+}
+
+.btn {
   background-color: #e3383f;
   &:hover {
+    background-color: #b52c32;
+  }
+  &:focus {
     background-color: #b52c32;
   }
 }
@@ -93,8 +100,4 @@ input[type=text].valid {
   &:hover {
     background-color: #b52c32;
   }
-}
-
-.btn-logout {
-  margin-right: 20px;
 }

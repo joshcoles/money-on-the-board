@@ -46,9 +46,14 @@ input[type=text].valid {
   border-bottom: 1px solid #D39f29;
   box-shadow: 0 1px 0 0 #D39f29; }
 
-.button {
+.btn-logout {
+  margin-right: 20px; }
+
+.btn {
   background-color: #e3383f; }
-  .button:hover {
+  .btn:hover {
+    background-color: #b52c32; }
+  .btn:focus {
     background-color: #b52c32; }
 
 .copywrite {
@@ -73,8 +78,5 @@ input[type=text].valid {
   width: 254px; }
   .lp-button:hover {
     background-color: #b52c32; }
-
-.btn-logout {
-  margin-right: 20px; }
 
 /*# sourceMappingURL=style.css.map */
