@@ -35,27 +35,48 @@ input[type=text]:focus:not([readonly]) + label {
   color: #004585; }
 
 input[type=email].valid {
-  border-bottom: 1px solid #D39f29;
-  box-shadow: 0 1px 0 0 #D39f29; }
+  border-bottom: 1px solid #d39f29;
+  box-shadow: 0 1px 0 0 #d39f29; }
 
 input[type=password].valid {
-  border-bottom: 1px solid #D39f29;
-  box-shadow: 0 1px 0 0 #D39f29; }
+  border-bottom: 1px solid #d39f29;
+  box-shadow: 0 1px 0 0 #d39f29; }
 
 input[type=text].valid {
-  border-bottom: 1px solid #D39f29;
-  box-shadow: 0 1px 0 0 #D39f29; }
+  border-bottom: 1px solid #d39f29;
+  box-shadow: 0 1px 0 0 #d39f29; }
 
-.button {
+.brand-logo {
+  margin-left: 20px; }
+
+.btn-logout {
+  margin-right: 20px; }
+
+.btn {
   background-color: #e3383f; }
-  .button:hover {
+  .btn:hover {
+    background-color: #b52c32; }
+  .btn:focus {
     background-color: #b52c32; }
 
+.call-to-action {
+  color: #d39f29; }
+
+.campaign-img {
+  max-height: 284px;
+  min-height: 284px;
+  max-width: 384px;
+  min-width: 384px; }
+
+.caption {
+  color: #b52c32;
+  text-shadow: 1px 1px #000; }
+
 .copywrite {
-  color: #D39f29; }
+  color: #d39f29; }
 
 .dropdown-content li > span {
-  color: #D39f29; }
+  color: #d39f29; }
 
 .form-container {
   background-color: #f0f1f1;
@@ -68,14 +89,18 @@ input[type=text].valid {
 .form-title {
   margin-left: 20px; }
 
+.kids {
+  color: #d39f29; }
+
 .lp-button {
-  background-color: #e3383f;
+  background-color: #004585;
+  border: 1px solid #d39f29;
   width: 254px; }
   .lp-button:hover {
     background-color: #b52c32; }
 
-.btn-logout {
-  margin-right: 20px; }
+.motb-title {
+  color: #e3383f; }
 
 #pledge-error {
   position: relative;
