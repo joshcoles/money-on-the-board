@@ -13,10 +13,10 @@
   <% if (isAuthenticated) { %>
 
     <div class="row">
-      <form class="col s12" action="/campaigns" method="POST">
+      <form class="col s12" id="campaign-new" action="/campaigns" method="POST">
         <div class="row">
           <label>Game</label>
-          <select name="game" class="">
+          <select name="game" class="" id="game">
             <option name="option1" value="" disabled selected>Choose your option</option>
             <option value="4a130cc4-3bd4-42ad-ac93-484043a2d5bc">Sens vs Leafs</option>
           </select>
@@ -122,7 +122,7 @@
   <div id="modal1" class="modal">
     <div class="modal-content">
       <h5>Login to Create Campaign</h5>
-      <form class="col s12" action="/campaigns/new/login" method="POST">
+      <form class="col s12" id="campaign-login-modal" action="/campaigns/new/login" method="POST">
         <div class="row">
           <div class="input-field col s12">
             <input id="username" type="text" class="validate" name="username" autocomplete="new-username">

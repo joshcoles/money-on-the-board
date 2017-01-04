@@ -429,6 +429,12 @@ app.post('/campaigns/:id/pledges/new', (req, res) => {
   res.redirect('/campaigns/:id');
 });
 
+
+app.post('/campaigns/:id', passport.authenticate('local', { failureRedirect: '/login' }), (req, res) => {
+  res.redirect(`/campaigns/${req.params.id}/pledges/new`);
+});
+
+
 //=========================================//
 //====== SHOW CAMPAIGN REACT PAGE =========//
 //=========================================//

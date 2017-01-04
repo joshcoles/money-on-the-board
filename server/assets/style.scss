@@ -45,18 +45,18 @@ input[type=text]:focus:not([readonly])+label {
 }
 
 input[type=email].valid {
-  border-bottom: 1px solid #D39f29;
-  box-shadow: 0 1px 0 0 #D39f29;
+  border-bottom: 1px solid #d39f29;
+  box-shadow: 0 1px 0 0 #d39f29;
 }
 
 input[type=password].valid {
-  border-bottom: 1px solid #D39f29;
-  box-shadow: 0 1px 0 0 #D39f29;
+  border-bottom: 1px solid #d39f29;
+  box-shadow: 0 1px 0 0 #d39f29;
 }
 
 input[type=text].valid {
-  border-bottom: 1px solid #D39f29;
-  box-shadow: 0 1px 0 0 #D39f29;
+  border-bottom: 1px solid #d39f29;
+  box-shadow: 0 1px 0 0 #d39f29;
 }
 
 .brand-logo {
@@ -77,6 +77,10 @@ input[type=text].valid {
   }
 }
 
+.call-to-action {
+  color: #d39f29;
+}
+
 .campaign-img {
   max-height: 284px;
   min-height: 284px;
@@ -84,12 +88,17 @@ input[type=text].valid {
   min-width: 384px;
 }
 
+.caption {
+  color: #b52c32;
+  text-shadow: 1px 1px #000;
+}
+
 .copywrite {
-  color: #D39f29;
+  color: #d39f29;
 }
 
 .dropdown-content li>span {
-  color: #D39f29;
+  color: #d39f29;
 }
 
 .form-container {
@@ -106,9 +115,114 @@ input[type=text].valid {
 }
 
 .lp-button {
-  background-color: #e3383f;
+  background-color: #004585;
+  border: 1px solid #d39f29;
   width: 254px;
   &:hover {
     background-color: #b52c32;
   }
 }
+
+.motb-title {
+  color: #e3383f;
+}
+
+#pledge-error {
+  position: relative;
+  top: -1rem;
+  left: 0rem;
+  font-size: 0.8rem;
+  color: #ff4081;
+}
+
+#player-error {
+  position: relative;
+  top: 0rem;
+  left: 0rem;
+  font-size: 0.8rem;
+  color: #ff4081;
+}
+
+#hashtag-error {
+  position: relative;
+  top: -1rem;
+  left: 0rem;
+  font-size: 0.8rem;
+  color: #ff4081;
+}
+
+#image_url-error {
+  position: relative;
+  top: -1rem;
+  left: 0rem;
+  font-size: 0.8rem;
+  color: #ff4081;
+}
+
+#charity_url-error {
+  position: relative;
+  top: -1rem;
+  left: 0rem;
+  font-size: 0.8rem;
+  color: #ff4081;
+}
+
+#charity_name-error {
+  position: relative;
+  top: -1rem;
+  left: 0rem;
+  font-size: 0.8rem;
+  color: #ff4081;
+}
+
+#description-error {
+  position: relative;
+  top: -1rem;
+  left: 0rem;
+  font-size: 0.8rem;
+  color: #ff4081;
+}
+
+#campaign_name-error {
+  position: relative;
+  top: -1rem;
+  left: 0rem;
+  font-size: 0.8rem;
+  color: #ff4081;
+}
+
+#username-error {
+  position: relative;
+  top: -1rem;
+  left: 0rem;
+  font-size: 0.8rem;
+  color: #ff4081;
+}
+
+#email-error {
+  position: relative;
+  top: -1rem;
+  left: 0rem;
+  font-size: 0.8rem;
+  color: #ff4081;
+}
+
+#password-error {
+  position: relative;
+  top: -1rem;
+  left: 0rem;
+  font-size: 0.8rem;
+  color: #ff4081;
+}
+
+#confirm_password-error {
+  position: relative;
+  top: -1rem;
+  left: 0rem;
+  font-size: 0.8rem;
+  color: #ff4081;
+}
+
+
+
+
