@@ -279,14 +279,14 @@ app.post('/campaigns/:id/pledges/new', (req, res) => {
       console.log("Pledge insert result", result);
     })
   })
-  res.redirect('/campaigns/:id');
+  res.redirect(`/campaigns/${req.params.id}`);
 });
 
 //=========================================//
 //======= SHOW/CREATE CAMPAIGNS ===========//
 //=========================================//
 app.get('/campaigns', (req, res) => {
-  db.select('title', 'id').from('campaigns')
+  db.select('title', 'id', 'charity_url', 'charity_name', 'image_url', 'description').from('campaigns')
   .then(campaigns => {
     res.render('campaign-list', {campaigns});
   });
@@ -296,6 +296,11 @@ app.get('/campaigns/new', (req, res) => {
   res.render('campaign-new');
 });
 
+app.post('/campaigns/new/login', passport.authenticate('local', { failureRedirect: '/login' }), (req, res) => {
+  res.redirect('/campaigns/new');
+});
+
+
 app.post('/campaigns', (req, res) => {
   console.log('***Form Submitted***')
   console.log('request body: ', req.body)
@@ -304,16 +309,16 @@ app.post('/campaigns', (req, res) => {
   let charity_name = req.body.charity_name;
   let charity_url = req.body.charity_url;
   let hashtag = req.body.hashtag;
-  let email = req.body.email;
-  let password = req.body.password;
+  let image_url = req.body.image_url;
+  let description = req.body.description
   let currentUser = res.locals.currentUser
   console.log("Game: " + game);
   console.log("Campaign name: " + campaign_name);
   console.log("Charity name: " + charity_name);
   console.log("Charity url: " + charity_url);
   console.log("Hashtag: " + hashtag);
-  console.log("Email: " + email);
-  console.log("Password: " + password);
+  console.log("Description: " + description);
+  console.log("image_url: " + image_url);
   console.log("CurrentUser.id: " + currentUser.id);
 
   db.select('id').from('games').where({game_uuid: game})
@@ -329,6 +334,8 @@ app.post('/campaigns', (req, res) => {
       charity_name: charity_name,
       charity_url: charity_url,
       user_id: currentUser.id,
+      image_url: image_url,
+      description: description,
     }])
     .into('campaigns')
     .returning('id')
@@ -408,7 +415,10 @@ app.post('/campaigns/:id/pledges/new', (req, res) => {
 //=========================================//
 app.get('/campaigns/:id', (req, res) => {
   let campaign_id = req.params.id
-  res.render('index', {campaign_id: campaign_id})
+  db.select('handle').from('campaigns').where({id: campaign_id}).then(hashtag => {
+    let handle = hashtag[0].handle
+  res.render('index', {campaign_id: campaign_id, handle: handle})
+  })
 });
 
 

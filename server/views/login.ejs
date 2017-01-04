@@ -5,24 +5,29 @@
 <% include ./partials/_header %>
 <main>
 
-<div class="row">
-  <form class="col s12" action="/login" method="POST">
-    <div class="row">
-      <div class="input-field col s12">
-        <input id="username" type="text" class="validate" name="username" autocomplete="new-username">
-        <label for="username">Username</label>
+<div class="form-container card">
+  <div class="row">
+    <h5 class="form-title">Login</h5>
+  </div>
+  <div class="row">
+    <form class="col s12" action="/login" method="POST">
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="username" type="text" class="validate" name="username" autocomplete="new-username">
+          <label for="username">Username</label>
+        </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="input-field col s12">
-        <input id="password" type="password" class="validate" name="password" autocomplete="new-password">
-        <label for="password">Password</label>
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="password" type="password" class="validate" name="password" autocomplete="new-password">
+          <label for="password">Password</label>
+        </div>
       </div>
-    </div>
-    <button class="btn waves-effect waves-light button" type="submit" name="action">Submit
-      <i class="material-icons right"></i>
-    </button>
-  </form>
+      <button class="btn waves-effect waves-light button" type="submit" name="action">Submit
+        <i class="material-icons right"></i>
+      </button>
+    </form>
+  </div>
 </div>
 
 </main>

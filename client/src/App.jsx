@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import FlipCard from 'react-flipcard';
-import CustomScroll from 'react-custom-scroll';
+import { Scrollbars } from 'react-custom-scrollbars';
 
 let dataArray = []
 let newTotalPledges = []
@@ -109,7 +109,7 @@ class App extends Component {
                 <h1>Leaderboard</h1>
                   <ul>
                     {this.state.pledges.map(total =>
-                    <li className="right-align">User: {total.username}, {total.totalPledges.reduce(function(a, b) {
+                    <li className="leaderboard-user">User: {total.username}, {total.totalPledges.reduce(function(a, b) {
                       return a + b;
                     }, 0)}
                     </li>
@@ -140,16 +140,15 @@ class App extends Component {
             <div className="gameFeed">
              <div className="panel">
               <div className="panel-header">
-                  <h1>Game Feef</h1>
-                  <div className="panel-content">
-                      <ul className="gameContent">
-                        {this.state && this.state.game && this.state.game.map(event =>
-                       <CustomScroll flex="1">
-                        <li> {event} </li>
-                        </CustomScroll>
-                        )}
-                      </ul>
-                  </div>
+                <h1>Game Feef</h1>
+                <div className="panel-content">
+                  <Scrollbars>
+                    <ul className="gameContent">
+                      {this.state && this.state.game && this.state.game.map(event =>
+                      <li> {event} </li>
+                      )}
+                    </ul>
+                     </Scrollbars>
                 </div>
               </div>
             </div>

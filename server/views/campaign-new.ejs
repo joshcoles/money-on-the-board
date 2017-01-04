@@ -5,11 +5,72 @@
 <% include ./partials/_header %>
 <main>
 
+  <div class="form-container card">
+    <div class="row">
+      <h5 class="form-title">Create New Campaign</h5>
+    </div>
+
+  <% if (isAuthenticated) { %>
+
+    <div class="row">
+      <form class="col s12" action="/campaigns" method="POST">
+        <div class="row">
+          <label>Game</label>
+          <select name="game" class="">
+            <option name="option1" value="" disabled selected>Choose your option</option>
+            <option value="4a130cc4-3bd4-42ad-ac93-484043a2d5bc">Sens vs Leafs</option>
+          </select>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="campaign_name" type="text" class="validate" name="campaign_name"/>
+            <label class="active" for="campaign_name">Name of Campaign</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="description" type="text" class="validate" name="description"/>
+            <label class="active" for="description">Description</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="charity_name" type="text" class="validate" name="charity_name"/>
+            <label class="active" for="charity_name">Charity Name</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="charity_url" type="text" class="validate" name="charity_url"/>
+            <label class="active" for="charity_url">Charity URL</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="image_url" type="text" class="validate" name="image_url"/>
+            <label class="active" for="image_url">Image URL</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="hashtag" type="text" class="validate" name="hashtag"/>
+            <label class="active" for="hashtag">Hashtag</label>
+          </div>
+        </div>
+        <button class="btn waves-effect waves-light button" type="submit" name="action">Submit
+          <i class="material-icons right"></i>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <% } else { %>
+
   <div class="row">
     <form class="col s12" action="/campaigns" method="POST">
       <div class="row">
         <label>Game</label>
-        <select name="game" class="browser-default selectpicker">
+        <select name="game" class="">
           <option name="option1" value="" disabled selected>Choose your option</option>
           <option value="4a130cc4-3bd4-42ad-ac93-484043a2d5bc">Sens vs Leafs</option>
         </select>
@@ -18,6 +79,12 @@
         <div class="input-field col s12">
           <input id="campaign_name" type="text" class="validate" name="campaign_name"/>
           <label class="active" for="campaign_name">Name of Campaign</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="description" type="text" class="validate" name="description"/>
+          <label class="active" for="description">Description</label>
         </div>
       </div>
       <div class="row">
@@ -34,27 +101,51 @@
       </div>
       <div class="row">
         <div class="input-field col s12">
-          <input id="hashtag" type="text" class="validate" name="hashtag"/>
-          <label class="active" for="hashtag">Hashtag</label>
+          <input id="image_url" type="text" class="validate" name="image_url"/>
+          <label class="active" for="image_url">Image URL</label>
         </div>
       </div>
       <div class="row">
         <div class="input-field col s12">
-          <input id="email" type="email" class="validate" name="email" autocomplete="new-password"/>
-          <label class="active" for="email">Email</label>
+          <input id="hashtag" type="text" class="validate" name="hashtag"/>
+          <label class="active" for="hashtag">Hashtag</label>
         </div>
       </div>
-       <div class="row">
-        <div class="input-field col s12">
-          <input id="password" type="password" class="validate" name="password" autocomplete="new-password"/>
-          <label class="active" for="password">Password</label>
-        </div>
-      </div>
-      <button class="btn waves-effect waves-light button" type="submit" name="action">Submit
-        <i class="material-icons right"></i>
-      </button>
+      <a class="waves-effect waves-light btn modal-trigger button" href="#modal1">
+        Create
+      </a>
     </form>
   </div>
+
+    <!-- Modal Structure -->
+
+  <div id="modal1" class="modal">
+    <div class="modal-content">
+      <h5>Login to Create Campaign</h5>
+      <form class="col s12" action="/campaigns/new/login" method="POST">
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="username" type="text" class="validate" name="username" autocomplete="new-username">
+            <label for="username">Username</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="password" type="password" class="validate" name="password" autocomplete="new-password">
+            <label for="password">Password</label>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <a href="/users/new">Not a user? Register.</a>
+          <button class="btn waves-effect waves-light button" type="submit" name="action">Login
+          <i class="material-icons right"></i>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <% } %>
 
 </main>
 <% include ./partials/_footer %>
