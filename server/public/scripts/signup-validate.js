@@ -1,16 +1,16 @@
 $(document).ready(function() {
-  $('#pledge-new').validate({
+  $('#signup').validate({
     rules: {
-      team: {
+      username: {
         required: true,
       },
-      player: {
+      email: {
         required: true,
       },
-      inGameEvent: {
+      password: {
         required: true,
       },
-      pledge: {
+      confirm_password: {
         required: true
       }
     },

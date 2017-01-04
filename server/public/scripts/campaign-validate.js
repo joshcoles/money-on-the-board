@@ -3,6 +3,7 @@ $(document).ready(function() {
     rules: {
       game: {
         required: true,
+        min: 1
       },
       campaign_name: {
         required: true,
@@ -24,8 +25,6 @@ $(document).ready(function() {
       }
     },
     submitHandler: function(form) {
-      // alert("Valid form submitted");
-      // return false;
       form.submit();
     }
   });

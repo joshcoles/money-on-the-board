@@ -1,18 +1,12 @@
 $(document).ready(function() {
-  $('#pledge-new').validate({
+  $('#login').validate({
     rules: {
-      team: {
+      username: {
         required: true,
       },
-      player: {
+      password: {
         required: true,
       },
-      inGameEvent: {
-        required: true,
-      },
-      pledge: {
-        required: true
-      }
     },
     submitHandler: function(form) {
       form.submit();
