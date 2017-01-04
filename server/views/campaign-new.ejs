@@ -13,10 +13,10 @@
   <% if (isAuthenticated) { %>
 
     <div class="row">
-      <form class="col s12" action="/campaigns" method="POST">
+      <form class="col s12" id="campaign-new" action="/campaigns" method="POST">
         <div class="row">
           <label>Game</label>
-          <select name="game" class="">
+          <select name="game" class="" id="game">
             <option name="option1" value="" disabled selected>Choose your option</option>
             <option value="4a130cc4-3bd4-42ad-ac93-484043a2d5bc">Sens vs Leafs</option>
           </select>
