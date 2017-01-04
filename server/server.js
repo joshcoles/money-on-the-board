@@ -313,8 +313,8 @@ app.post('/campaigns', (req, res) => {
   let charity_url = req.body.charity_url;
   let hashtag = req.body.hashtag;
   let image_url = req.body.image_url;
-  let description = req.body.description
-  let currentUser = res.locals.currentUser
+  let description = req.body.description;
+  let currentUser = res.locals.currentUser;
   console.log("Game: " + game);
   console.log("Campaign name: " + campaign_name);
   console.log("Charity name: " + charity_name);
@@ -350,7 +350,14 @@ app.post('/campaigns', (req, res) => {
           from: 'MOTB TEAM <postmaster@sandboxaa6735332e75406fa7971145060d2387.mailgun.org>',
           to: currentUser.email,
           subject: 'Your Campaign Details',
-          text: `Thank you for making a campaign with Money on the Board! Here are the details about the campaign: Twitter Account: ${hashtag}, Title: ${campaign_name}, Charity Name: ${charity_name}, Donation Link: ${charity_url}, description: ${description}`
+          text: `Hi ${currentUser.username}!\
+          Thank you for making a campaign with Money on the Board! Here are the details about the campaign:\
+          Twitter Account: ${hashtag}\
+          Title: ${campaign_name}\
+          Charity Name: ${charity_name}\
+          Donation Link: ${charity_url}\
+          description: ${description}\
+          Sharable Link: http://localhost:8080/campaigns/${result[0]}`
         };
         mailgun.messages().send(email_data, function (error, body) {
           console.log(body);
