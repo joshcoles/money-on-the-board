@@ -88,19 +88,10 @@
        </div>
      </div>
 
-      <a class="btn waves-effect waves-light button" href="#modal2">Submit
+      <button class="btn waves-effect waves-light button" type="submit" name="action">Submit
           <i class="material-icons right"></i>
-      </a>
-      <!-- Modal Structure -->
-      <div id="modal2" class="modal modal-fixed-footer bottom-sheet">
-        <div class="modal-content">
-          <h4>Do you Promise?</h4>
-          <p>I, <%= currentUser.username %>, promise to follow the privided link and donate my total pledge amount to charity.</p>
-        </div>
-        <div class="modal-footer">
-          <button class="modal-action modal-close waves-effect waves-green btn-flat" type="submit" name="action">Agree</button>
-        </div>
-      </div>
+      </button>
+      
     </form>
     <% } %>
   </div>
