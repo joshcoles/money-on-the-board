@@ -88,7 +88,6 @@ class App extends Component {
 
   handleOnFlip(flipped) {
     if (flipped) {
-      // this.refs.backButton.getDOMNode().focus();
       ReactDOM.getDOMNode(this.refs.backButton).focus();
     }
   }
@@ -97,63 +96,73 @@ class App extends Component {
     return (
       <div>
         <row>
-          <div className="col s6">
-         <FlipCard
-            disabled={true}
-            flipped={this.state.isFlipped}
-            onFlip={this.handleOnFlip}
-          >
-            <div className="front">
-            <div className="leaderboard">
-              <button type="button" onClick={this.showBack}>Flip it!</button>
-                <h1>Leaderboard</h1>
-                  <ul>
-                    {this.state.pledges.map(total =>
-                    <li className="leaderboard-user">User: {total.username}, {total.totalPledges.reduce(function(a, b) {
-                      return a + b;
-                    }, 0)}
-                    </li>
-                    )}
-                  </ul>
-            </div>
+          <div className="col s12 m4 l4 flip-board">
+           <FlipCard
+              disabled={true}
+              flipped={this.state.isFlipped}
+              onFlip={this.handleOnFlip}
+            >
+            <div className="col s12 m4 l4 leaderboard">
+              <div className="col s12 m4 l4 front">
+                <button className="flip-button" type="button" ref="frontButton" onClick={this.showBack}>Flip it!</button>
+                  <h1>Leaderboard</h1>
+                    <div className="leaderboard-data">
+                      <ul>
+                        {this.state.pledges.map(total =>
+                        <li className="leaderboard-user">User: {total.username} ${total.totalPledges.reduce(function(a, b) {
+                          return a + b;
+                        }, 0)}
+                        </li>
+                        )}
+                      </ul>
+                    </div>
+              </div>
             </div>
 
-            <div className="back">
-            <div className="pledges">
-             <button type="button" ref="backButton" onClick={this.showFront}>Flip it!</button>
-                <h1>Pledges</h1>
-                  <ul>
-                  {this.state && this.state.pledges && this.state.pledges.map(pledge =>
-                    pledge.pledged.map(userPledge =>
-                      <li className="right-align">User: {userPledge.username}, Event: {userPledge.pledge_event}, Amount: {userPledge.pledge_amount}, Occurance: {userPledge.occurance}, Owes: {userPledge.owes}</li>
-                      )
-                    )}
-                  </ul>
+            <div className="col s12 m4 l4 pledges">
+              <div className="col s12 m4 l4 back">
+               <button className="flip-button" type="button" ref="backButton" onClick={this.showFront}>Flip it!</button>
+                  <h1>Pledges</h1>
+                    <div className="pledge-data">
+
+                        <ul>
+
+                        {this.state && this.state.pledges && this.state.pledges.map(pledge =>
+                          pledge.pledged.map(userPledge =>
+                            <li className="user-pledge-data">User: {userPledge.username} <br></br> Event: {userPledge.pledge_event}, Amount: {userPledge.pledge_amount}, Occurance: {userPledge.occurance}, Owes: ${userPledge.owes}</li>
+                            )
+                          )}
+
+                        </ul>
+
+                    </div>
               </div>
-              </div>
-          </FlipCard>
+            </div>
+           </FlipCard>
           </div>
         </row>
 
-        <row>
-          <div className=" col s6">
-            <div className="gameFeed">
-             <div className="panel">
-              <div className="panel-header">
+          <row>
+
+            <div className="col s12 m4 l4 game-feed">
+
+              <div className="col s12 m4 l4 panel">
                 <h1>Game Feef</h1>
                 <div className="panel-content">
                   <Scrollbars>
-                    <ul className="gameContent">
+                    <ul className="game-content">
                       {this.state && this.state.game && this.state.game.map(event =>
                       <li> {event} </li>
                       )}
                     </ul>
-                     </Scrollbars>
+                  </Scrollbars>
                 </div>
               </div>
-            </div>
+
           </div>
-        </row>
+
+          </row>
+
     </div>
     );
   }
