@@ -350,7 +350,7 @@ app.post('/campaigns', (req, res) => {
           from: 'MOTB TEAM <postmaster@sandboxaa6735332e75406fa7971145060d2387.mailgun.org>',
           to: currentUser.email,
           subject: 'Your Campaign Details',
-          text: 'Thank you for making a campaign with Money on the Board!'
+          text: `Thank you for making a campaign with Money on the Board! Here are the details about the campaign: Twitter Account: ${hashtag}, Title: ${campaign_name}, Charity Name: ${charity_name}, Donation Link: ${charity_url}, description: ${description}`
         };
         mailgun.messages().send(email_data, function (error, body) {
           console.log(body);
