@@ -4,7 +4,7 @@
       <form action="/<%= isAuthenticated ? 'logout' : 'login' %>" method="post">
       <a href="/" class="brand-logo">MOTB</a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a href="/">Home</a></li>
+        <li><a href="/campaigns">Current Campaigns</a></li>
         <li><a href="/campaigns/new">Create</a></li>
         <% if(isAuthenticated) { %>
         <li><a>Welcome, <%= currentUser.username %>.</a></li>
