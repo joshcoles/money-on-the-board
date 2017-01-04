@@ -45,18 +45,18 @@ input[type=text]:focus:not([readonly])+label {
 }
 
 input[type=email].valid {
-  border-bottom: 1px solid #D39f29;
-  box-shadow: 0 1px 0 0 #D39f29;
+  border-bottom: 1px solid #d39f29;
+  box-shadow: 0 1px 0 0 #d39f29;
 }
 
 input[type=password].valid {
-  border-bottom: 1px solid #D39f29;
-  box-shadow: 0 1px 0 0 #D39f29;
+  border-bottom: 1px solid #d39f29;
+  box-shadow: 0 1px 0 0 #d39f29;
 }
 
 input[type=text].valid {
-  border-bottom: 1px solid #D39f29;
-  box-shadow: 0 1px 0 0 #D39f29;
+  border-bottom: 1px solid #d39f29;
+  box-shadow: 0 1px 0 0 #d39f29;
 }
 
 .brand-logo {
@@ -85,11 +85,11 @@ input[type=text].valid {
 }
 
 .copywrite {
-  color: #D39f29;
+  color: #d39f29;
 }
 
 .dropdown-content li>span {
-  color: #D39f29;
+  color: #d39f29;
 }
 
 .form-container {
@@ -105,10 +105,19 @@ input[type=text].valid {
   margin-left: 20px;
 }
 
+.call-to-action {
+  color: #d39f29;
+}
+
 .lp-button {
-  background-color: #e3383f;
+  background-color: #004585;
+  border: 1px solid #d39f29;
   width: 254px;
   &:hover {
     background-color: #b52c32;
   }
+}
+
+.motb-title {
+  color: #e3383f;
 }
