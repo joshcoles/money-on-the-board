@@ -1,23 +1,90 @@
-.gameFeed {
-  display: flex;
-  height: 600px;
-  margin-left: 600px;
-  background-color: blue;
+.flip-button {
+  float: right;
+  margin-right: 10px;
+  margin-top: 10px;
 }
 
-.gameContent {
-  flex: 1;
+.flip-board {
+  margin: 0 50px;
+}
+.game-content {
   height: 400px;
   min-height: 0;
   min-width: 0;
   overflow: scroll;
-  background-color: red;
+}
+
+.game-feed {
+  display: inline-flex;
+  margin: 250px 50px 0 50px;
+  height: 600px;
+  background-color: blue;
+  width: 500px;
+}
+
+.leaderboard {
+  background-color: green;
+  display: inline-flex;
+  width: 500px;
+}
+
+.leaderboard-data {
+  background-color: grey;
+  margin: 10px;
+}
+
+.leaderboard-user {
+  margin: 5px;
+}
+.front {
+  display: block;
+  width: 500px;
+}
+.back {
+  display: block;
+  width: 500px;
 }
 
 .panel-content {
-  height: 500px;
+  background-color: red;
+  height: 400px;
+  margin: 10px;
+
+}
+
+.panel {
+  display: block;
+  width: 500px;
+}
+.pledges {
+  background-color: purple;
+  display: inline-flex;
+  width: 500px;
+}
+
+.pledge-data {
+  background-color: grey;
+  margin: 10px;
+}
+
+.pledge-button {
+  text-align: center;
+  margin: 25px 0;
+}
+
+.react {
+  display: block;
 }
 
 .twitter-feed {
+  /*display: inline-flex;*/
   float: right;
+  margin: -870px 50px 0 50px;
+  border: solid;
+}
+
+.user-pledge-data {
+  min-height: 0;
+  min-width: 0;
+  overflow: scroll;
 }
