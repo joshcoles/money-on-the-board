@@ -5,15 +5,23 @@
 <% include ./partials/_header %>
 <main>
 
+  <% if (isAuthenticated) { %>
+    <div class="pledge-button">
+      <a class="btn button" href="/campaigns/<%= campaign_id %>/pledges/new">Make a pledge</a>
+    </div>
+  <% } else { %>
+    <div class="pledge-button">
+      <a class="waves-effect waves-light btn button modal-trigger" href="#modal1">Login to make a pledge</a>
+    </div>
+  <% } %>
 
-  <div class="pledge-button">
-    <a class="waves-effect waves-light btn button modal-trigger" href="#modal1">Login to make a pledge</a>
-  </div>
+
+
 
   <div id="modal1" class="modal">
     <div class="modal-content">
       <h5>Login to make pledge</h5>
-      <form class="col s12" action="/campaigns/<%= campaign_id %>" method="POST">
+      <form class="col s12" id="login-modal" action="/campaigns/<%= campaign_id %>" method="POST">
         <div class="row">
           <div class="input-field col s12">
             <input id="username" type="text" class="validate" name="username" autocomplete="new-username">
