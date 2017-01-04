@@ -60,7 +60,8 @@ input[type=text].valid {
     background-color: #b52c32; }
 
 .call-to-action {
-  color: #d39f29; }
+  color: #d39f29;
+  text-shadow: 1px 1px #000; }
 
 .campaign-img {
   max-height: 284px;
@@ -88,9 +89,6 @@ input[type=text].valid {
 
 .form-title {
   margin-left: 20px; }
-
-.kids {
-  color: #d39f29; }
 
 .lp-button {
   background-color: #004585;
