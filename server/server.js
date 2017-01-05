@@ -412,7 +412,7 @@ app.post('/campaigns/:id/pledges/new', (req, res) => {
 
 
 app.post('/campaigns/:id', passport.authenticate('local', { failureRedirect: '/login' }), (req, res) => {
-  res.redirect(`/campaigns/${req.params.id}`);
+  res.redirect(`/campaigns/${req.params.id}/pledges/new`);
 });
 
 
