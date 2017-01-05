@@ -1,3 +1,31 @@
+.about-container {
+  background-color: #F0F1F1;
+  margin-left: 15%;
+  margin-right: 15%;
+  margin-top: 25px;
+  padding: 10px;
+  width: 75%; }
+
+.btn {
+  background-color: #E3383F; }
+  .btn:hover {
+    background-color: #b52c32; }
+  .btn:focus {
+    background-color: #b52c32; }
+
+.btn-log {
+  margin-right: 20px;
+  padding-left: 1px;
+  padding-right: 1px;
+  width: 106px; }
+
+.lp-button {
+  background-color: #004585;
+  border: 1px solid #D39F29;
+  width: 254px; }
+  .lp-button:hover {
+    background-color: #b52c32; }
+
 #pledge-error {
   position: relative;
   top: -1rem;
@@ -81,26 +109,6 @@
   left: 0rem;
   font-size: 0.8rem;
   color: #E3383F; }
-
-.btn {
-  background-color: #E3383F; }
-  .btn:hover {
-    background-color: #b52c32; }
-  .btn:focus {
-    background-color: #b52c32; }
-
-.btn-log {
-  margin-right: 20px;
-  padding-left: 1px;
-  padding-right: 1px;
-  width: 106px; }
-
-.lp-button {
-  background-color: #004585;
-  border: 1px solid #D39F29;
-  width: 254px; }
-  .lp-button:hover {
-    background-color: #b52c32; }
 
 input[type=text]:focus:not([readonly]) {
   border-bottom: 1px solid #004585;
@@ -202,110 +210,6 @@ nav {
   padding: 15px; }
 
 .motb-title {
-  color: #E3383F; }
-
-.btn {
-  background-color: #E3383F; }
-  .btn:hover {
-    background-color: #b52c32; }
-  .btn:focus {
-    background-color: #b52c32; }
-
-.btn-log {
-  margin-right: 20px;
-  padding-left: 1px;
-  padding-right: 1px;
-  width: 106px; }
-
-.lp-button {
-  background-color: #004585;
-  border: 1px solid #D39F29;
-  width: 254px; }
-  .lp-button:hover {
-    background-color: #b52c32; }
-
-#pledge-error {
-  position: relative;
-  top: -1rem;
-  left: 0rem;
-  font-size: 0.8rem;
-  color: #E3383F; }
-
-#player-error {
-  position: relative;
-  top: 0rem;
-  left: 0rem;
-  font-size: 0.8rem;
-  color: #E3383F; }
-
-#hashtag-error {
-  position: relative;
-  top: -1rem;
-  left: 0rem;
-  font-size: 0.8rem;
-  color: #E3383F; }
-
-#image_url-error {
-  position: relative;
-  top: -1rem;
-  left: 0rem;
-  font-size: 0.8rem;
-  color: #E3383F; }
-
-#charity_url-error {
-  position: relative;
-  top: -1rem;
-  left: 0rem;
-  font-size: 0.8rem;
-  color: #E3383F; }
-
-#charity_name-error {
-  position: relative;
-  top: -1rem;
-  left: 0rem;
-  font-size: 0.8rem;
-  color: #E3383F; }
-
-#description-error {
-  position: relative;
-  top: -1rem;
-  left: 0rem;
-  font-size: 0.8rem;
-  color: #E3383F; }
-
-#campaign_name-error {
-  position: relative;
-  top: -1rem;
-  left: 0rem;
-  font-size: 0.8rem;
-  color: #E3383F; }
-
-#username-error {
-  position: relative;
-  top: -1rem;
-  left: 0rem;
-  font-size: 0.8rem;
-  color: #E3383F; }
-
-#email-error {
-  position: relative;
-  top: -1rem;
-  left: 0rem;
-  font-size: 0.8rem;
-  color: #E3383F; }
-
-#password-error {
-  position: relative;
-  top: -1rem;
-  left: 0rem;
-  font-size: 0.8rem;
-  color: #E3383F; }
-
-#confirm_password-error {
-  position: relative;
-  top: -1rem;
-  left: 0rem;
-  font-size: 0.8rem;
   color: #E3383F; }
 
 /*# sourceMappingURL=style.css.map */
