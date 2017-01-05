@@ -1,3 +1,87 @@
+#pledge-error {
+  position: relative;
+  top: -1rem;
+  left: 0rem;
+  font-size: 0.8rem;
+  color: #E3383F; }
+
+#player-error {
+  position: relative;
+  top: 0rem;
+  left: 0rem;
+  font-size: 0.8rem;
+  color: #E3383F; }
+
+#hashtag-error {
+  position: relative;
+  top: -1rem;
+  left: 0rem;
+  font-size: 0.8rem;
+  color: #E3383F; }
+
+#image_url-error {
+  position: relative;
+  top: -1rem;
+  left: 0rem;
+  font-size: 0.8rem;
+  color: #E3383F; }
+
+#charity_url-error {
+  position: relative;
+  top: -1rem;
+  left: 0rem;
+  font-size: 0.8rem;
+  color: #E3383F; }
+
+#charity_name-error {
+  position: relative;
+  top: -1rem;
+  left: 0rem;
+  font-size: 0.8rem;
+  color: #E3383F; }
+
+#description-error {
+  position: relative;
+  top: -1rem;
+  left: 0rem;
+  font-size: 0.8rem;
+  color: #E3383F; }
+
+#campaign_name-error {
+  position: relative;
+  top: -1rem;
+  left: 0rem;
+  font-size: 0.8rem;
+  color: #E3383F; }
+
+#username-error {
+  position: relative;
+  top: -1rem;
+  left: 0rem;
+  font-size: 0.8rem;
+  color: #E3383F; }
+
+#email-error {
+  position: relative;
+  top: -1rem;
+  left: 0rem;
+  font-size: 0.8rem;
+  color: #E3383F; }
+
+#password-error {
+  position: relative;
+  top: -1rem;
+  left: 0rem;
+  font-size: 0.8rem;
+  color: #E3383F; }
+
+#confirm_password-error {
+  position: relative;
+  top: -1rem;
+  left: 0rem;
+  font-size: 0.8rem;
+  color: #E3383F; }
+
 body {
   display: flex;
   min-height: 100vh;
@@ -45,6 +129,13 @@ input[type=text].valid {
   border-bottom: 1px solid #d39f29;
   box-shadow: 0 1px 0 0 #d39f29; }
 
+textarea.materialize-textarea:focus:not([readonly]) {
+  border-bottom: 1px solid #d39f29;
+  box-shadow: 0 1px 0 0 #d39f29; }
+
+textarea.materialize-textarea:focus:not([readonly]) + label {
+  color: #004585; }
+
 .brand-logo {
   margin-left: 20px; }
 
@@ -76,7 +167,6 @@ input[type=text].valid {
   text-shadow: 1px 1px #000; }
 
 .copywrite {
-  color: #d39f29;
   margin: 0; }
 
 .dropdown-content li > span {
@@ -105,89 +195,5 @@ input[type=text].valid {
 
 .motb-title {
   color: #e3383f; }
-
-#pledge-error {
-  position: relative;
-  top: -1rem;
-  left: 0rem;
-  font-size: 0.8rem;
-  color: #ff4081; }
-
-#player-error {
-  position: relative;
-  top: 0rem;
-  left: 0rem;
-  font-size: 0.8rem;
-  color: #ff4081; }
-
-#hashtag-error {
-  position: relative;
-  top: -1rem;
-  left: 0rem;
-  font-size: 0.8rem;
-  color: #ff4081; }
-
-#image_url-error {
-  position: relative;
-  top: -1rem;
-  left: 0rem;
-  font-size: 0.8rem;
-  color: #ff4081; }
-
-#charity_url-error {
-  position: relative;
-  top: -1rem;
-  left: 0rem;
-  font-size: 0.8rem;
-  color: #ff4081; }
-
-#charity_name-error {
-  position: relative;
-  top: -1rem;
-  left: 0rem;
-  font-size: 0.8rem;
-  color: #ff4081; }
-
-#description-error {
-  position: relative;
-  top: -1rem;
-  left: 0rem;
-  font-size: 0.8rem;
-  color: #ff4081; }
-
-#campaign_name-error {
-  position: relative;
-  top: -1rem;
-  left: 0rem;
-  font-size: 0.8rem;
-  color: #ff4081; }
-
-#username-error {
-  position: relative;
-  top: -1rem;
-  left: 0rem;
-  font-size: 0.8rem;
-  color: #ff4081; }
-
-#email-error {
-  position: relative;
-  top: -1rem;
-  left: 0rem;
-  font-size: 0.8rem;
-  color: #ff4081; }
-
-#password-error {
-  position: relative;
-  top: -1rem;
-  left: 0rem;
-  font-size: 0.8rem;
-  color: #ff4081; }
-
-#confirm_password-error {
-  position: relative;
-  top: -1rem;
-  left: 0rem;
-  font-size: 0.8rem;
-  color: #ff4081; }
 
 /*# sourceMappingURL=style.css.map */
