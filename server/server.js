@@ -2,6 +2,7 @@
 //=========================================//
 //=========== DEPENDENCIES ================//
 //=========================================//
+require('dotenv').config();
 const request = require('request');
 const express = require('express');
 const app = express();
@@ -13,9 +14,7 @@ const bcrypt = require('bcrypt');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const session = require('cookie-session');
-const api_key = 'key-95512dae377edc9ea6fe29d52c74f78d';
-const domain = 'sandboxaa6735332e75406fa7971145060d2387.mailgun.org';
-const mailgun = require('mailgun-js')({apiKey: api_key, domain: domain});
+const mailgun = require('mailgun-js')({apiKey: process.env.MAILGUN_KEY, domain: process.env.MAILGUN_DOMAIN});
 
 
 const home    = require('../mock-api/sample-data/sportsradar-roster-ottawa.json');
@@ -531,7 +530,6 @@ function pollGame() {
     }
   });
 }
-pollGame();
 
 server.listen(app.get('port'), (err) => {
  if (err) throw err;
