@@ -1,0 +1,25 @@
+.btn {
+  background-color: $primary-2;
+  &:hover {
+    background-color: $primary-2-hover;
+  }
+  &:focus {
+    background-color: $primary-2-hover;
+  }
+}
+
+.btn-log {
+  margin-right: 20px;
+  padding-left: 1px;
+  padding-right: 1px;
+  width: 106px;
+}
+
+.lp-button {
+  background-color: $primary-1;
+  border: 1px solid $accent-1;
+  width: 254px;
+  &:hover {
+    background-color: $primary-2-hover;
+  }
+}
