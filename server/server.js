@@ -531,6 +531,8 @@ function pollGame() {
   });
 }
 
+pollGame();
+
 server.listen(app.get('port'), (err) => {
  if (err) throw err;
  console.log(`MOTB server running on port ${app.get('port')}`);
