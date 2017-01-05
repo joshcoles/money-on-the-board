@@ -59,6 +59,15 @@ input[type=text].valid {
   box-shadow: 0 1px 0 0 #d39f29;
 }
 
+textarea.materialize-textarea:focus:not([readonly]) {
+  border-bottom: 1px solid #d39f29;
+  box-shadow: 0 1px 0 0 #d39f29;
+}
+
+textarea.materialize-textarea:focus:not([readonly])+label {
+  color: #004585;
+}
+
 .brand-logo {
   margin-left: 20px;
 }
@@ -98,7 +107,7 @@ input[type=text].valid {
 }
 
 .copywrite {
-  color: #d39f29;
+  // color: #d39f29;
   margin: 0;
 }
 
