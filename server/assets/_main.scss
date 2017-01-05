@@ -1,0 +1,36 @@
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+.brand-logo {
+  margin-left: 20px;
+}
+
+.call-to-action {
+  color: $accent-1;
+  text-shadow: 1px 1px $black;
+}
+
+.campaign-img {
+  max-height: 284px;
+  min-height: 284px;
+  max-width: 384px;
+  min-width: 384px;
+}
+
+.caption {
+  color: #b52c32;
+  text-shadow: 1px 1px $black;
+}
+
+
+.go-to {
+  position: fixed;
+  bottom: 20px;
+}
