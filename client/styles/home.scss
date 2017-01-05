@@ -28,6 +28,13 @@
   width: 500px;
 }
 
+.leaderboard-content {
+  height: 100px;
+  min-height: 0;
+  min-width: 0;
+  overflow: scroll;
+}
+
 .leaderboard-data {
   background-color: grey;
   margin: 10px;
@@ -62,6 +69,13 @@
   width: 500px;
 }
 
+.pledge-content {
+  height: 100px;
+  min-height: 0;
+  min-width: 0;
+  overflow: scroll;
+}
+
 .pledge-data {
   background-color: grey;
   margin: 10px;
@@ -73,18 +87,13 @@
 }
 
 .react {
-  display: block;
+  display: inline-flex;
 }
 
 .twitter-feed {
-  /*display: inline-flex;*/
-  float: right;
-  margin: -870px 50px 0 50px;
+  display: inline-flex;
+  /*float: right;*/
+  margin: -870px 50px 0 620px;
   border: solid;
 }
 
-.user-pledge-data {
-  min-height: 0;
-  min-width: 0;
-  overflow: scroll;
-}
