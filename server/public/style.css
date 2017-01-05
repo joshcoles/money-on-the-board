@@ -136,6 +136,10 @@ textarea.materialize-textarea:focus:not([readonly]) {
 textarea.materialize-textarea:focus:not([readonly]) + label {
   color: #004585; }
 
+textarea.materialize-textarea.valid {
+  border-bottom: 1px solid #d39f29;
+  box-shadow: 0 1px 0 0 #d39f29; }
+
 .brand-logo {
   margin-left: 20px; }
 
@@ -185,6 +189,10 @@ textarea.materialize-textarea:focus:not([readonly]) + label {
 
 .form-title {
   margin-left: 20px; }
+
+.go-to {
+  position: fixed;
+  bottom: 20px; }
 
 .lp-button {
   background-color: #004585;
