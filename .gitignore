@@ -5,3 +5,7 @@ config/settings.json
 data
 sample-data
 client/dist/bundle.js
+server/.sass-cache
+server/.sass-cache/*
+style.css.map
+.sass-cache/*
