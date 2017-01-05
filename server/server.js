@@ -2,6 +2,7 @@
 //=========================================//
 //=========== DEPENDENCIES ================//
 //=========================================//
+
 require('dotenv').config();
 const request = require('request');
 const express = require('express');
@@ -14,11 +15,14 @@ const bcrypt = require('bcrypt');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const session = require('cookie-session');
-const mailgun = require('mailgun-js')({apiKey: process.env.MAILGUN_KEY, domain: process.env.MAILGUN_DOMAIN});
+const mailgun = require('mailgun-js')({
+                  apiKey: process.env.MAILGUN_KEY,
+                  domain: process.env.MAILGUN_DOMAIN
+                });
 
 
-const home    = require('../mock-api/sample-data/sportsradar-roster-ottawa.json');
-const away    = require('../mock-api/sample-data/sportsradar-roster-toronto.json');
+const home = require('../mock-api/sample-data/sportsradar-roster-ottawa.json');
+const away = require('../mock-api/sample-data/sportsradar-roster-toronto.json');
 
 const util = require('util');
 
@@ -89,6 +93,7 @@ app.get('/', (req, res) => {
 //============ SEED PLEDGES ===============//
 //======== CURRENTLY NOT IN USE ===========//
 //=========================================//
+
 app.get('/seedpledges', (req, res) => {
   res.json({
     pledges: [{
@@ -115,6 +120,7 @@ app.get('/seedpledges', (req, res) => {
 //============== DB PLEDGES ===============//
 //=========== CURRENTLY IN USE ============//
 //=========================================//
+
 app.get('/pledges', (req, res) => {
   let allPledges = {
     pledges: []
@@ -145,6 +151,7 @@ app.get('/pledges', (req, res) => {
 //=========================================//
 //========== SIGN UP NEW USERS ============//
 //=========================================//
+
 app.get('/users/new', (req, res) => {
   res.render('signup');
 });
@@ -173,11 +180,6 @@ app.post('/users/new', (req, res) => {
   }
 });
 
-function handleResponse(res, code, statusMsg) {
-  res.status(code).json({status: statusMsg});
-};
-
-
 //=========================================//
 //========== LOGIN/LOGOUT USERS ===========//
 //=========================================//
@@ -199,6 +201,7 @@ app.post('/logout', (req, res) => {
 //=========================================//
 //============ CREATE PLEDGES =============//
 //=========================================//
+
 app.get('/campaigns/:id/pledges/new', (req, res) => {
   let campaign_id = req.params.id;
   let away_roster = [];
@@ -296,6 +299,7 @@ app.post('/campaigns/:id/pledges/new', (req, res) => {
 //=========================================//
 //======= SHOW/CREATE CAMPAIGNS ===========//
 //=========================================//
+
 app.get('/campaigns', (req, res) => {
   db.select('title', 'id', 'charity_url', 'charity_name', 'image_url', 'description').from('campaigns')
   .then(campaigns => {
@@ -367,7 +371,7 @@ app.post('/campaigns', (req, res) => {
           description: ${description}\
           Sharable Link: http://localhost:8080/campaigns/${result[0]}`
         };
-        mailgun.messages().send(email_data, function (error, body) {
+        mailgun.messages().send(email_data, (error, body) => {
           console.log(body);
         });
         res.redirect(`campaigns/${campaign_id}`);
@@ -391,6 +395,7 @@ app.post('/campaigns/:id', passport.authenticate('local', { failureRedirect: '/l
 //=========================================//
 //====== SHOW CAMPAIGN REACT PAGE =========//
 //=========================================//
+
 app.get('/campaigns/:id', (req, res) => {
   let campaign_id = req.params.id
   db.select('handle').from('campaigns').where({id: campaign_id}).then(hashtag => {
@@ -442,6 +447,7 @@ app.get('/api/campaigns/:id/awayteam', (req, res) => {
 //=========================================//
 //============== SOCKETS ==================//
 //=========================================//
+
 let p = 0;
 let e = 0;
 
