@@ -107,7 +107,7 @@ class App extends Component {
                 <button className="flip-button" type="button" ref="frontButton" onClick={this.showBack}>Flip it!</button>
                   <h1>Leaderboard</h1>
                     <div className="leaderboard-data">
-                      <ul>
+                      <ul className="leaderboard-content">
                         {this.state.pledges.map(total =>
                         <li className="leaderboard-user">User: {total.username} ${total.totalPledges.reduce(function(a, b) {
                           return a + b;
@@ -125,14 +125,12 @@ class App extends Component {
                   <h1>Pledges</h1>
                     <div className="pledge-data">
 
-                        <ul>
-
+                        <ul className="pledge-content">
                         {this.state && this.state.pledges && this.state.pledges.map(pledge =>
                           pledge.pledged.map(userPledge =>
                             <li className="user-pledge-data">User: {userPledge.username} <br></br> Event: {userPledge.pledge_event}, Amount: {userPledge.pledge_amount}, Occurance: {userPledge.occurance}, Owes: ${userPledge.owes}</li>
                             )
                           )}
-
                         </ul>
 
                     </div>
