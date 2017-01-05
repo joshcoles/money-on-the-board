@@ -11,9 +11,9 @@ new WebpackDevServer(webpack(config), {
       poll: 1000
     }
   })
-  .listen(3000, '0.0.0.0', function (err, result) {
+  .listen(3000, '0.0.0.0', (err, result) => {
     if (err) {
       console.error(err);
     }
-    console.log(`Client Connected. Running at ${port}`);
+    console.log(`Client server running on port ${port}`);
   });
