@@ -10,6 +10,7 @@ $(document).ready(function() {
       },
       description: {
         required: true,
+        maxlength: 255
       },
       charity_name: {
         required: true,
