@@ -14,7 +14,7 @@ nav {
 
 footer.page-footer{
   background-color: #004585;
-  height: 96px;
+  // height: 96px;
 }
 
 input[type=text]:focus:not([readonly]) {
@@ -63,8 +63,11 @@ input[type=text].valid {
   margin-left: 20px;
 }
 
-.btn-logout {
+.btn-log {
   margin-right: 20px;
+  padding-left: 1px;
+  padding-right: 1px;
+  width: 106px;
 }
 
 .btn {
@@ -96,10 +99,15 @@ input[type=text].valid {
 
 .copywrite {
   color: #d39f29;
+  margin: 0;
 }
 
 .dropdown-content li>span {
   color: #d39f29;
+}
+
+.footer-link {
+  padding: 15px;
 }
 
 .form-container {
@@ -223,7 +231,3 @@ input[type=text].valid {
   font-size: 0.8rem;
   color: #ff4081;
 }
-
-
-
-
