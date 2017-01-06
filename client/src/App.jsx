@@ -21,16 +21,19 @@ class App extends Component {
 
   get onSocketData(){
     return data => {
+      console.log('Data', data);
       dataArray.push(data)
       if(!this.state || !this.state.pledges) { return; }
       this.state.pledges.forEach((user) => {
         user.pledged.forEach((pledge) => {
           if(data.includes(pledge.pledge_event)){
+            let $toastContent = $(`<span>${pledge.username} owes ${pledge.pledge_amount}</span>`);
+            Materialize.toast($toastContent, 5000, 'green');
             newTotalPledges = user.totalPledges.push(pledge.pledge_amount)
             pledge.occurance = pledge.occurance + 1;
             pledge.owes = pledge.occurance * pledge.pledge_amount
             this.setState({
-              occurance : pledge.occurance
+              occurance : pledge.occurance,
             });
             this.setState({
               owes : pledge.owes
@@ -76,6 +79,7 @@ class App extends Component {
     }
   }
   render() {
+
     return (
       <div>
       <div className="">
@@ -89,14 +93,25 @@ class App extends Component {
             >
             <div className="leaderboard">
               <div className="front">
-                <button className="flip-button" type="button" ref="frontButton" onClick={this.showBack}> </button>
-                  <h1>The Board</h1>
+                <button className="flip-button" type="button" ref="frontButton" onClick={this.showBack}>
+
+                    <i className="fa fa-refresh fa-1x fa-fw button-cycle"></i>
+
+
+                 </button>
+                  <h3>The Board</h3>
                     <div className="leaderboard-data">
                       <ul className="leaderboard-content collection">
                         {this.state.pledges.map(total =>
-                        <li className="leaderboard-user collection-item">User: {total.username} ${total.totalPledges.reduce(function(a, b) {
+                        <li className="leaderboard-user collection-item">
+                        <div>
+                          <span className="username">{total.username}</span>
+                          <div className="secondary-content">
+                          ${total.totalPledges.reduce(function(a, b) {
                           return a + b;
                         }, 0)}
+                          </div>
+                        </div>
                         </li>
                         )}
                       </ul>
@@ -106,16 +121,30 @@ class App extends Component {
 
             <div className="pledges">
               <div className="back">
-               <button className="flip-button" type="button" ref="backButton" onClick={this.showFront}></button>
-                <h1>Pledges</h1>
-                <div className="pledge-data">
-                  <ul className="pledge-content collection">
-                  {this.state && this.state.pledges && this.state.pledges.map(pledge =>pledge.pledged.map(userPledge =>
-                    <li className="user-pledge-data collection-item">User: {userPledge.username} <br></br> Event: {userPledge.pledge_event}, Amount: {userPledge.pledge_amount}, Occurance: {userPledge.occurance}, Owes: ${userPledge.owes}</li>
-                        )
-                      )}
-                  </ul>
-                </div>
+               <button className="flip-button" type="button" ref="backButton" onClick={this.showFront}>
+
+                <i className="fa fa-refresh fa-1x fa-fw button-cycle"></i>
+
+                </button>
+                  <h3>Pledges</h3>
+                    <div className="pledge-data">
+
+                        <ul className="pledge-content collection">
+                        {this.state && this.state.pledges && this.state.pledges.map(pledge =>
+                          pledge.pledged.map(userPledge =>
+                            <li className="user-pledge-data collection-item">
+                              {userPledge.username}
+                              <br></br> Event: {userPledge.pledge_event}
+                              <br></br> Amount: {userPledge.pledge_amount}
+                              <br></br> Occurance: {userPledge.occurance}
+                              <br></br> Owes: ${userPledge.owes}
+                            </li>
+                            )
+                          )}
+                        </ul>
+
+                    </div>
+
               </div>
             </div>
           </FlipCard>
@@ -127,7 +156,7 @@ class App extends Component {
             <div className="game-feed">
 
               <div className="panel">
-                <h1>Game Feed</h1>
+                <h3>Game Feed</h3>
                 <div className="panel-content">
                   <Scrollbars>
                     <ul className="game-content collection">
