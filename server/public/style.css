@@ -168,6 +168,9 @@ textarea.materialize-textarea.valid {
 .form-title {
   margin-left: 20px; }
 
+html {
+  font-family: 'Archivo Black', sans-serif; }
+
 body {
   display: flex;
   min-height: 100vh;
