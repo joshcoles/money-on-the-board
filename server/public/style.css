@@ -123,11 +123,14 @@ footer.page-footer {
   background-color: #004585; }
 
 .copywrite {
-  margin: 0; }
+  background-color: #003666;
+  color: #D39F29;
+  margin: 0;
+  padding: 4px 256px;
+  width: 100%; }
 
 .footer-links {
-  display: flex;
-  padding: 15px; }
+  display: flex; }
 
 input[type=text]:focus:not([readonly]) {
   border-bottom: 1px solid #004585;
@@ -252,9 +255,6 @@ main {
 .about
 .parallax {
   opacity: 0.7; }
-
-footer.page-footer {
-  background-color: #004585; }
 
 nav {
   background-color: #004585; }
