@@ -13,14 +13,7 @@ class App extends Component {
       isFlipped: false,
       game: [],
       pledges: [],
-      leaderboard: [
-        {user: 'Homer',
-         totalAmountOwed: 0
-       },
-       {user: 'Peter',
-        totalAmountOwed: 0
-       }
-      ]
+      leaderboard: []
     };
     this.handleOnFlip = this.handleOnFlip.bind(this);
     this.showBack = this.showBack.bind(this);
@@ -109,9 +102,9 @@ class App extends Component {
                 <button className="flip-button" type="button" ref="frontButton" onClick={this.showBack}> </button>
                   <h1>The Board</h1>
                     <div className="leaderboard-data">
-                      <ul className="leaderboard-content">
+                      <ul className="leaderboard-content collection">
                         {this.state.pledges.map(total =>
-                        <li className="leaderboard-user">User: {total.username} ${total.totalPledges.reduce(function(a, b) {
+                        <li className="leaderboard-user collection-item">User: {total.username} ${total.totalPledges.reduce(function(a, b) {
                           return a + b;
                         }, 0)}
                         </li>
@@ -127,10 +120,10 @@ class App extends Component {
                   <h1>Pledges</h1>
                     <div className="pledge-data">
 
-                        <ul className="pledge-content">
+                        <ul className="pledge-content collection">
                         {this.state && this.state.pledges && this.state.pledges.map(pledge =>
                           pledge.pledged.map(userPledge =>
-                            <li className="user-pledge-data">User: {userPledge.username} <br></br> Event: {userPledge.pledge_event}, Amount: {userPledge.pledge_amount}, Occurance: {userPledge.occurance}, Owes: ${userPledge.owes}</li>
+                            <li className="user-pledge-data collection-item">User: {userPledge.username} <br></br> Event: {userPledge.pledge_event}, Amount: {userPledge.pledge_amount}, Occurance: {userPledge.occurance}, Owes: ${userPledge.owes}</li>
                             )
                           )}
                         </ul>
@@ -151,9 +144,9 @@ class App extends Component {
                 <h1>Game Feed</h1>
                 <div className="panel-content">
                   <Scrollbars>
-                    <ul className="game-content">
+                    <ul className="game-content collection">
                       {this.state && this.state.game && this.state.game.map(event =>
-                      <li> {event} </li>
+                      <li className="collection-item"> {event} </li>
                       )}
                     </ul>
                   </Scrollbars>
