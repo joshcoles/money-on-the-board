@@ -2,13 +2,21 @@
   float: right;
   margin-right: 10px;
   margin-top: 10px;
+  width: 30px;
+  height: 30px;
+  background-color: #b52c32;
+  border: solid 1px white;
+  border-radius: 25px
 }
 
 .flip-board {
-  margin: 0 50px;
+  float: left;
 }
+
 .game-content {
+
   height: 400px;
+  margin: 5px 5px 0 5px;
   min-height: 0;
   min-width: 0;
   overflow: scroll;
@@ -16,28 +24,38 @@
 
 .game-feed {
   display: inline-flex;
-  margin: 250px 50px 0 50px;
-  height: 600px;
-  background-color: blue;
-  width: 500px;
+  margin: 300px 0 0 0;
+  height: 500px;
+  background-color: rgb(0, 69, 133);
+  width: 470px;
+  border-radius: 10px;
+
 }
 
 .leaderboard {
-  background-color: green;
+  background-color: rgb(0, 69, 133);
   display: inline-flex;
-  width: 500px;
+  margin-bottom: 10px;
+  width: 470px;
+  border-radius: 10px;
 }
 
 .leaderboard-content {
-  height: 100px;
+  height: 150px;
+  margin: 10px 10px;
   min-height: 0;
   min-width: 0;
   overflow: scroll;
 }
 
 .leaderboard-data {
-  background-color: grey;
+  background-color: #e6e6e9;
+  border-radius: 10px;
   margin: 10px;
+}
+
+.leaderboard-pledge {
+
 }
 
 .leaderboard-user {
@@ -45,15 +63,16 @@
 }
 .front {
   display: block;
-  width: 500px;
+  width: 470px;
 }
 .back {
   display: block;
-  width: 500px;
+  width: 470px;
 }
 
 .panel-content {
-  background-color: red;
+  background-color: #e6e6e9;
+  border-radius: 10px;
   height: 400px;
   margin: 10px;
 
@@ -61,23 +80,28 @@
 
 .panel {
   display: block;
-  width: 500px;
+  width: 470px;
 }
 .pledges {
-  background-color: purple;
+  background-color: rgb(0, 69, 133);
   display: inline-flex;
-  width: 500px;
+  width: 470px;
+  border-radius: 10px;
 }
 
 .pledge-content {
-  height: 100px;
+  height: 150px;
+  margin: 10px 10px;
   min-height: 0;
   min-width: 0;
   overflow: scroll;
+
 }
 
 .pledge-data {
-  background-color: grey;
+  background-color: #e6e6e9;
+  border-radius: 10px;
+  border: thin black;
   margin: 10px;
 }
 
@@ -86,6 +110,8 @@
   margin: 25px 0;
 }
 
+
+
 .react {
   display: inline-flex;
 }
@@ -93,7 +119,15 @@
 .twitter-feed {
   display: inline-flex;
   /*float: right;*/
-  margin: -870px 50px 0 620px;
-  border: solid;
+  margin: -900px 0 0 490px;
+  border: solid rgb(0, 69, 133);
+  border-radius: 10px;
+}
+
+h1 {
+  margin: 10px 0 0 10px;
+  text-align: center;
+  text-decoration: underline;
+  color: white;
 }
 

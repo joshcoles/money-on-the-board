@@ -1,3 +1,40 @@
+.about-container {
+  background-color: #F0F1F1;
+  margin-left: 15%;
+  margin-right: 15%;
+  margin-top: 25px;
+  padding: 10px;
+  width: 75%; }
+
+.about-h {
+  font-family: "Source Sans Pro", sans-serif; }
+
+.light-text {
+  font-family: "Source Sans Pro", sans-serif;
+  font-weight: 400; }
+
+.btn {
+  background-color: #E3383F; }
+  .btn:hover {
+    background-color: #b52c32; }
+  .btn:focus {
+    background-color: #b52c32; }
+
+.btn-log {
+  margin-right: 20px;
+  padding-left: 1px;
+  padding-right: 1px;
+  width: 106px; }
+
+.lp-button {
+  background-color: #E3383F;
+  margin-bottom: 40px;
+  margin-right: 5px;
+  margin-left: 5px;
+  width: 254px; }
+  .lp-button:hover {
+    background-color: #b52c32; }
+
 #pledge-error {
   position: relative;
   top: -1rem;
@@ -82,28 +119,6 @@
   font-size: 0.8rem;
   color: #E3383F; }
 
-.btn {
-  background-color: #E3383F; }
-  .btn:hover {
-    background-color: #b52c32; }
-  .btn:focus {
-    background-color: #b52c32; }
-
-.btn-log {
-  margin-right: 20px;
-  padding-left: 1px;
-  padding-right: 1px;
-  width: 106px; }
-
-.lp-button {
-  background-color: #E3383F;
-  margin-bottom: 40px;
-  margin-right: 5px;
-  margin-left: 5px;
-  width: 254px; }
-  .lp-button:hover {
-    background-color: #b52c32; }
-
 input[type=text]:focus:not([readonly]) {
   border-bottom: 1px solid #004585;
   box-shadow: 0 1px 0 0 #004585; }
@@ -161,6 +176,9 @@ textarea.materialize-textarea.valid {
 
 .form-title {
   margin-left: 20px; }
+
+html {
+  font-family: "Source Sans Pro", sans-serif; }
 
 body {
   display: flex;
