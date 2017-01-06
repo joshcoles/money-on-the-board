@@ -100,7 +100,7 @@ class App extends Component {
             <div className="leaderboard">
               <div className="front">
                 <button className="flip-button" type="button" ref="frontButton" onClick={this.showBack}> </button>
-                  <h1>The Board</h1>
+                  <h2>The Board</h2>
                     <div className="leaderboard-data">
                       <ul className="leaderboard-content collection">
                         {this.state.pledges.map(total =>
@@ -117,7 +117,7 @@ class App extends Component {
             <div className="pledges">
               <div className="back">
                <button className="flip-button" type="button" ref="backButton" onClick={this.showFront}> </button>
-                  <h1>Pledges</h1>
+                  <h2>Pledges</h2>
                     <div className="pledge-data">
 
                         <ul className="pledge-content collection">
@@ -141,7 +141,7 @@ class App extends Component {
             <div className="game-feed">
 
               <div className="panel">
-                <h1>Game Feed</h1>
+                <h2>Game Feed</h2>
                 <div className="panel-content">
                   <Scrollbars>
                     <ul className="game-content collection">
