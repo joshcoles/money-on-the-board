@@ -95,16 +95,18 @@ class App extends Component {
   render() {
     return (
       <div>
+      <div className="">
         <row>
           <div className="col s12 m4 l4 flip-board">
+          <div className="leaderboard-pledge">
            <FlipCard
               disabled={true}
               flipped={this.state.isFlipped}
               onFlip={this.handleOnFlip}
             >
-            <div className="col s12 m4 l4 leaderboard">
-              <div className="col s12 m4 l4 front">
-                <button className="flip-button" type="button" ref="frontButton" onClick={this.showBack}>Flip it!</button>
+            <div className="leaderboard">
+              <div className="front">
+                <button className="flip-button" type="button" ref="frontButton" onClick={this.showBack}> </button>
                   <h1>Leaderboard</h1>
                     <div className="leaderboard-data">
                       <ul className="leaderboard-content">
@@ -119,9 +121,9 @@ class App extends Component {
               </div>
             </div>
 
-            <div className="col s12 m4 l4 pledges">
-              <div className="col s12 m4 l4 back">
-               <button className="flip-button" type="button" ref="backButton" onClick={this.showFront}>Flip it!</button>
+            <div className="pledges">
+              <div className="back">
+               <button className="flip-button" type="button" ref="backButton" onClick={this.showFront}> </button>
                   <h1>Pledges</h1>
                     <div className="pledge-data">
 
@@ -137,14 +139,15 @@ class App extends Component {
               </div>
             </div>
            </FlipCard>
+           </div>
           </div>
         </row>
 
           <row>
 
-            <div className="col s12 m4 l4 game-feed">
+            <div className="game-feed">
 
-              <div className="col s12 m4 l4 panel">
+              <div className="panel">
                 <h1>Game Feef</h1>
                 <div className="panel-content">
                   <Scrollbars>
@@ -160,7 +163,7 @@ class App extends Component {
           </div>
 
           </row>
-
+      </div>
     </div>
     );
   }
