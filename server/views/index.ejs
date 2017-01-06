@@ -5,21 +5,19 @@
 <% include ./partials/_header %>
 <main class="container">
 
-  <% if (isAuthenticated) { %>
-    <div class="pledge-button">
-      <a class="btn button" href="/campaigns/<%= campaign_id %>/pledges/new">Make a pledge</a>
-    </div>
-  <% } else { %>
-    <div class="pledge-button">
-      <a class="waves-effect waves-light btn button modal-trigger" href="#modal1">Login to make a pledge</a>
-    </div>
-  <% } %>
-
-  <div class="container title campaign-info">
-    <h1 class="campaign-title"><%= title %></h1>
-    <h1 class="charity_name"><%= charity_name %></h1>
-  </div>
-
+<div class="title campaign-info">
+   <h2 class="campaign-title"><%= title %> - <%= charity_name %></h2>
+   <% if (isAuthenticated) { %>
+   <div class="pledge-button">
+   <a class="btn button" href="/campaigns/<%= campaign_id %>/pledges/new">Make a pledge</a>
+   </div>
+   <% } else { %>
+   <div class="pledge-button">
+     <a class="waves-effect waves-light btn button modal-trigger" href="#modal1">Login to make a pledge</a>
+     <a class="waves-effect waves-light btn button modal-trigger" href="<%= charity_url %>">Click Here to Donate</a>
+   </div>
+ <% } %>
+ </div>
 
   <div id="modal1" class="modal">
     <div class="modal-content">
