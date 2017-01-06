@@ -6,6 +6,13 @@
   padding: 10px;
   width: 75%; }
 
+.about-h {
+  font-family: "Archivo Black", sans-serif; }
+
+.blurb {
+  font-family: "Source Sans Pro", sans-serif;
+  font-weight: 400; }
+
 .btn {
   background-color: #E3383F; }
   .btn:hover {
@@ -169,7 +176,7 @@ textarea.materialize-textarea.valid {
   margin-left: 20px; }
 
 html {
-  font-family: 'Archivo Black', sans-serif; }
+  font-family: "Archivo Black", sans-serif; }
 
 body {
   display: flex;
