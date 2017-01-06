@@ -7,7 +7,7 @@
   width: 75%; }
 
 .about-h {
-  font-family: "Source Sans Pro", sans-serif; }
+  font-family: "Anton", sans-serif; }
 
 .light-text {
   font-family: "Source Sans Pro", sans-serif;
@@ -190,9 +190,6 @@ textarea.materialize-textarea.valid {
 .form-title {
   margin-left: 20px; }
 
-html {
-  font-family: "Source Sans Pro", sans-serif; }
-
 body {
   display: flex;
   min-height: 100vh;
@@ -260,6 +257,7 @@ nav {
   background-color: #004585; }
 
 .motb-title {
-  color: #E3383F; }
+  color: #E3383F;
+  font-family: "Anton", sans-serif; }
 
 /*# sourceMappingURL=style.css.map */
