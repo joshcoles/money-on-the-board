@@ -224,8 +224,12 @@ main {
   min-width: 384px; }
 
 .caption {
-  color: #b52c32;
+  padding-top: 50px;
+  color: #E3383F;
   text-shadow: 1px 1px #000000; }
+
+.sub-caption {
+  color: #E3383F; }
 
 .get-started {
   background-color: #004585;
@@ -252,9 +256,14 @@ main {
   .how-it-works p {
     color: #000000; }
 
-.about
-.parallax {
-  opacity: 0.7; }
+.main-parallax {
+  height: 93vh;
+  border-bottom: 50px solid #004585; }
+
+.second-parallax {
+  border-top: 50px solid #004585;
+  border-bottom: 50px solid #004585;
+  height: 90vh; }
 
 nav {
   background-color: #004585; }
