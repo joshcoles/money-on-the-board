@@ -484,6 +484,9 @@ function pollGame() {
       e += 1;
     }
     if (endGame(gameRightNow)) {
+
+
+
       console.log("Game Over");
     } else {
     setTimeout(pollGame, 500);
