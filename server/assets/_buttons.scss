@@ -16,8 +16,11 @@
 }
 
 .lp-button {
-  background-color: $primary-1;
-  border: 1px solid $accent-1;
+  background-color: $primary-2;
+  // border: 1px solid $accent-1;
+  margin-bottom: 40px;
+  margin-right: 5px;
+  margin-left: 5px;
   width: 254px;
   &:hover {
     background-color: $primary-2-hover;
