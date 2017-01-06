@@ -39,10 +39,9 @@ main {
 }
 
 .campaign-img {
+  object-fit: cover;
   max-height: 284px;
-  min-height: 284px;
   max-width: 384px;
-  min-width: 384px;
 }
 
 .caption {
@@ -50,6 +49,12 @@ main {
   color: $primary-2;
   text-shadow: 1px 1px $black;
   // font-family: ;
+}
+
+.card-reveal {
+  h5 {
+    color: $primary-2;
+  }
 }
 
 .sub-caption {

@@ -16,12 +16,12 @@
             </div>
             <div class="card-content">
               <span class="card-title activator grey-text text-darken-4"><%= campaign.title %><i class="material-icons right">more_vert</i></span>
-              <!-- <a href="/campaigns/<%= campaign.id %>" class="btn button">Go to Campaign</a> -->
+              <a href="/campaigns/<%= campaign.id %>" class="btn button">Go to Campaign</a>
             </div>
             <div class="card-reveal">
-              <span class="card-title grey-text text-darken-4"><%= campaign.title %><i class="material-icons right">close</i></span>
-              <span class="card-title grey-text text-darken-4"><%= campaign.charity_name %></span>
+              <h4 class="grey-text card-title activator text-darken-4"><%= campaign.title %><i class="material-icons right">close</i></h4>
               <p class="light-text"><%= campaign.description %></p>
+              <a href="<%= campaign.charity_url %><p class="light-text">Click here to donate to the <%= campaign.charity_name %>.</p></a>
               <a href="/campaigns/<%= campaign.id %>" class="btn button go-to">Go to Campaign</a>
             </div>
           </div>
