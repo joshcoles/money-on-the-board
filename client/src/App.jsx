@@ -23,6 +23,7 @@ class App extends Component {
   get onSocketData()
   {
     return data => {
+      console.log('Data', data);
       dataArray.push(data)
 
       if(!this.state || !this.state.pledges) { return; }
