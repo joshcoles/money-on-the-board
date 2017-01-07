@@ -278,8 +278,11 @@ nav {
   color: #E3383F; }
 
 .campaign-info {
+  color: white;
+  margin-top: 15px;
   background-color: #004585;
   padding: 10px;
-  border-radius: 10px; }
+  border-radius: 5px;
+  text-align: center; }
 
 /*# sourceMappingURL=style.css.map */

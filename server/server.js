@@ -398,12 +398,15 @@ app.post('/campaigns/:id', passport.authenticate('local', { failureRedirect: '/l
 
 app.get('/campaigns/:id', (req, res) => {
   let campaign_id = req.params.id
-  db.select('handle', 'title', 'charity_name').from('campaigns').where({id: campaign_id}).then(data => {
+  db.select().from('campaigns').where({id: campaign_id}).then(data => {
     console.log(data)
     let handle = data[0].handle
     let charity_name = data[0].charity_name
     let title = data[0].title
-  res.render('index', {campaign_id, handle, charity_name, title})
+    let image_url = data[0].image_url
+    let description = data[0].description
+    let charity_url = data[0].charity_url
+  res.render('index', {campaign_id, handle, charity_name, title, image_url, description, charity_url})
   })
 });
 
