@@ -215,14 +215,20 @@ main {
   text-shadow: 1px 1px #000000; }
 
 .campaign-img {
+  object-fit: cover;
   max-height: 284px;
-  min-height: 284px;
-  max-width: 384px;
-  min-width: 384px; }
+  max-width: 384px; }
 
 .caption {
-  color: #b52c32;
+  padding-top: 50px;
+  color: #E3383F;
   text-shadow: 1px 1px #000000; }
+
+.card-reveal h5 {
+  color: #E3383F; }
+
+.sub-caption {
+  color: #E3383F; }
 
 .get-started {
   background-color: #004585;
@@ -249,9 +255,14 @@ main {
   .how-it-works p {
     color: #000000; }
 
-.about
-.parallax {
-  opacity: 0.7; }
+.main-parallax {
+  height: 93vh;
+  border-bottom: 50px solid #004585; }
+
+.second-parallax {
+  border-top: 50px solid #004585;
+  border-bottom: 50px solid #004585;
+  height: 90vh; }
 
 nav {
   background-color: #004585; }
@@ -259,5 +270,10 @@ nav {
 .motb-title {
   color: #E3383F;
   font-family: "Anton", sans-serif; }
+
+.campaign-info {
+  background-color: #004585;
+  padding: 10px;
+  border-radius: 10px; }
 
 /*# sourceMappingURL=style.css.map */

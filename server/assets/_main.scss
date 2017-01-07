@@ -39,15 +39,26 @@ main {
 }
 
 .campaign-img {
+  object-fit: cover;
   max-height: 284px;
-  min-height: 284px;
   max-width: 384px;
-  min-width: 384px;
 }
 
 .caption {
-  color: #b52c32;
+  padding-top: 50px;
+  color: $primary-2;
   text-shadow: 1px 1px $black;
+  // font-family: ;
+}
+
+.card-reveal {
+  h5 {
+    color: $primary-2;
+  }
+}
+
+.sub-caption {
+  color: $primary-2;
 }
 
 .get-started {
@@ -80,12 +91,17 @@ main {
   }
 
   p {
-    color: $black
+    color: $black;
   }
 }
 
-.about
+.main-parallax {
+  height: 93vh;
+  border-bottom: 50px solid $primary-1;
+}
 
-.parallax {
-  opacity: 0.7;
+.second-parallax {
+  border-top: 50px solid $primary-1;
+  border-bottom: 50px solid $primary-1;
+  height: 90vh;
 }
