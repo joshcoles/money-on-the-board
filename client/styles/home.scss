@@ -1,16 +1,18 @@
 .back {
-  display: block;
-  height: 270px;
-  width: 470px;
+  display: inline-block;
+  max-height: 300px;
+  width: 100%;
 }
 
 .button-cycle {
   color: #ffffff;
-  margin-right: 4px;
+  margin-top: 4px;
 }
 
 .flip-board {
+  display: inline-block;
   float: left;
+  width: 100%;
 }
 
 .flip-button {
@@ -35,17 +37,19 @@
 }
 
 .front {
-  display: block;
-  height: 270px;
-  width: 470px;
+  display: inline-block;
+  max-height: 300px;
+  width: 100%;
 }
 
 .game-content {
-  height: 400px;
-  margin: 5px 5px 0 5px;
+  display: table;
+  height: 20%;
+  margin: 0 auto;
   min-height: 0;
   min-width: 0;
   overflow: auto;
+  width: 100%;
 }
 
 .game-feed {
@@ -53,33 +57,39 @@
   border-radius: 5px;
   box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
   display: inline-flex;
-  height: 503px;
+  height: 100%;
   margin: 300px 0 0 0;
-  width: 470px;
+  width: 100%;
 }
 
 .leaderboard {
   background-color: rgb(0, 69, 133);
   border-radius: 5px;
   box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-  display: inline-flex;
+  display: inline-block;
   margin-bottom: 10px;
-  width: 470px;
+  max-height: 290px;
+  width: 100%;
 }
 
 .leaderboard-content {
-  height: 185px;
-  margin: 10px 10px;
+  display: block;
+  height: 100%;
+  margin: 0 auto;
+  max-height: 214px;
   min-height: 0;
   min-width: 0;
   overflow: auto;
+  width: 100%;
 }
 
 .leaderboard-data {
   background-color: #ffffff;
   border-radius: 5px;
-  height: 185px;
-  margin: 10px;
+  display: block;
+  margin: 10px auto;
+  max-height: 225px;
+  width: 94%;
 }
 
 .leaderboard-user {
@@ -88,23 +98,24 @@
 
 .panel {
   display: block;
-  width: 470px;
+  width: 100%;
 }
 
 .panel-content {
   background-color: #ffffff;
   border-radius: 5px;
-  height: 400px;
-  margin: 10px;
-
+  height: 80%;
+  margin: 10px auto;
+  width: 94%;
 }
 
 .pledges {
   background-color: rgb(0, 69, 133);
   border-radius: 5px;
   box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-  display: inline-flex;
-  width: 470px;
+  display: inline-block;
+  max-height: 290px;
+  width: 100%;
 }
 
 .pledge-button {
@@ -113,8 +124,7 @@
 }
 
 .pledge-content {
-  height: 185px;
-  margin: 10px 10px;
+  max-height: 210px;
   min-height: 0;
   min-width: 0;
   overflow: auto;
@@ -125,8 +135,8 @@
   background-color: #ffffff;
   border-radius: 5px;
   border: thin black;
-  height: 185px;
   margin: 10px;
+  max-height: 225px;
 }
 .username {
   font-size: 18px;
@@ -137,12 +147,31 @@
   display: inline-flex;
 }
 
+.ReactFlipCard {
+  display: inline-block;
+  width: 100%;
+}
+
+.ReactFlipCard__Front {
+  width: 100% !important;
+}
+
+.ReactFlipCard__Back {
+  width: 100% !important;
+}
+
+.react-main {
+  display: inline-block;
+  width: 100%;
+}
+
 .twitter-feed {
   border: solid rgb(0, 69, 133);
   border-radius: 5px;
   box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
   display: inline-flex;
-  margin: -900px 0 0 490px;
+  margin-top: 15px;
+  width: 49% !important;
 }
 
 h3 {
