@@ -90,7 +90,7 @@ class App extends Component {
                 <button className="flip-button" type="button" ref="frontButton" onClick={this.showBack}>
                   <i className="fa fa-refresh fa-1x fa-fw button-cycle"></i>
                 </button>
-                  <h3>The Board</h3>
+                  <div className="name-head name-head-left">Money Board</div>
                     <div className="leaderboard-data">
                       <ul className="leaderboard-content collection">
                         {this.state.pledges.map(total =>
@@ -114,7 +114,7 @@ class App extends Component {
                 <button className="flip-button" type="button" ref="backButton" onClick={this.showFront}>
                   <i className="fa fa-refresh fa-1x fa-fw button-cycle"></i>
                 </button>
-                  <h3>Pledges</h3>
+                  <div className="name-head name-head-left">Pledges</div>
                     <div className="pledge-data">
                       <ul className="pledge-content collection">
                         {this.state && this.state.pledges && this.state.pledges.map(pledge =>
@@ -138,7 +138,7 @@ class App extends Component {
 
           <div className="game-feed">
             <div className="panel">
-              <h3>Game Feed</h3>
+              <div className="name-head">Game Feed</div>
               <div className="panel-content">
                 <Scrollbars>
                   <ul className="game-content collection">
