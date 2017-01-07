@@ -52,8 +52,6 @@ main {
 .image-container {
   max-height: 284px;
   min-height: 284px;
-  max-width: 384px;
-  min-width: 384px;
 }
 
 .card-reveal {
@@ -109,4 +107,8 @@ main {
   border-top: 50px solid $primary-1;
   border-bottom: 50px solid $primary-1;
   height: 90vh;
+}
+
+.card .card-content .card-title {
+  display: block;
 }

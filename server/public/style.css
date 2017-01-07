@@ -226,9 +226,7 @@ main {
 
 .image-container {
   max-height: 284px;
-  min-height: 284px;
-  max-width: 384px;
-  min-width: 384px; }
+  min-height: 284px; }
 
 .card-reveal h5 {
   color: #E3383F; }
@@ -269,6 +267,9 @@ main {
   border-top: 50px solid #004585;
   border-bottom: 50px solid #004585;
   height: 90vh; }
+
+.card .card-content .card-title {
+  display: block; }
 
 nav {
   background-color: #004585; }
