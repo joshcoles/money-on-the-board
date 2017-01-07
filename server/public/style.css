@@ -192,6 +192,7 @@ textarea.materialize-textarea.valid {
   margin-left: 20px; }
 
 body {
+  background-color: #f0f1f1;
   display: flex;
   min-height: 100vh;
   flex-direction: column; }
