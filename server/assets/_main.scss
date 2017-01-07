@@ -44,8 +44,9 @@ main {
 }
 
 .caption {
-  padding-top: 50px;
   color: $primary-2;
+  font-family: $logo-type;
+  padding-top: 50px;
   text-shadow: 1px 1px $black;
 }
 
@@ -62,6 +63,7 @@ main {
 
 .sub-caption {
   color: $primary-2;
+  font-family: $logo2-type;
 }
 
 .get-started {
