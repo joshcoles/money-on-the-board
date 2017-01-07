@@ -261,11 +261,11 @@ main {
 
 .main-parallax {
   height: 93vh;
-  border-bottom: 50px solid #004585; }
+  border-bottom: 20px solid #004585; }
 
 .second-parallax {
-  border-top: 50px solid #004585;
-  border-bottom: 50px solid #004585;
+  border-top: 20px solid #004585;
+  border-bottom: 20px solid #004585;
   height: 90vh; }
 
 nav {
