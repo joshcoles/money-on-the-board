@@ -10,6 +10,16 @@
   margin-top: 4px;
 }
 
+.cp-button {
+  background-color: #E3383F;
+  margin: 0 5px;
+  width: 250px;
+}
+
+.cp-button:hover {
+  background-color: #b52c32;
+}
+
 .flip-board {
   display: inline-block;
   float: left;
@@ -99,6 +109,17 @@
   margin: 5px;
 }
 
+.name-head {
+  color: #ffffff;
+  font-size: 1.85em;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.name-head-left {
+  margin-left: 40px;
+}
+
 .panel {
   display: block;
   width: 100%;
@@ -176,13 +197,6 @@
   display: inline-flex;
   margin-top: 15px;
   width: 49% !important;
-}
-
-h3 {
-  color: #ffffff;
-  margin: 10px 0 0 10px;
-  text-align: center;
-  text-decoration: underline;
 }
 
 
