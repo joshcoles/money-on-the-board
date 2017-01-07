@@ -1,10 +1,11 @@
 .back {
   display: block;
+  height: 270px;
   width: 470px;
 }
 
 .button-cycle {
-  color: white;
+  color: #ffffff;
   margin-right: 4px;
 }
 
@@ -13,16 +14,16 @@
 }
 
 .flip-button {
-  float: right;
-  padding-left: 4px;
-  margin-right: 10px;
-  margin-top: 10px;
-  width: 30px;
-  height: 30px;
   background-color: #e3383f;
-  border: solid 1px white;
+  border: solid 1px #ffffff;
   border-radius: 25px;
   box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  float: right;
+  height: 30px;
+  margin-right: 10px;
+  margin-top: 10px;
+  padding-left: 4px;
+  width: 30px;
 }
 
 .flip-button:hover {
@@ -35,49 +36,49 @@
 
 .front {
   display: block;
+  height: 270px;
   width: 470px;
 }
 
 .game-content {
-
   height: 400px;
   margin: 5px 5px 0 5px;
   min-height: 0;
   min-width: 0;
-  overflow: scroll;
+  overflow: auto;
 }
 
 .game-feed {
-  display: inline-flex;
-  margin: 300px 0 0 0;
-  height: 500px;
   background-color: rgb(0, 69, 133);
-  width: 470px;
   border-radius: 5px;
   box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-
+  display: inline-flex;
+  height: 503px;
+  margin: 300px 0 0 0;
+  width: 470px;
 }
 
 .leaderboard {
   background-color: rgb(0, 69, 133);
+  border-radius: 5px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
   display: inline-flex;
   margin-bottom: 10px;
   width: 470px;
-  border-radius: 5px;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 }
 
 .leaderboard-content {
-  height: 150px;
+  height: 185px;
   margin: 10px 10px;
   min-height: 0;
   min-width: 0;
-  overflow: scroll;
+  overflow: auto;
 }
 
 .leaderboard-data {
-  background-color: white;
+  background-color: #ffffff;
   border-radius: 5px;
+  height: 185px;
   margin: 10px;
 }
 
@@ -91,7 +92,7 @@
 }
 
 .panel-content {
-  background-color: white;
+  background-color: #ffffff;
   border-radius: 5px;
   height: 400px;
   margin: 10px;
@@ -100,34 +101,36 @@
 
 .pledges {
   background-color: rgb(0, 69, 133);
-  display: inline-flex;
-  width: 470px;
   border-radius: 5px;
   box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  display: inline-flex;
+  width: 470px;
 }
 
 .pledge-button {
-  text-align: center;
   margin: 25px 0;
+  text-align: center;
 }
 
 .pledge-content {
-  height: 150px;
+  height: 185px;
   margin: 10px 10px;
   min-height: 0;
   min-width: 0;
-  overflow: scroll;
+  overflow: auto;
 
 }
 
 .pledge-data {
-  background-color: white;
+  background-color: #ffffff;
   border-radius: 5px;
   border: thin black;
+  height: 185px;
   margin: 10px;
 }
 .username {
-  /*bold*/
+  font-size: 18px;
+  font-weight: bold;
 }
 
 .react {
@@ -135,19 +138,18 @@
 }
 
 .twitter-feed {
-  display: inline-flex;
-  /*float: right;*/
-  margin: -900px 0 0 490px;
   border: solid rgb(0, 69, 133);
   border-radius: 5px;
   box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  display: inline-flex;
+  margin: -900px 0 0 490px;
 }
 
 h3 {
+  color: #ffffff;
   margin: 10px 0 0 10px;
   text-align: center;
   text-decoration: underline;
-  color: white;
 }
 
 
