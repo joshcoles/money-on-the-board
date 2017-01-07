@@ -21,14 +21,13 @@ class App extends Component {
 
   get onSocketData(){
     return data => {
-      console.log('Data', data);
       dataArray.push(data)
       if(!this.state || !this.state.pledges) { return; }
       this.state.pledges.forEach((user) => {
         user.pledged.forEach((pledge) => {
           if(data.includes(pledge.pledge_event)){
-            let $toastContent = $(`<span>${pledge.username} owes ${pledge.pledge_amount}</span>`);
-            Materialize.toast($toastContent, 5000, 'green');
+            let $toastContent = $(`<span>${pledge.username} owes $${pledge.pledge_amount}</span>`);
+            Materialize.toast($toastContent, 2000, 'green');
             newTotalPledges = user.totalPledges.push(pledge.pledge_amount)
             pledge.occurance = pledge.occurance + 1;
             pledge.owes = pledge.occurance * pledge.pledge_amount
@@ -62,7 +61,6 @@ class App extends Component {
     this.props.socket.removeListener('game-event', this.onSocketData);
   }
   // Flip for Leaderboard and Pledges //
-  // this in showBack and showFront are null
   showBack() {
     this.setState({
       isFlipped: true
@@ -79,99 +77,84 @@ class App extends Component {
     }
   }
   render() {
-
     return (
       <div>
-      <div className="">
         <row>
           <div className="col s12 m4 l4 flip-board">
-          <div className="leaderboard-pledge">
-           <FlipCard
-              disabled={true}
-              flipped={this.state.isFlipped}
-              onFlip={this.handleOnFlip}
-            >
+            <div className="leaderboard-pledge">
+              <FlipCard
+                disabled={true}
+                flipped={this.state.isFlipped}
+                onFlip={this.handleOnFlip}
+              >
             <div className="leaderboard">
               <div className="front">
                 <button className="flip-button" type="button" ref="frontButton" onClick={this.showBack}>
-
-                    <i className="fa fa-refresh fa-1x fa-fw button-cycle"></i>
-
-
-                 </button>
+                  <i className="fa fa-refresh fa-1x fa-fw button-cycle"></i>
+                </button>
                   <h3>The Board</h3>
                     <div className="leaderboard-data">
                       <ul className="leaderboard-content collection">
                         {this.state.pledges.map(total =>
                         <li className="leaderboard-user collection-item">
-                        <div>
-                          <span className="username">{total.username}</span>
-                          <div className="secondary-content">
-                          ${total.totalPledges.reduce(function(a, b) {
-                          return a + b;
-                        }, 0)}
+                          <div>
+                            <span className="username">{total.username}</span>
+                              <div className="secondary-content">
+                              ${total.totalPledges.reduce(function(a, b) {
+                              return a + b;
+                            }, 0)}
+                              </div>
                           </div>
-                        </div>
                         </li>
                         )}
                       </ul>
                     </div>
               </div>
             </div>
-
             <div className="pledges">
               <div className="back">
-               <button className="flip-button" type="button" ref="backButton" onClick={this.showFront}>
-
-                <i className="fa fa-refresh fa-1x fa-fw button-cycle"></i>
-
+                <button className="flip-button" type="button" ref="backButton" onClick={this.showFront}>
+                  <i className="fa fa-refresh fa-1x fa-fw button-cycle"></i>
                 </button>
                   <h3>Pledges</h3>
                     <div className="pledge-data">
-
-                        <ul className="pledge-content collection">
+                      <ul className="pledge-content collection">
                         {this.state && this.state.pledges && this.state.pledges.map(pledge =>
                           pledge.pledged.map(userPledge =>
-                            <li className="user-pledge-data collection-item">
-                              {userPledge.username}
-                              <br></br> Event: {userPledge.pledge_event}
-                              <br></br> Amount: {userPledge.pledge_amount}
-                              <br></br> Occurance: {userPledge.occurance}
-                              <br></br> Owes: ${userPledge.owes}
-                            </li>
-                            )
-                          )}
-                        </ul>
-
+                        <li className="user-pledge-data collection-item">
+                          <span className="username">{userPledge.username}</span>
+                            <br></br> Event: {userPledge.pledge_event}
+                            <br></br> Amount: {userPledge.pledge_amount}
+                            <br></br> Occurance: {userPledge.occurance}
+                            <br></br> Owes: ${userPledge.owes}
+                        </li>
+                         )
+                        )}
+                      </ul>
                     </div>
-
               </div>
             </div>
-          </FlipCard>
-        </div>
-      </div>
-    </row>
-          <row>
-
-            <div className="game-feed">
-
-              <div className="panel">
-                <h3>Game Feed</h3>
-                <div className="panel-content">
-                  <Scrollbars>
-                    <ul className="game-content collection">
-                      {this.state && this.state.game && this.state.game.map(event =>
-                      <li className="collection-item"> {event} </li>
-                      )}
-                    </ul>
-                  </Scrollbars>
-                </div>
-              </div>
-
+              </FlipCard>
+            </div>
           </div>
+        </row>
 
-          </row>
-      </div>
+        <row>
+          <div className="game-feed">
+            <div className="panel">
+              <h3>Game Feed</h3>
+              <div className="panel-content">
+                <Scrollbars>
+                  <ul className="game-content collection">
+                    {this.state && this.state.game && this.state.game.map(event =>
+                    <li className="collection-item"> {event} </li>
+                    )}
+                  </ul>
+                </Scrollbars>
+              </div>
+            </div>
+          </div>
+        </row>
       </div>
     );
   }
