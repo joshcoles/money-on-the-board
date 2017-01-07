@@ -7,7 +7,7 @@
   width: 75%; }
 
 .about-h {
-  font-family: "Source Sans Pro", sans-serif; }
+  font-family: "Anton", sans-serif; }
 
 .light-text {
   font-family: "Source Sans Pro", sans-serif;
@@ -191,9 +191,6 @@ textarea.materialize-textarea.valid {
 .form-title {
   margin-left: 20px; }
 
-html {
-  font-family: "Source Sans Pro", sans-serif; }
-
 body {
   display: flex;
   min-height: 100vh;
@@ -219,14 +216,19 @@ main {
   text-shadow: 1px 1px #000000; }
 
 .campaign-img {
-  object-fit: cover;
-  max-height: 284px;
-  max-width: 384px; }
+  max-height: auto;
+  max-width: auto; }
 
 .caption {
   padding-top: 50px;
   color: #E3383F;
   text-shadow: 1px 1px #000000; }
+
+.image-container {
+  max-height: 284px;
+  min-height: 284px;
+  max-width: 384px;
+  min-width: 384px; }
 
 .card-reveal h5 {
   color: #E3383F; }
@@ -275,7 +277,8 @@ nav {
   margin-left: 110px; }
 
 .motb-title {
-  color: #E3383F; }
+  color: #E3383F;
+  font-family: "Anton", sans-serif; }
 
 .campaign-info {
   color: white;
