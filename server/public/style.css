@@ -120,7 +120,8 @@
   color: #E3383F; }
 
 footer.page-footer {
-  background-color: #004585; }
+  background-color: #004585;
+  padding-top: 0; }
 
 .copywrite {
   background-color: #003666;
@@ -269,6 +270,9 @@ main {
 
 nav {
   background-color: #004585; }
+
+.navbar-links {
+  margin-left: 110px; }
 
 .motb-title {
   color: #E3383F; }
