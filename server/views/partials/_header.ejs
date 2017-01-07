@@ -2,10 +2,19 @@
   <nav>
     <div class="nav-wrapper">
       <form action="/<%= isAuthenticated ? 'logout' : 'login' %>" method="post">
+<<<<<<< HEAD
       <a href="/" class="brand-logo motb-title">MOTB</a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
+=======
+      <a href="/" class="brand-logo">MOTB</a>
+      <ul id="nav-mobile" class="left hide-on-med-and-down navbar-links">
+>>>>>>> b52b05e468a77ac1443a0f2ee44e865254833e6f
         <li><a href="/campaigns">Campaigns</a></li>
         <li><a href="/campaigns/new">Create</a></li>
+        <li><a class="grey-text text-lighten-3" href="/#about">About</a></li>
+        </li>
+      </ul>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
         <% if(isAuthenticated) { %>
         <li><a>Welcome, <%= currentUser.username %>.</a></li>
         <li><button type="submit" class="btn btn-log button"/>Logout</button></li>

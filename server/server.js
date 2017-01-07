@@ -42,6 +42,14 @@ app.use(session({
 }));
 
 
+// function that fixed urls that don't begin with 'http://''
+function fixURL(originalURL) {
+  if (!(originalURL.includes("://"))) {
+    originalURL = "http://" + originalURL;
+  }
+  return originalURL;
+}
+
 // function that compares user input password with stored password
 function comparePass(userPassword, databasePassword) {
   return bcrypt.compareSync(userPassword, databasePassword);
@@ -322,7 +330,7 @@ app.post('/campaigns', (req, res) => {
   let game = req.body.game;
   let campaign_name = req.body.campaign_name;
   let charity_name = req.body.charity_name;
-  let charity_url = req.body.charity_url;
+  let charity_url = fixURL(req.body.charity_url);
   let hashtag = req.body.hashtag;
   let image_url = req.body.image_url;
   let description = req.body.description;
@@ -398,12 +406,15 @@ app.post('/campaigns/:id', passport.authenticate('local', { failureRedirect: '/l
 
 app.get('/campaigns/:id', (req, res) => {
   let campaign_id = req.params.id
-  db.select('handle', 'title', 'charity_name').from('campaigns').where({id: campaign_id}).then(data => {
+  db.select().from('campaigns').where({id: campaign_id}).then(data => {
     console.log(data)
     let handle = data[0].handle
     let charity_name = data[0].charity_name
     let title = data[0].title
-  res.render('index', {campaign_id, handle, charity_name, title})
+    let image_url = data[0].image_url
+    let description = data[0].description
+    let charity_url = data[0].charity_url
+  res.render('index', {campaign_id, handle, charity_name, title, image_url, description, charity_url})
   })
 });
 
