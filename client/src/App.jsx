@@ -21,7 +21,7 @@ class App extends Component {
 
   get onSocketData(){
     return data => {
-      dataArray.push(data)
+      dataArray.unshift(data)
       if(!this.state || !this.state.pledges) { return; }
       this.state.pledges.forEach((user) => {
         user.pledged.forEach((pledge) => {
@@ -78,10 +78,8 @@ class App extends Component {
   }
   render() {
     return (
-      <div>
-        <row>
-          <div className="col s12 m4 l4 flip-board">
-            <div className="leaderboard-pledge">
+      <div className="react-main">
+          <div className="flip-board">
               <FlipCard
                 disabled={true}
                 flipped={this.state.isFlipped}
@@ -135,11 +133,9 @@ class App extends Component {
               </div>
             </div>
               </FlipCard>
-            </div>
           </div>
-        </row>
 
-        <row>
+
           <div className="game-feed">
             <div className="panel">
               <h3>Game Feed</h3>
@@ -150,11 +146,11 @@ class App extends Component {
                     <li className="collection-item"> {event} </li>
                     )}
                   </ul>
-                </Scrollbars>
+                  </Scrollbars>
               </div>
             </div>
           </div>
-        </row>
+
       </div>
     );
   }
