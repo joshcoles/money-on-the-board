@@ -215,14 +215,19 @@ main {
   text-shadow: 1px 1px #000000; }
 
 .campaign-img {
-  object-fit: cover;
-  max-height: 284px;
-  max-width: 384px; }
+  max-height: auto;
+  max-width: auto; }
 
 .caption {
   padding-top: 50px;
   color: #E3383F;
   text-shadow: 1px 1px #000000; }
+
+.image-container {
+  max-height: 284px;
+  min-height: 284px;
+  max-width: 384px;
+  min-width: 384px; }
 
 .card-reveal h5 {
   color: #E3383F; }

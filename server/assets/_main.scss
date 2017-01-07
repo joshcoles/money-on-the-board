@@ -39,16 +39,21 @@ main {
 }
 
 .campaign-img {
-  object-fit: cover;
-  max-height: 284px;
-  max-width: 384px;
+  max-height: auto;
+  max-width: auto;
 }
 
 .caption {
   padding-top: 50px;
   color: $primary-2;
   text-shadow: 1px 1px $black;
-  // font-family: ;
+}
+
+.image-container {
+  max-height: 284px;
+  min-height: 284px;
+  max-width: 384px;
+  min-width: 384px;
 }
 
 .card-reveal {
