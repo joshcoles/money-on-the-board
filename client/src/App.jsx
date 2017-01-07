@@ -21,7 +21,7 @@ class App extends Component {
 
   get onSocketData(){
     return data => {
-      dataArray.push(data)
+      dataArray.unshift(data)
       if(!this.state || !this.state.pledges) { return; }
       this.state.pledges.forEach((user) => {
         user.pledged.forEach((pledge) => {

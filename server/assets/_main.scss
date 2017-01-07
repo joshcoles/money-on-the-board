@@ -2,6 +2,10 @@ html {
   // font-family: $logo-type;
 }
 
+a {
+  color: $primary-2;
+}
+
 body {
   display: flex;
   min-height: 100vh;

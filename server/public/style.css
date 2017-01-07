@@ -191,6 +191,9 @@ textarea.materialize-textarea.valid {
 .form-title {
   margin-left: 20px; }
 
+a {
+  color: #E3383F; }
+
 body {
   display: flex;
   min-height: 100vh;
