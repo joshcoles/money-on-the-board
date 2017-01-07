@@ -2,7 +2,12 @@ html {
   // font-family: $logo-type;
 }
 
+a {
+  color: $primary-2;
+}
+
 body {
+  background-color: #f0f1f1;
   display: flex;
   min-height: 100vh;
   flex-direction: column;
@@ -102,12 +107,12 @@ main {
 
 .main-parallax {
   height: 93vh;
-  border-bottom: 50px solid $primary-1;
+  border-bottom: 20px solid $primary-1;
 }
 
 .second-parallax {
-  border-top: 50px solid $primary-1;
-  border-bottom: 50px solid $primary-1;
+  border-top: 20px solid $primary-1;
+  border-bottom: 20px solid $primary-1;
   height: 90vh;
 }
 

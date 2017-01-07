@@ -191,7 +191,11 @@ textarea.materialize-textarea.valid {
 .form-title {
   margin-left: 20px; }
 
+a {
+  color: #E3383F; }
+
 body {
+  background-color: #f0f1f1;
   display: flex;
   min-height: 100vh;
   flex-direction: column; }
@@ -263,11 +267,11 @@ main {
 
 .main-parallax {
   height: 93vh;
-  border-bottom: 50px solid #004585; }
+  border-bottom: 20px solid #004585; }
 
 .second-parallax {
-  border-top: 50px solid #004585;
-  border-bottom: 50px solid #004585;
+  border-top: 20px solid #004585;
+  border-bottom: 20px solid #004585;
   height: 90vh; }
 
 .card .card-content .card-title {
