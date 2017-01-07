@@ -42,6 +42,14 @@ app.use(session({
 }));
 
 
+// function that fixed urls that don't begin with 'http://''
+function fixURL(originalURL) {
+  if (!(originalURL.includes("://"))) {
+    originalURL = "http://" + originalURL;
+  }
+  return originalURL;
+}
+
 // function that compares user input password with stored password
 function comparePass(userPassword, databasePassword) {
   return bcrypt.compareSync(userPassword, databasePassword);
@@ -322,7 +330,7 @@ app.post('/campaigns', (req, res) => {
   let game = req.body.game;
   let campaign_name = req.body.campaign_name;
   let charity_name = req.body.charity_name;
-  let charity_url = req.body.charity_url;
+  let charity_url = fixURL(req.body.charity_url);
   let hashtag = req.body.hashtag;
   let image_url = req.body.image_url;
   let description = req.body.description;
