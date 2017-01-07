@@ -1,6 +1,7 @@
 .back {
   display: inline-block;
   max-height: 300px;
+  min-height: 300px;
   width: 100%;
 }
 
@@ -39,6 +40,7 @@
 .front {
   display: inline-block;
   max-height: 300px;
+  min-height: 300px;
   width: 100%;
 }
 
@@ -89,6 +91,7 @@
   display: block;
   margin: 10px auto;
   max-height: 225px;
+  min-height: 210px;
   width: 94%;
 }
 
@@ -137,6 +140,7 @@
   border: thin black;
   margin: 10px;
   max-height: 225px;
+  min-height: 210px;
 }
 .username {
   font-size: 18px;
