@@ -7,6 +7,7 @@ a {
 }
 
 body {
+  background-color: #f0f1f1;
   display: flex;
   min-height: 100vh;
   flex-direction: column;
@@ -56,8 +57,6 @@ main {
 .image-container {
   max-height: 284px;
   min-height: 284px;
-  max-width: 384px;
-  min-width: 384px;
 }
 
 .card-reveal {
@@ -113,4 +112,8 @@ main {
   border-top: 20px solid $primary-1;
   border-bottom: 20px solid $primary-1;
   height: 90vh;
+}
+
+.card .card-content .card-title {
+  display: block;
 }
