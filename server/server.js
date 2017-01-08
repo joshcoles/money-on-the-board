@@ -416,6 +416,7 @@ app.get('/campaigns/:id', (req, res) => {
     let charity_url = data[0].charity_url
   res.render('index', {campaign_id, handle, charity_name, title, image_url, description, charity_url})
   })
+  pollGame();
 });
 
 
@@ -506,7 +507,7 @@ function pollGame() {
   });
 }
 
-pollGame();
+
 
 server.listen(app.get('port'), (err) => {
  if (err) throw err;
