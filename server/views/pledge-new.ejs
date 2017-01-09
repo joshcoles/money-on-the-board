@@ -9,10 +9,11 @@
     var team = document.getElementById(selectTeam);
     var player = document.getElementById(selectPlayer);
     player.innerHTML = "";
+    var optionArray;
     if(team.value == <%- JSON.stringify(home_id) %>) {
-      var optionArray = <%- JSON.stringify(home_roster) %>
+      optionArray = <%- JSON.stringify(home_roster) %>
     } else if(team.value == <%- JSON.stringify(away_id) %>) {
-      var optionArray = <%- JSON.stringify(away_roster) %>
+      optionArray = <%- JSON.stringify(away_roster) %>
     }
     for(var index in optionArray) {
       var newOption = document.createElement("option");
@@ -20,6 +21,7 @@
       newOption.innerHTML = optionArray[index].name
       player.options.add(newOption);
     }
+    $('select').material_select();
   }
 </script>
 
@@ -51,7 +53,9 @@
 
       <div class="row">
         <label>Player</label>
-        <select id="player" name="player" class="browser-default">
+        <select id="player" name="player" class="">
+          <option name="option1" value="option1" disabled selected>Choose your Player</option>
+          <option value="0992487d-52ee-4ec5-ac3a-9f4d583e60ac">Curtis Lazar</option>
         </select>
       </div>
 
@@ -91,7 +95,7 @@
       <button class="btn waves-effect waves-light button" type="submit" name="action">Submit
           <i class="material-icons right"></i>
       </button>
-      
+
     </form>
     <% } %>
   </div>
