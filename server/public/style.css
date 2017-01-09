@@ -199,6 +199,8 @@ body {
   display: flex;
   min-height: 100vh;
   flex-direction: column; }
+  body h1 {
+    color: #191919; }
 
 main {
   flex: 1 0 auto; }
@@ -224,23 +226,9 @@ main {
   max-width: auto; }
 
 .caption {
+  padding-top: 50px;
   color: #E3383F;
   text-shadow: 1px 1px #000000; }
-
-.caption-top {
-  font-size: 8em;
-  margin-bottom: -50px;
-}
-
-.caption-middle {
-  font-size: 4em;
-  margin-left: 80px;
-}
-
-.caption-bottom {
-  font-size: 8em;
-  margin-top: -75px;
-}
 
 .image-container {
   max-height: 284px;
@@ -306,9 +294,5 @@ nav {
   padding: 10px;
   border-radius: 5px;
   text-align: center; }
-
-.lobster {
-  font-family: 'Lobster', cursive;
-}
 
 /*# sourceMappingURL=style.css.map */
