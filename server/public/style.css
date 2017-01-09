@@ -6,8 +6,11 @@
   padding: 10px;
   width: 75%; }
 
+.about-a {
+  color: #003666; }
+
 .about-h {
-  font-family: "Archivo Black", sans-serif; }
+  font-family: "Source Sans Pro", sans-serif; }
 
 .light-text {
   font-family: "Source Sans Pro", sans-serif;
