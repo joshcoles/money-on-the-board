@@ -1,22 +1,23 @@
 div.twitter-feed.col {
- position: relative !important;
- border: solid rgb(0, 69, 133);
- border-radius: 5px;
- box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
- display: inline-flex;
- margin-top: 15px;
- padding: 0;
- width: 49% !important;
+  position: relative !important;
+  padding-left: 0px;
+  padding-right: 0px;
+  border: solid rgb(0, 69, 133);
+  border-radius: 5px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  display: inline-flex;
+  margin-top: 15px;
+  width: 49% !important;
 }
 
-.twitter-mention-top-right {
- position: absolute !important;
- right: 8px;
- top: 8px;
+.twitter-mention-button {
+  position: absolute !important;
+  right: 8px;
+  top: 8px;
 }
 
-.twitter-follow-top-right {
- position: absolute !important;
- right: 145px;
- top: 8px;
+.twitter-follow-button {
+  position: absolute !important;
+  right: 150px;
+  top: 8px;
 }

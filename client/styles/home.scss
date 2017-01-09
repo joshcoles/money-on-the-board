@@ -191,12 +191,25 @@
 }
 
 .twitter-feed {
+  position: relative !important;
   border: solid rgb(0, 69, 133);
   border-radius: 5px;
   box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
   display: inline-flex;
   margin-top: 15px;
   width: 49% !important;
+}
+
+.twitter-mention-top-right {
+  position: absolute !important;
+  right: 8px;
+  top: 8px;
+}
+
+.twitter-follow-top-right {
+  position: absolute !important;
+  right: 145px;
+  top: 8px;
 }
 
 

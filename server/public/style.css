@@ -320,4 +320,25 @@ nav {
   font-size: 8em;
   margin-top: -75px; }
 
+div.twitter-feed.col {
+  position: relative !important;
+  padding-left: 0px;
+  padding-right: 0px;
+  border: solid #004585;
+  border-radius: 5px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  display: inline-flex;
+  margin-top: 15px;
+  width: 49% !important; }
+
+.twitter-mention-button {
+  position: absolute !important;
+  right: 8px;
+  top: 8px; }
+
+.twitter-follow-button {
+  position: absolute !important;
+  right: 150px;
+  top: 8px; }
+
 /*# sourceMappingURL=style.css.map */
