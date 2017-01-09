@@ -1,12 +1,23 @@
 .back {
   display: inline-block;
   max-height: 300px;
+  min-height: 300px;
   width: 100%;
 }
 
 .button-cycle {
   color: #ffffff;
   margin-top: 4px;
+}
+
+.cp-button {
+  background-color: #E3383F;
+  margin: 0 5px;
+  width: 250px;
+}
+
+.cp-button:hover {
+  background-color: #b52c32;
 }
 
 .flip-board {
@@ -39,6 +50,7 @@
 .front {
   display: inline-block;
   max-height: 300px;
+  min-height: 300px;
   width: 100%;
 }
 
@@ -89,11 +101,23 @@
   display: block;
   margin: 10px auto;
   max-height: 225px;
+  min-height: 210px;
   width: 94%;
 }
 
 .leaderboard-user {
   margin: 5px;
+}
+
+.name-head {
+  color: #ffffff;
+  font-size: 1.85em;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.name-head-left {
+  margin-left: 40px;
 }
 
 .panel {
@@ -137,6 +161,7 @@
   border: thin black;
   margin: 10px;
   max-height: 225px;
+  min-height: 210px;
 }
 .username {
   font-size: 18px;
@@ -172,13 +197,6 @@
   display: inline-flex;
   margin-top: 15px;
   width: 49% !important;
-}
-
-h3 {
-  color: #ffffff;
-  margin: 10px 0 0 10px;
-  text-align: center;
-  text-decoration: underline;
 }
 
 

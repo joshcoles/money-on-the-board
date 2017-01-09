@@ -1,8 +1,8 @@
 exports.up = function(knex, Promise) {
   return Promise.all([
     knex.schema.table('campaigns', function(table) {
-      table.string('description').notNullable();
-      table.string('image_url').notNullable();
+      table.string('description', 500).notNullable();
+      table.string('image_url', 500).notNullable();
     })
   ])
 };
