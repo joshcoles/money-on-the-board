@@ -96,7 +96,7 @@ class App extends Component {
                         {this.state.pledges.map(total =>
                         <li className="leaderboard-user collection-item">
                           <div>
-                            <span className="username">{total.username}</span>
+                            <span className="username">{total.username}</span> owes:
                               <div className="secondary-content">
                               ${total.totalPledges.reduce(function(a, b) {
                               return a + b;
@@ -121,10 +121,10 @@ class App extends Component {
                           pledge.pledged.map(userPledge =>
                         <li className="user-pledge-data collection-item">
                           <span className="username">{userPledge.username}</span>
-                            <br></br> Event: {userPledge.pledge_event}
-                            <br></br> Amount: {userPledge.pledge_amount}
-                            <br></br> Occurance: {userPledge.occurance}
-                            <br></br> Owes: ${userPledge.owes}
+                            <br></br> Pledges: <strong>${userPledge.pledge_amount}</strong>.
+                            <br></br> For event: "{userPledge.pledge_event}".
+                            <br></br> Occurances: <strong>{userPledge.occurance}</strong>.
+                            <br></br> Owes: <strong>${userPledge.owes}</strong>.
                         </li>
                          )
                         )}
