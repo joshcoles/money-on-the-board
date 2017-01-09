@@ -224,23 +224,9 @@ main {
   max-width: auto; }
 
 .caption {
+  padding-top: 50px;
   color: #E3383F;
   text-shadow: 1px 1px #000000; }
-
-.caption-top {
-  font-size: 8em;
-  margin-bottom: -50px;
-}
-
-.caption-middle {
-  font-size: 4em;
-  margin-left: 80px;
-}
-
-.caption-bottom {
-  font-size: 8em;
-  margin-top: -75px;
-}
 
 .image-container {
   max-height: 284px;
@@ -308,7 +294,18 @@ nav {
   text-align: center; }
 
 .lobster {
-  font-family: 'Lobster', cursive;
-}
+  font-family: "Lobster", cursive; }
+
+.caption-top {
+  font-size: 8em;
+  margin-bottom: -50px; }
+
+.caption-middle {
+  font-size: 4em;
+  margin-left: 80px; }
+
+.caption-bottom {
+  font-size: 8em;
+  margin-top: -75px; }
 
 /*# sourceMappingURL=style.css.map */
