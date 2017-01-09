@@ -295,4 +295,19 @@ nav {
   border-radius: 5px;
   text-align: center; }
 
+.lobster {
+  font-family: "Lobster", cursive; }
+
+.caption-top {
+  font-size: 8em;
+  margin-bottom: -50px; }
+
+.caption-middle {
+  font-size: 4em;
+  margin-left: 80px; }
+
+.caption-bottom {
+  font-size: 8em;
+  margin-top: -75px; }
+
 /*# sourceMappingURL=style.css.map */
