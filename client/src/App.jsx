@@ -97,7 +97,7 @@ class App extends Component {
                         <li className="leaderboard-user collection-item">
                           <div>
                             <span className="username">{total.username}</span> owes:
-                              <div className="secondary-content">
+                              <div className="secondary-content user-owes">
                               ${total.totalPledges.reduce(function(a, b) {
                               return a + b;
                             }, 0)}
