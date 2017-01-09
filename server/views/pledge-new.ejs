@@ -2,17 +2,16 @@
 <html>
 <% include ./partials/_head %>
 
-<!-- <script type="text/javascript" src="/scripts/populate-players.js"></script> -->
-
 <script type="text/javascript">
   function populate(selectTeam, selectPlayer) {
     var team = document.getElementById(selectTeam);
     var player = document.getElementById(selectPlayer);
     player.innerHTML = "";
+    var optionArray;
     if(team.value == <%- JSON.stringify(home_id) %>) {
-      var optionArray = <%- JSON.stringify(home_roster) %>
+      optionArray = <%- JSON.stringify(home_roster) %>
     } else if(team.value == <%- JSON.stringify(away_id) %>) {
-      var optionArray = <%- JSON.stringify(away_roster) %>
+      optionArray = <%- JSON.stringify(away_roster) %>
     }
     for(var index in optionArray) {
       var newOption = document.createElement("option");
@@ -20,6 +19,7 @@
       newOption.innerHTML = optionArray[index].name
       player.options.add(newOption);
     }
+    $('select').material_select();
   }
 </script>
 
@@ -51,7 +51,8 @@
 
       <div class="row">
         <label>Player</label>
-        <select id="player" name="player" class="browser-default">
+        <select id="player" name="player" class="">
+          <option name="option1" value="option1" disabled selected>Choose your Player</option>
         </select>
       </div>
 
@@ -61,22 +62,22 @@
           <option name="option1" value="" disabled selected>Choose your in-game event</option>
           <option name="goal" value="6">Goal</option>
           <option name="assist" value="8">
-            Assist
+          Assist
           </option>
           <option name="point" value="9">
-            Point
+          Point
           </option>
           <option name="hit" value="4">
-            Hit
+          Hit
           </option>
           <option name="penalty" value="5">
-            Penalty
+          Penalty
           </option>
           <option name="faceoff" value="2">
-            Faceoff Won
+          Faceoff Won
           </option>
           <option name="shotsaved" value="3">
-            Shot Saved
+          Shot Saved
           </option>
         </select>
       </div>
@@ -91,7 +92,7 @@
       <button class="btn waves-effect waves-light button" type="submit" name="action">Submit
           <i class="material-icons right"></i>
       </button>
-      
+
     </form>
     <% } %>
   </div>

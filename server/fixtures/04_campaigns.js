@@ -32,7 +32,7 @@ exports.seed = function(knex, Promise) {
           title: 'For Children We Care',
           charity_name: 'BC Childrens Hospital',
           charity_url: 'https://secure.bcchf.ca/donate/donation-New.cfm?&utm_source=BCCHwebsite&utm_medium=Donatepage&utm_campaign=BCCHweb-donate',
-          description: 'BC Children’s Hospital is a leader in general and specialized pediatric services, and is the province’s foremost teaching and research facility for child health.',
+          description: 'BC Children\’s Hospital is a leader in general and specialized pediatric services, and is the province\’s foremost teaching and research facility for child health.',
           image_url: 'http://www.bcchildrens.ca/_layouts/15/CUSTOM/EWI/assets/img/bcchildrenshospital/logo.png'
         })
       ]);
