@@ -215,6 +215,9 @@ textarea.materialize-textarea.valid {
 .form-title {
   margin-left: 20px; }
 
+html {
+  font-family: "Source Sans Pro", sans-serif; }
+
 a {
   color: #E3383F; }
 
@@ -224,9 +227,22 @@ body {
   min-height: 100vh;
   flex-direction: column; }
   body h1 {
-    color: #141414; }
+    color: #323232;
+    font-weight: 300; }
   body h2 {
-    color: #141414; }
+    color: #323232;
+    font-weight: 300; }
+  body h3 {
+    color: #323232;
+    font-weight: 300; }
+  body h4 {
+    color: #323232; }
+  body h5 {
+    color: #323232;
+    font-weight: 300; }
+  body h6 {
+    color: #323232;
+    font-weight: 300; }
 
 main {
   flex: 1 0 auto; }
@@ -257,16 +273,15 @@ main {
   padding-top: 50px;
   text-shadow: 1px 1px #000000; }
 
+.card .card-content .card-title {
+  display: block; }
+
 .image-container {
   max-height: 284px;
   min-height: 284px; }
 
 .card-reveal h5 {
   color: #E3383F; }
-
-.sub-caption {
-  color: #E3383F;
-  font-family: "Rock Salt", cursive; }
 
 .get-started {
   background-color: #004585;
@@ -281,40 +296,6 @@ main {
   position: fixed;
   bottom: 20px; }
 
-.fa {
-  color: #E3383F; }
-
-.fa-telegraph {
-  font-size: 3.5em !important;
-  margin-left: 3px;
-  margin-top: 6px; }
-
-.fa-users {
-  margin-left: 6px;
-  margin-top: 9px; }
-
-.fa-check-circle-o {
-  margin-left: 4px;
-  margin-top: 1px; }
-
-.fa-heart {
-  font-size: 3.5em !important;
-  margin-top: 8px;
-  margin-left: 4px; }
-
-.h-t-w {
-  border-bottom: 0.5px solid black;
-  padding-bottom: 15px; }
-
-.how-it-works {
-  margin-top: 75px;
-  margin-bottom: 75px; }
-  .how-it-works h2 {
-    border-bottom: 0.5px solid black;
-    padding-bottom: 15px; }
-  .how-it-works p {
-    color: #000000; }
-
 .main-parallax {
   height: 80vh;
   border-bottom: 20px solid #004585; }
@@ -324,8 +305,105 @@ main {
   border-bottom: 20px solid #004585;
   height: 90vh; }
 
-.card .card-content .card-title {
-  display: block; }
+.sub-caption {
+  color: #E3383F;
+  font-family: "Rock Salt", cursive; }
+
+nav {
+  background-color: #004585; }
+
+.dropdown-content li > a {
+  color: #D39F29;
+  text-align: center; }
+
+.navbar-links {
+  margin-left: 110px; }
+
+.motb-title {
+  color: #E3383F;
+  font-family: "Archivo Black", sans-serif; }
+
+.campaign-charity {
+  color: #FFFFFF; }
+
+.campaign-info {
+  color: white;
+  margin-top: 15px;
+  background-color: #004585;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center; }
+
+.campaign-title {
+  color: #FFFFFF; }
+
+.secondary-content {
+  color: #19c856; }
+
+.lobster {
+  font-family: "Lobster", cursive; }
+
+.caption-top {
+  font-size: 8em;
+  margin-bottom: -50px; }
+
+.caption-middle {
+  font-size: 4em;
+  margin-left: 80px; }
+
+.caption-bottom {
+  font-size: 8em;
+  margin-top: -75px; }
+
+div.twitter-feed.col {
+  position: relative !important;
+  padding-left: 0px;
+  padding-right: 0px;
+  border: solid #004585;
+  border-radius: 5px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  display: inline-flex;
+  margin-top: 15px;
+  width: 49% !important; }
+
+.twitter-mention-button {
+  position: absolute !important;
+  right: 8px;
+  top: 8px; }
+
+.twitter-follow-button {
+  position: absolute !important;
+  right: 150px;
+  top: 8px; }
+
+.fa {
+  color: #E3383F; }
+
+.fa-plus-circle {
+  margin-left: 4.5px;
+  margin-top: -1px; }
+
+.fa-users {
+  margin-left: 6px;
+  margin-top: 9px; }
+
+.fa-check-circle-o {
+  margin-left: 4.5px;
+  margin-top: 1px; }
+
+.fa-heart {
+  font-size: 3.5em !important;
+  margin-top: 8px;
+  margin-left: 4px; }
+
+.how-it-works {
+  margin-top: 75px;
+  margin-bottom: 75px; }
+  .how-it-works h2 {
+    border-bottom: 0.5px solid black;
+    padding-bottom: 15px; }
+  .how-it-works p {
+    color: #000000; }
 
 #cd-timeline {
   position: relative;
@@ -381,8 +459,7 @@ main {
   left: 0;
   width: 40px;
   height: 40px;
-  border-radius: 50%;
-  box-shadow: 0 0 0 4px white, inset 0 2px 0 rgba(0, 0, 0, 0.08), 0 3px 0 4px rgba(0, 0, 0, 0.05); }
+  border-radius: 50%; }
 
 .cd-timeline-img img {
   display: block;
@@ -475,7 +552,7 @@ main {
   clear: both; }
 
 .cd-timeline-content h2 {
-  color: #303e49; }
+  color: #323232; }
 
 .cd-timeline-content p, .cd-timeline-content .cd-read-more, .cd-timeline-content .cd-date {
   font-size: 13px;
@@ -658,68 +735,5 @@ main {
     -ms-transform: translateX(0);
     -o-transform: translateX(0);
     transform: translateX(0); } }
-nav {
-  background-color: #004585; }
-
-.dropdown-content li > a {
-  color: #D39F29;
-  text-align: center; }
-
-.navbar-links {
-  margin-left: 110px; }
-
-.motb-title {
-  color: #E3383F;
-  font-family: "Archivo Black", sans-serif; }
-
-.campaign-info {
-  color: white;
-  margin-top: 15px;
-  background-color: #004585;
-  padding: 10px;
-  border-radius: 5px;
-  text-align: center; }
-
-.campaign-title {
-  color: #FFFFFF; }
-
-.secondary-content {
-  color: #19c856; }
-
-.lobster {
-  font-family: "Lobster", cursive; }
-
-.caption-top {
-  font-size: 8em;
-  margin-bottom: -50px; }
-
-.caption-middle {
-  font-size: 4em;
-  margin-left: 80px; }
-
-.caption-bottom {
-  font-size: 8em;
-  margin-top: -75px; }
-
-div.twitter-feed.col {
-  position: relative !important;
-  padding-left: 0px;
-  padding-right: 0px;
-  border: solid #004585;
-  border-radius: 5px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
-  display: inline-flex;
-  margin-top: 15px;
-  width: 49% !important; }
-
-.twitter-mention-button {
-  position: absolute !important;
-  right: 8px;
-  top: 8px; }
-
-.twitter-follow-button {
-  position: absolute !important;
-  right: 150px;
-  top: 8px; }
 
 /*# sourceMappingURL=style.css.map */
