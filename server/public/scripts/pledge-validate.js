@@ -1,4 +1,7 @@
 $(document).ready(function() {
+  $.validator.setDefaults({
+       ignore: []
+  });
   $('#pledge-new').validate({
     rules: {
       team: {
