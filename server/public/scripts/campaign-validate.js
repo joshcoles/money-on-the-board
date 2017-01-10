@@ -1,9 +1,11 @@
 $(document).ready(function() {
+  $.validator.setDefaults({
+       ignore: []
+  });
   $('#campaign-new').validate({
     rules: {
       game: {
         required: true,
-        min: 1
       },
       campaign_name: {
         required: true,

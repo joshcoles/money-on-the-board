@@ -52,6 +52,27 @@
   font-size: 0.8rem;
   color: #E3383F; }
 
+#game-error {
+  position: relative;
+  top: -1rem;
+  left: 0rem;
+  font-size: 0.8rem;
+  color: #E3383F; }
+
+#inGameEvent-error {
+  position: relative;
+  top: -1rem;
+  left: 0rem;
+  font-size: 0.8rem;
+  color: #E3383F; }
+
+#team-error {
+  position: relative;
+  top: -1rem;
+  left: 0rem;
+  font-size: 0.8rem;
+  color: #E3383F; }
+
 #hashtag-error {
   position: relative;
   top: -1rem;
