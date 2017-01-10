@@ -781,4 +781,13 @@ form#multiphase > #phase2, #phase3, #phase4, #show_all_data {
 .progress-bar li.active + li:after {
   background-color: #004585; }
 
+.modal.bottom-sheet {
+  top: auto;
+  bottom: -100%;
+  margin: 0;
+  width: 100%;
+  max-height: 25%;
+  border-radius: 0;
+  will-change: bottom, opacity; }
+
 /*# sourceMappingURL=style.css.map */
