@@ -1,3 +1,12 @@
+.about {
+  margin-top: 75px;
+  margin-bottom: 75px; }
+  .about h2 {
+    border-bottom: 0.5px solid black;
+    padding-bottom: 15px; }
+  .about p {
+    color: #000000; }
+
 .about-container {
   background-color: #F0F1F1;
   margin-left: 15%;
@@ -247,15 +256,6 @@ body {
 main {
   flex: 1 0 auto; }
 
-.about {
-  margin-top: 75px;
-  margin-bottom: 75px; }
-  .about h2 {
-    border-bottom: 0.5px solid black;
-    padding-bottom: 15px; }
-  .about p {
-    color: #000000; }
-
 .brand-logo {
   margin-left: 20px; }
 
@@ -417,8 +417,7 @@ div.twitter-feed.col {
   color: #E3383F; }
 
 .fa-plus-circle {
-  margin-left: 4.5px;
-  margin-top: -1px; }
+  margin-left: 4px; }
 
 .fa-users {
   margin-left: 6px;
@@ -432,30 +431,37 @@ div.twitter-feed.col {
   margin-top: 8px;
   margin-left: 4px; }
 
-.how-it-works {
+.how-it-works-block {
   margin-top: 75px;
   margin-bottom: 75px; }
-  .how-it-works h2 {
-    border-bottom: 0.5px solid black;
+  .how-it-works-block h2 {
+    border-bottom: 0.5px solid #D39F29;
+    color: #FFFFFF;
     padding-bottom: 15px; }
-  .how-it-works p {
-    color: #000000; }
+  .how-it-works-block p {
+    color: #FFFFFF; }
+
+.how-it-works-h {
+  border-bottom: .5px solid black;
+  padding-bottom: 15px;
+  margin: 0 15%;
+  margin-top: 25px; }
 
 #cd-timeline {
-  position: relative;
-  padding: 2em 0;
+  margin-bottom: 2em;
   margin-top: 2em;
-  margin-bottom: 2em; }
+  position: relative;
+  padding: 2em 0; }
 
 #cd-timeline::before {
   /* this is the vertical line */
+  background: #606060;
   content: '';
-  position: absolute;
-  top: 0;
+  height: 76%;
   left: 18px;
-  height: 100%;
-  width: 4px;
-  background: #d7e4ed; }
+  position: absolute;
+  top: 30;
+  width: 4px; }
 
 @media only screen and (min-width: 1170px) {
   #cd-timeline {
@@ -467,7 +473,7 @@ div.twitter-feed.col {
     margin-left: -2px; } }
 .cd-timeline-block {
   position: relative;
-  margin: 2em 0; }
+  margin: 0em 0; }
 
 .cd-timeline-block:after {
   content: "";
@@ -482,7 +488,7 @@ div.twitter-feed.col {
 
 @media only screen and (min-width: 1170px) {
   .cd-timeline-block {
-    margin: 4em 0; }
+    margin: 0em 0; }
 
   .cd-timeline-block:first-child {
     margin-top: 0; }
@@ -518,7 +524,7 @@ div.twitter-feed.col {
 
 @media only screen and (min-width: 1170px) {
   .cd-timeline-img {
-    background-color: white;
+    background-color: #F0F1F1;
     width: 60px;
     height: 60px;
     left: 50%;
@@ -577,7 +583,7 @@ div.twitter-feed.col {
 .cd-timeline-content {
   position: relative;
   margin-left: 60px;
-  background: white;
+  background: #004585;
   border-radius: 0.25em;
   padding: 1em;
   box-shadow: 0 3px 0 #d7e4ed; }
@@ -588,7 +594,7 @@ div.twitter-feed.col {
   clear: both; }
 
 .cd-timeline-content h2 {
-  color: #323232; }
+  color: #FFFFFF; }
 
 .cd-timeline-content p, .cd-timeline-content .cd-read-more, .cd-timeline-content .cd-date {
   font-size: 13px;
@@ -632,14 +638,14 @@ div.twitter-feed.col {
     font-size: 1.25rem; }
 
   .cd-timeline-content p {
-    font-size: 16px;
-    font-size: 1rem; }
+    font-size: 16px; }
 
   .cd-timeline-content .cd-read-more, .cd-timeline-content .cd-date {
     font-size: 14px;
     font-size: 0.875rem; } }
 @media only screen and (min-width: 1170px) {
   .cd-timeline-content {
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
     margin-left: 0;
     padding: 1.6em;
     width: 45%; }
@@ -771,5 +777,61 @@ div.twitter-feed.col {
     -ms-transform: translateX(0);
     -o-transform: translateX(0);
     transform: translateX(0); } }
+form#multiphase > #phase2, #phase3, #phase4, #show_all_data {
+  display: none; }
+
+#step1, #step2, #step3, #step4 {
+  margin-bottom: 15px; }
+
+.progress-div {
+  margin-bottom: 10px; }
+
+.progress-bar {
+  counter-reset: step; }
+
+.progress-bar li {
+  list-style-type: none;
+  float: left;
+  width: 25%;
+  position: relative;
+  text-align: center;
+  color: #F0F1F1; }
+
+.progress-bar li:before {
+  content: counter(step);
+  counter-increment: step;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  border: 1px solid #F0F1F1;
+  color: #F0F1F1;
+  display: block;
+  text-align: center;
+  margin: 0 auto 0 auto;
+  border-radius: 50%;
+  background-color: #FFFFFF; }
+
+.progress-bar li:first-child:after {
+  content: none; }
+
+.progress-bar li.active {
+  color: #004585; }
+
+.progress-bar li.active:before {
+  border: 2px solid;
+  border-color: #004585;
+  color: #004585; }
+
+.progress-bar li.active + li:after {
+  background-color: #004585; }
+
+.modal.bottom-sheet {
+  top: auto;
+  bottom: -100%;
+  margin: 0;
+  width: 100%;
+  max-height: 25%;
+  border-radius: 0;
+  will-change: bottom, opacity; }
 
 /*# sourceMappingURL=style.css.map */
