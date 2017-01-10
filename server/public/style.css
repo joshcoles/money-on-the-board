@@ -254,9 +254,6 @@ body {
 main {
   flex: 1 0 auto; }
 
-.brand-logo {
-  margin-left: 20px; }
-
 .call-to-action {
   color: #D39F29;
   text-shadow: 1px 1px #000000; }
@@ -318,6 +315,8 @@ nav {
   nav ul a {
     animation: none;
     transition: none; }
+  nav .brand-logo {
+    padding: 0 20px; }
 
 #nav-user-info {
   position: absolute;
