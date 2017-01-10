@@ -1,15 +1,23 @@
 <header>
+  <ul id='dropdown1' class='dropdown-content'>
+    <li><a href="/campaigns/new">Create</a></li>
+    <li class="divider"></li>
+    <li><a href="/campaigns">Recent</a></li>
+    <li class="divider"></li>
+  </ul>
+
   <nav>
     <div class="nav-wrapper">
       <form action="/<%= isAuthenticated ? 'logout' : 'login' %>" method="post">
-      <a href="/" class="brand-logo">MOTB</a>
-      <ul id="nav-mobile" class="left hide-on-med-and-down navbar-links">
-        <li><a href="/campaigns">Campaigns</a></li>
-        <li><a href="/campaigns/new">Create</a></li>
+      <ul id="nav-mobile" class="left hide-on-med-and-down">
+        <li><a class="dropdown-button" href="#!" data-activates="dropdown1">Campaigns<i class="material-icons right">arrow_drop_down</i></a></li>
+        <li><a class="grey-text text-lighten-3" href="/#how-it-works">How it Works</a></li>
         <li><a class="grey-text text-lighten-3" href="/#about">About</a></li>
         </li>
       </ul>
+      <a href="/" class="brand-logo center">MOTB</a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
+
         <% if(isAuthenticated) { %>
         <li><a>Welcome, <%= currentUser.username %>.</a></li>
         <li><button type="submit" class="btn btn-log button"/>Logout</button></li>
