@@ -4,8 +4,7 @@
 }
 
 .fa-plus-circle {
-    margin-left: 4.5px;
-    margin-top: -1px;
+    margin-left: 4px;
 }
 
 .fa-users {
@@ -27,29 +26,30 @@
   margin-top: 75px;
   margin-bottom: 75px;
   h2 {
-    border-bottom: 0.5px solid black;
+    border-bottom: 0.5px solid $accent-1;
+    color: $white;
     padding-bottom: 15px;
   }
   p {
-    color: $black;
+    color: $white;
   }
 }
 
 #cd-timeline {
+  margin-bottom: 2em;
+  margin-top: 2em;
   position: relative;
   padding: 2em 0;
-  margin-top: 2em;
-  margin-bottom: 2em;
 }
 #cd-timeline::before {
   /* this is the vertical line */
+  background: $dark-shadow;
   content: '';
-  position: absolute;
-  top: 0;
+  height: 76%;
   left: 18px;
-  height: 100%;
+  position: absolute;
+  top: 30;
   width: 4px;
-  background: #d7e4ed;
 }
 @media only screen and (min-width: 1170px) {
   #cd-timeline {
@@ -64,7 +64,7 @@
 
 .cd-timeline-block {
   position: relative;
-  margin: 2em 0;
+  margin: 0em 0;
 }
 .cd-timeline-block:after {
   content: "";
@@ -79,7 +79,7 @@
 }
 @media only screen and (min-width: 1170px) {
   .cd-timeline-block {
-    margin: 4em 0;
+    margin: 0em 0;
   }
   .cd-timeline-block:first-child {
     margin-top: 0;
@@ -198,7 +198,7 @@
 .cd-timeline-content {
   position: relative;
   margin-left: 60px;
-  background: white;
+  background: $primary-1;
   border-radius: 0.25em;
   padding: 1em;
   box-shadow: 0 3px 0 #d7e4ed;
@@ -209,7 +209,7 @@
   clear: both;
 }
 .cd-timeline-content h2 {
-  color: $font-main;
+  color: $white;
 }
 .cd-timeline-content p, .cd-timeline-content .cd-read-more, .cd-timeline-content .cd-date {
   font-size: 13px;
@@ -254,7 +254,7 @@
   }
   .cd-timeline-content p {
     font-size: 16px;
-    font-size: 1rem;
+    // font-size: 1rem;
   }
   .cd-timeline-content .cd-read-more, .cd-timeline-content .cd-date {
     font-size: 14px;
