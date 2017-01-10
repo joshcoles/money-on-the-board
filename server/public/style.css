@@ -302,10 +302,6 @@ main {
   margin-top: 8px;
   margin-left: 4px; }
 
-.h-t-w {
-  border-bottom: 0.5px solid black;
-  padding-bottom: 15px; }
-
 .how-it-works {
   margin-top: 75px;
   margin-bottom: 75px; }
@@ -721,5 +717,53 @@ div.twitter-feed.col {
   position: absolute !important;
   right: 150px;
   top: 8px; }
+
+form#multiphase > #phase2, #phase3, #phase4, #show_all_data {
+  display: none; }
+
+#step1, #step2, #step3, #step4 {
+  margin-bottom: 15px; }
+
+.progress-div {
+  margin-bottom: 10px; }
+
+.progress-bar {
+  counter-reset: step; }
+
+.progress-bar li {
+  list-style-type: none;
+  float: left;
+  width: 25%;
+  position: relative;
+  text-align: center;
+  color: #F0F1F1; }
+
+.progress-bar li:before {
+  content: counter(step);
+  counter-increment: step;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  border: 1px solid #F0F1F1;
+  color: #F0F1F1;
+  display: block;
+  text-align: center;
+  margin: 0 auto 0 auto;
+  border-radius: 50%;
+  background-color: #FFFFFF; }
+
+.progress-bar li:first-child:after {
+  content: none; }
+
+.progress-bar li.active {
+  color: #004585; }
+
+.progress-bar li.active:before {
+  border: 2px solid;
+  border-color: #004585;
+  color: #004585; }
+
+.progress-bar li.active + li:after {
+  background-color: #004585; }
 
 /*# sourceMappingURL=style.css.map */
