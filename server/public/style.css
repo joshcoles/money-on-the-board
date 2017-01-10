@@ -311,17 +311,54 @@ main {
 
 nav {
   background-color: #004585; }
+  nav ul a {
+    animation: none;
+    transition: none; }
+
+#nav-user-info {
+  position: absolute;
+  right: 0; }
+
+#nav-mobile {
+  position: absolute; }
+
+.dropdown-button {
+  padding-left: 125px;
+  transition: none; }
+  .dropdown-button .material-icons {
+    margin-left: 0; }
 
 .dropdown-content li > a {
-  color: #D39F29;
-  text-align: center; }
+  background-color: #004585;
+  color: #FFFFFF;
+  text-align: center;
+  transition: none; }
+  .dropdown-content li > a:hover {
+    background-color: #003666;
+    color: #FFFFFF; }
 
 .navbar-links {
   margin-left: 110px; }
 
 .motb-title {
   color: #E3383F;
-  font-family: "Archivo Black", sans-serif; }
+  font-family: "Source Sans Pro", sans-serif; }
+
+ul#dropdown1.dropdown-content.active {
+  margin-left: 90px;
+  margin-top: 64px;
+  width: 175px;
+  transition: none; }
+
+ul#dropdown1.dropdown-content {
+  margin-left: 90px;
+  margin-top: 64px;
+  width: 175px; }
+
+a.dropdown-button.active {
+  transition: none;
+  width: 75px;
+  background-color: #004585; }
 
 .campaign-charity {
   color: #FFFFFF; }
@@ -388,8 +425,7 @@ div.twitter-feed.col {
   margin-top: 9px; }
 
 .fa-check-circle-o {
-  margin-left: 4.5px;
-  margin-top: 1px; }
+  margin-left: 4.5px; }
 
 .fa-heart {
   font-size: 3.5em !important;
