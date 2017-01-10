@@ -1,3 +1,7 @@
+h4.step {
+  margin: 4rem 0 0.912rem 0;
+}
+
 .fa {
   color: $primary-2;
 }
@@ -34,11 +38,8 @@
   }
 }
 
-.how-it-works-h {
-  border-bottom: .5px solid black;
-  padding-bottom: 15px;
-  margin: 0 15%;
-  margin-top: 25px;
+.hiw-h {
+  margin: 50px 15% 0 15%;
 }
 
 #cd-timeline {
@@ -278,7 +279,7 @@
     top: 24px;
     left: 100%;
     border-color: transparent;
-    border-left-color: white;
+    border-left-color: $primary-1;
   }
   .cd-timeline-content .cd-read-more {
     float: left;
@@ -299,7 +300,7 @@
     left: auto;
     right: 100%;
     border-color: transparent;
-    border-right-color: white;
+    border-right-color: $primary-1;
   }
   .cd-timeline-block:nth-child(even) .cd-timeline-content .cd-read-more {
     float: right;

@@ -1,9 +1,6 @@
 .about {
-  margin-top: 75px;
+  margin-top: 50px;
   margin-bottom: 75px; }
-  .about h2 {
-    border-bottom: 0.5px solid black;
-    padding-bottom: 15px; }
   .about p {
     color: #000000; }
 
@@ -276,12 +273,18 @@ main {
 .card .card-content .card-title {
   display: block; }
 
-.image-container {
-  max-height: 284px;
-  min-height: 284px; }
+.custom-header {
+  border-bottom: .5px solid black;
+  padding-bottom: 15px;
+  margin-top: 25px;
+  text-align: center; }
 
 .card-reveal h5 {
   color: #E3383F; }
+
+.image-container {
+  max-height: 284px;
+  min-height: 284px; }
 
 .get-started {
   background-color: #004585;
@@ -376,6 +379,9 @@ div.twitter-feed.col {
   right: 150px;
   top: 8px; }
 
+h4.step {
+  margin: 4rem 0 0.912rem 0; }
+
 .fa {
   color: #E3383F; }
 
@@ -404,11 +410,8 @@ div.twitter-feed.col {
   .how-it-works-block p {
     color: #FFFFFF; }
 
-.how-it-works-h {
-  border-bottom: .5px solid black;
-  padding-bottom: 15px;
-  margin: 0 15%;
-  margin-top: 25px; }
+.hiw-h {
+  margin: 50px 15% 0 15%; }
 
 #cd-timeline {
   margin-bottom: 2em;
@@ -617,7 +620,7 @@ div.twitter-feed.col {
     top: 24px;
     left: 100%;
     border-color: transparent;
-    border-left-color: white; }
+    border-left-color: #004585; }
 
   .cd-timeline-content .cd-read-more {
     float: left; }
@@ -638,7 +641,7 @@ div.twitter-feed.col {
     left: auto;
     right: 100%;
     border-color: transparent;
-    border-right-color: white; }
+    border-right-color: #004585; }
 
   .cd-timeline-block:nth-child(even) .cd-timeline-content .cd-read-more {
     float: right; }
@@ -796,5 +799,8 @@ form#multiphase > #phase2, #phase3, #phase4, #show_all_data {
   max-height: 25%;
   border-radius: 0;
   will-change: bottom, opacity; }
+
+.new-camp-h {
+  margin: 50px 15%; }
 
 /*# sourceMappingURL=style.css.map */

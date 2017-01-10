@@ -65,15 +65,22 @@ main {
   display: block;
 }
 
-.image-container {
-  max-height: 284px;
-  min-height: 284px;
+.custom-header {
+  border-bottom: .5px solid black;
+  padding-bottom: 15px;
+  margin-top: 25px;
+  text-align: center;
 }
 
 .card-reveal {
   h5 {
     color: $primary-2;
   }
+}
+
+.image-container {
+  max-height: 284px;
+  min-height: 284px;
 }
 
 .get-started {
