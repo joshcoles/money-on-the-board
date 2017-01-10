@@ -3,9 +3,7 @@
 <% include ./partials/_head %>
 
 <style>
-form#multiphase > #phase2, #phase3, #phase4, #show_all_data {
-  display:none;
-}
+
 </style>
 
 
@@ -15,14 +13,23 @@ form#multiphase > #phase2, #phase3, #phase4, #show_all_data {
 
   <div class="form-container card">
   <% if (isAuthenticated) { %>
-
     <div class="row">
       <form class="col s12" id="multiphase" onsubmit="return false">
 
-
         <div id="phase1">
+        <div class="row">
+        <div class="progress-div">
+          <ul class="progress-bar">
+            <li id="step1" class="active">Pick Game</li>
+            <li id="step2" class="">Campaign Info</li>
+            <li id="step3" class="">Charity Info</li>
+            <li id="step4" class="">Media</li>
+          </ul>
+        </div>
+        </div>
+          <hr>
           <div class="row">
-            <p class="new-campaign-instructions">Select an upcoming game for your campaign. Make sure the data and start time work for your campaign</p>
+            <p class="new-campaign-instructions">Pick an upcoming game for your campaign. Make sure the date and start time work with your campaign</p>
           </div>
           <div class="row">
             <label>Game</label>
@@ -39,9 +46,21 @@ form#multiphase > #phase2, #phase3, #phase4, #show_all_data {
         </div>
 
 
+
         <div id="phase2">
+        <div class="row">
+        <div class="progress-div">
+          <ul class="progress-bar">
+            <li id="step1" class="">Pick Game</li>
+            <li id="step2" class="active">Campaign Info</li>
+            <li id="step3" class="">Charity Info</li>
+            <li id="step4" class="">Media</li>
+          </ul>
+        </div>
+        </div>
+        <hr>
           <div class="row">
-            <p class="new-campaign-instructions">Create a unique name for your campaign, and provide a brief description about of your cause, and what any proceeds would be used for.</p>
+            <p class="new-campaign-instructions">Enter a unique name for your campaign, and provide a brief description about of your cause, and what any proceeds would be used for.</p>
           </div>
           <div class="row">
             <div class="input-field col s12">
@@ -61,6 +80,17 @@ form#multiphase > #phase2, #phase3, #phase4, #show_all_data {
 
 
         <div id="phase3">
+        <div class="row">
+        <div class="progress-div">
+          <ul class="progress-bar">
+            <li id="step1" class="">Pick Game</li>
+            <li id="step2" class="">Campaign Info</li>
+            <li id="step3" class="active">Charity Info</li>
+            <li id="step4" class="">Media</li>
+          </ul>
+        </div>
+        </div>
+        <hr>
           <div class="row">
             <p class="new-campaign-instructions">Provide the name of the charity; as well as a direct link to their donate page</p>
           </div>
@@ -81,6 +111,17 @@ form#multiphase > #phase2, #phase3, #phase4, #show_all_data {
 
 
         <div id="phase4">
+        <div class="row">
+        <div class="progress-div">
+          <ul class="progress-bar">
+            <li id="step1" class="">Pick Game</li>
+            <li id="step2" class="">Campaign Info</li>
+            <li id="step3" class="">Charity Info</li>
+            <li id="step4" class="active">Media</li>
+          </ul>
+        </div>
+        </div>
+        <hr>
           <div class="row">
             <p class="new-campaign-instructions">Provide an image url to help identify your campaign. Also provide a twitter handle to display a live twitter feed along side your campaign</p>
           </div>
@@ -135,7 +176,18 @@ form#multiphase > #phase2, #phase3, #phase4, #show_all_data {
 
         <div id="phase1">
         <div class="row">
-          <p class="new-campaign-instructions">Select an upcoming game for your campaign. Make sure the data and start time work for your campaign</p>
+        <div class="progress-div">
+          <ul class="progress-bar">
+            <li id="step1" class="active">Pick Game</li>
+            <li id="step2" class="">Campaign Info</li>
+            <li id="step3" class="">Charity Info</li>
+            <li id="step4" class="">Media</li>
+          </ul>
+        </div>
+        </div>
+        <hr>
+        <div class="row">
+          <p class="new-campaign-instructions">Pick an upcoming game for your campaign. Make sure the date and start time work with your campaign</p>
         </div>
           <div class="row">
             <label>Game</label>
@@ -154,7 +206,18 @@ form#multiphase > #phase2, #phase3, #phase4, #show_all_data {
 
         <div id="phase2">
         <div class="row">
-          <p class="new-campaign-instructions">Create a unique name for your campaign, and provide a brief description about of your cause, and what any proceeds would be used for.</p>
+        <div class="progress-div">
+          <ul class="progress-bar">
+            <li id="step1" class="">Pick Game</li>
+            <li id="step2" class="active">Campaign Info</li>
+            <li id="step3" class="">Charity Info</li>
+            <li id="step4" class="">Media</li>
+          </ul>
+        </div>
+        </div>
+        <hr>
+        <div class="row">
+          <p class="new-campaign-instructions">Enter a unique name for your campaign, and provide a brief description about of your cause, and what any proceeds would be used for.</p>
         </div>
           <div class="row">
             <div class="input-field col s12">
@@ -175,6 +238,17 @@ form#multiphase > #phase2, #phase3, #phase4, #show_all_data {
 
         <div id="phase3">
         <div class="row">
+        <div class="progress-div">
+          <ul class="progress-bar">
+            <li id="step1" class="">Pick Game</li>
+            <li id="step2" class="">Campaign Info</li>
+            <li id="step3" class="active">Charity Info</li>
+            <li id="step4" class="">Media</li>
+          </ul>
+        </div>
+        </div>
+        <hr>
+        <div class="row">
           <p class="new-campaign-instructions">Provide the name of the charity; as well as a direct link to their donate page</p>
         </div>
           <div class="row">
@@ -194,6 +268,17 @@ form#multiphase > #phase2, #phase3, #phase4, #show_all_data {
 
 
         <div id="phase4">
+        <div class="row">
+        <div class="progress-div">
+          <ul class="progress-bar">
+            <li id="step1" class="">Pick Game</li>
+            <li id="step2" class="">Campaign Info</li>
+            <li id="step3" class="">Charity Info</li>
+            <li id="step4" class="active">Media</li>
+          </ul>
+        </div>
+        </div>
+        <hr>
         <div class="row">
           <p class="new-campaign-instructions">Provide an image url to help identify your campaign. Also provide a twitter handle to display a live twitter feed along side your campaign</p>
         </div>
