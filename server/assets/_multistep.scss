@@ -6,6 +6,15 @@ form#multiphase > #phase2, #phase3, #phase4, #show_all_data {
   margin-bottom: 15px;
 }
 
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  margin: 1em 0;
+  background: $accent-1;
+  box-sizing: content-box;
+}
+
 .progress-div {
   margin-bottom: 10px;
 }
