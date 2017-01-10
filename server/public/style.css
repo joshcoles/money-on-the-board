@@ -380,16 +380,14 @@ div.twitter-feed.col {
   color: #E3383F; }
 
 .fa-plus-circle {
-  margin-left: 4.5px;
-  margin-top: -1px; }
+  margin-left: 4px; }
 
 .fa-users {
   margin-left: 6px;
   margin-top: 9px; }
 
 .fa-check-circle-o {
-  margin-left: 4.5px;
-  margin-top: 1px; }
+  margin-left: 4.5px; }
 
 .fa-heart {
   font-size: 3.5em !important;
@@ -400,26 +398,27 @@ div.twitter-feed.col {
   margin-top: 75px;
   margin-bottom: 75px; }
   .how-it-works h2 {
-    border-bottom: 0.5px solid black;
+    border-bottom: 0.5px solid #D39F29;
+    color: #FFFFFF;
     padding-bottom: 15px; }
   .how-it-works p {
-    color: #000000; }
+    color: #FFFFFF; }
 
 #cd-timeline {
-  position: relative;
-  padding: 2em 0;
+  margin-bottom: 2em;
   margin-top: 2em;
-  margin-bottom: 2em; }
+  position: relative;
+  padding: 2em 0; }
 
 #cd-timeline::before {
   /* this is the vertical line */
+  background: #606060;
   content: '';
-  position: absolute;
-  top: 0;
+  height: 76%;
   left: 18px;
-  height: 100%;
-  width: 4px;
-  background: #d7e4ed; }
+  position: absolute;
+  top: 30;
+  width: 4px; }
 
 @media only screen and (min-width: 1170px) {
   #cd-timeline {
@@ -431,7 +430,7 @@ div.twitter-feed.col {
     margin-left: -2px; } }
 .cd-timeline-block {
   position: relative;
-  margin: 2em 0; }
+  margin: 0em 0; }
 
 .cd-timeline-block:after {
   content: "";
@@ -446,7 +445,7 @@ div.twitter-feed.col {
 
 @media only screen and (min-width: 1170px) {
   .cd-timeline-block {
-    margin: 4em 0; }
+    margin: 0em 0; }
 
   .cd-timeline-block:first-child {
     margin-top: 0; }
@@ -541,7 +540,7 @@ div.twitter-feed.col {
 .cd-timeline-content {
   position: relative;
   margin-left: 60px;
-  background: white;
+  background: #004585;
   border-radius: 0.25em;
   padding: 1em;
   box-shadow: 0 3px 0 #d7e4ed; }
@@ -552,7 +551,7 @@ div.twitter-feed.col {
   clear: both; }
 
 .cd-timeline-content h2 {
-  color: #323232; }
+  color: #FFFFFF; }
 
 .cd-timeline-content p, .cd-timeline-content .cd-read-more, .cd-timeline-content .cd-date {
   font-size: 13px;
@@ -596,8 +595,7 @@ div.twitter-feed.col {
     font-size: 1.25rem; }
 
   .cd-timeline-content p {
-    font-size: 16px;
-    font-size: 1rem; }
+    font-size: 16px; }
 
   .cd-timeline-content .cd-read-more, .cd-timeline-content .cd-date {
     font-size: 14px;
