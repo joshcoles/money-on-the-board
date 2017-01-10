@@ -6,6 +6,21 @@ h4.step {
   color: $primary-2;
 }
 
+.fa-check-circle-o {
+  margin-left: 4.5px;
+}
+
+.fa-heart {
+  font-size: 3.5em !important;
+  margin-left: 4px;
+  margin-top: 8px;
+}
+
+.fa-paper-plane {
+  margin-left: 3px;
+  margin-top: 8px;
+}
+
 .fa-plus-circle {
     margin-left: 4px;
 }
@@ -15,19 +30,9 @@ h4.step {
   margin-top: 9px;
 }
 
-.fa-check-circle-o {
-  margin-left: 4.5px;
-}
-
-.fa-heart {
-  font-size: 3.5em !important;
-  margin-top: 8px;
-  margin-left: 4px;
-}
-
 .how-it-works-block {
-  margin-top: 75px;
   margin-bottom: 75px;
+  margin-top: 75px;
   h2 {
     border-bottom: 0.5px solid $accent-1;
     color: $white;
@@ -70,13 +75,13 @@ h4.step {
 }
 
 .cd-timeline-block {
-  position: relative;
   margin: 0em 0;
+  position: relative;
 }
 .cd-timeline-block:after {
-  content: "";
   display: table;
   clear: both;
+  content: "";
 }
 .cd-timeline-block:first-child {
   margin-top: 0;
@@ -97,22 +102,22 @@ h4.step {
 }
 
 .cd-timeline-img {
+  border-radius: 50%;
+  height: 40px;
+  left: 0;
   position: absolute;
   top: 0;
-  left: 0;
   width: 40px;
-  height: 40px;
-  border-radius: 50%;
 }
 .cd-timeline-img img {
   display: block;
-  width: 24px;
   height: 24px;
-  position: relative;
   left: 50%;
-  top: 50%;
   margin-left: -12px;
   margin-top: -12px;
+  position: relative;
+  top: 50%;
+  width: 24px;
 }
 .cd-timeline-img.cd-picture {
   background: #75ce66;
