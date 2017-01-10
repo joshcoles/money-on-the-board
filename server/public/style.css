@@ -1,3 +1,12 @@
+.about {
+  margin-top: 75px;
+  margin-bottom: 75px; }
+  .about h2 {
+    border-bottom: 0.5px solid black;
+    padding-bottom: 15px; }
+  .about p {
+    color: #000000; }
+
 .about-container {
   background-color: #F0F1F1;
   margin-left: 15%;
@@ -247,15 +256,6 @@ body {
 main {
   flex: 1 0 auto; }
 
-.about {
-  margin-top: 75px;
-  margin-bottom: 75px; }
-  .about h2 {
-    border-bottom: 0.5px solid black;
-    padding-bottom: 15px; }
-  .about p {
-    color: #000000; }
-
 .brand-logo {
   margin-left: 20px; }
 
@@ -394,15 +394,21 @@ div.twitter-feed.col {
   margin-top: 8px;
   margin-left: 4px; }
 
-.how-it-works {
+.how-it-works-block {
   margin-top: 75px;
   margin-bottom: 75px; }
-  .how-it-works h2 {
+  .how-it-works-block h2 {
     border-bottom: 0.5px solid #D39F29;
     color: #FFFFFF;
     padding-bottom: 15px; }
-  .how-it-works p {
+  .how-it-works-block p {
     color: #FFFFFF; }
+
+.how-it-works-h {
+  border-bottom: .5px solid black;
+  padding-bottom: 15px;
+  margin: 0 15%;
+  margin-top: 25px; }
 
 #cd-timeline {
   margin-bottom: 2em;
