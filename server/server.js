@@ -252,12 +252,11 @@ app.post('/campaigns/:id/pledges/new', (req, res) => {
   let teamID = req.body.team;
   let pledgeTeam = req.body.team;
   let pledgePlayer = req.body.player;
-  let pledgeAmount = req.body.pledge;
+  let pledgeAmount = req.body.pledge.slice( 1 );
   let inGameEvent = req.body.inGameEvent;
   let user_id = res.locals.currentUser.id;
   let username = res.locals.currentUser.username;
   let campaign_id = req.params.id;
-  console.log("Pledge Amount: ", pledgeAmount)
 
   request(`http://localhost:4000/api/campaigns/team/${teamID}`, (err, response, body) => {
     team = JSON.parse(body)

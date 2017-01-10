@@ -1,3 +1,9 @@
+.about {
+  margin-top: 50px;
+  margin-bottom: 75px; }
+  .about p {
+    color: #000000; }
+
 .about-container {
   background-color: #F0F1F1;
   margin-left: 15%;
@@ -206,9 +212,7 @@ textarea.materialize-textarea.valid {
 
 .form-container {
   background-color: #FFFFFF;
-  margin-left: 15%;
-  margin-right: 15%;
-  margin-top: 25px;
+  margin: 25px auto;
   padding: 10px;
   width: 75%; }
 
@@ -247,15 +251,6 @@ body {
 main {
   flex: 1 0 auto; }
 
-.about {
-  margin-top: 75px;
-  margin-bottom: 75px; }
-  .about h2 {
-    border-bottom: 0.5px solid black;
-    padding-bottom: 15px; }
-  .about p {
-    color: #000000; }
-
 .brand-logo {
   margin-left: 20px; }
 
@@ -276,12 +271,18 @@ main {
 .card .card-content .card-title {
   display: block; }
 
-.image-container {
-  max-height: 284px;
-  min-height: 284px; }
+.custom-header {
+  border-bottom: .5px solid black;
+  padding-bottom: 15px;
+  margin-top: 25px;
+  text-align: center; }
 
 .card-reveal h5 {
   color: #E3383F; }
+
+.image-container {
+  max-height: 284px;
+  min-height: 284px; }
 
 .get-started {
   background-color: #004585;
@@ -311,17 +312,54 @@ main {
 
 nav {
   background-color: #004585; }
+  nav ul a {
+    animation: none;
+    transition: none; }
+
+#nav-user-info {
+  position: absolute;
+  right: 0; }
+
+#nav-mobile {
+  position: absolute; }
+
+.dropdown-button {
+  padding-left: 125px;
+  transition: none; }
+  .dropdown-button .material-icons {
+    margin-left: 0; }
 
 .dropdown-content li > a {
-  color: #D39F29;
-  text-align: center; }
+  background-color: #004585;
+  color: #FFFFFF;
+  text-align: center;
+  transition: none; }
+  .dropdown-content li > a:hover {
+    background-color: #003666;
+    color: #FFFFFF; }
 
 .navbar-links {
   margin-left: 110px; }
 
 .motb-title {
   color: #E3383F;
-  font-family: "Archivo Black", sans-serif; }
+  font-family: "Source Sans Pro", sans-serif; }
+
+ul#dropdown1.dropdown-content.active {
+  margin-left: 90px;
+  margin-top: 64px;
+  width: 175px;
+  transition: none; }
+
+ul#dropdown1.dropdown-content {
+  margin-left: 90px;
+  margin-top: 64px;
+  width: 175px; }
+
+a.dropdown-button.active {
+  transition: none;
+  width: 75px;
+  background-color: #004585; }
 
 .campaign-charity {
   color: #FFFFFF; }
@@ -376,6 +414,9 @@ div.twitter-feed.col {
   right: 150px;
   top: 8px; }
 
+h4.step {
+  margin: 4rem 0 0.912rem 0; }
+
 .fa {
   color: #E3383F; }
 
@@ -394,15 +435,18 @@ div.twitter-feed.col {
   margin-top: 8px;
   margin-left: 4px; }
 
-.how-it-works {
+.how-it-works-block {
   margin-top: 75px;
   margin-bottom: 75px; }
-  .how-it-works h2 {
+  .how-it-works-block h2 {
     border-bottom: 0.5px solid #D39F29;
     color: #FFFFFF;
     padding-bottom: 15px; }
-  .how-it-works p {
+  .how-it-works-block p {
     color: #FFFFFF; }
+
+.hiw-h {
+  margin: 50px 15% 0 15%; }
 
 #cd-timeline {
   margin-bottom: 2em;
@@ -481,7 +525,7 @@ div.twitter-feed.col {
 
 @media only screen and (min-width: 1170px) {
   .cd-timeline-img {
-    background-color: white;
+    background-color: #F0F1F1;
     width: 60px;
     height: 60px;
     left: 50%;
@@ -602,6 +646,7 @@ div.twitter-feed.col {
     font-size: 0.875rem; } }
 @media only screen and (min-width: 1170px) {
   .cd-timeline-content {
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
     margin-left: 0;
     padding: 1.6em;
     width: 45%; }
@@ -610,7 +655,7 @@ div.twitter-feed.col {
     top: 24px;
     left: 100%;
     border-color: transparent;
-    border-left-color: white; }
+    border-left-color: #004585; }
 
   .cd-timeline-content .cd-read-more {
     float: left; }
@@ -631,7 +676,7 @@ div.twitter-feed.col {
     left: auto;
     right: 100%;
     border-color: transparent;
-    border-right-color: white; }
+    border-right-color: #004585; }
 
   .cd-timeline-block:nth-child(even) .cd-timeline-content .cd-read-more {
     float: right; }
@@ -789,5 +834,8 @@ form#multiphase > #phase2, #phase3, #phase4, #show_all_data {
   max-height: 25%;
   border-radius: 0;
   will-change: bottom, opacity; }
+
+.new-camp-h {
+  margin: 50px 15%; }
 
 /*# sourceMappingURL=style.css.map */

@@ -40,20 +40,6 @@ main {
   flex: 1 0 auto;
 }
 
-.about {
-  margin-top: 75px;
-  margin-bottom: 75px;
-
-  h2 {
-    border-bottom: 0.5px solid black;
-    padding-bottom: 15px;
-  }
-
-  p {
-    color: $black
-  }
-}
-
 .brand-logo {
   margin-left: 20px;
 }
@@ -79,15 +65,22 @@ main {
   display: block;
 }
 
-.image-container {
-  max-height: 284px;
-  min-height: 284px;
+.custom-header {
+  border-bottom: .5px solid black;
+  padding-bottom: 15px;
+  margin-top: 25px;
+  text-align: center;
 }
 
 .card-reveal {
   h5 {
     color: $primary-2;
   }
+}
+
+.image-container {
+  max-height: 284px;
+  min-height: 284px;
 }
 
 .get-started {
