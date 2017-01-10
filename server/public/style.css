@@ -287,6 +287,9 @@ main {
 nav {
   background-color: #004585; }
 
+.dropdown-content li > a {
+  color: #D39F29; }
+
 .navbar-links {
   margin-left: 110px; }
 

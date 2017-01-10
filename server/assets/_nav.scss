@@ -2,6 +2,10 @@ nav {
   background-color: $primary-1;
 }
 
+.dropdown-content li>a {
+  color: $accent-1;
+}
+
 .navbar-links {
   margin-left: 110px;
 }
