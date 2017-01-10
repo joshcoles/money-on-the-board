@@ -1,10 +1,39 @@
 nav {
   background-color: $primary-1;
+  ul {
+    a {
+      animation: none;
+      transition: none;
+    }
+  }
+}
+
+#nav-user-info {
+  position: absolute;
+  right: 0;
+}
+
+#nav-mobile {
+  position: absolute;
+}
+
+.dropdown-button {
+  padding-left: 125px;
+  transition: none;
+  .material-icons {
+    margin-left: 0;
+  }
 }
 
 .dropdown-content li>a {
-  color: $accent-1;
+  background-color: $primary-1;
+  color: $white;
   text-align: center;
+  transition: none;
+  &:hover {
+    background-color: $accent-2;
+    color: $white;
+  }
 }
 
 .navbar-links {
@@ -13,5 +42,24 @@ nav {
 
 .motb-title {
   color: $primary-2;
-  font-family: $logo-type;
+  font-family: $thin-type;
+}
+
+ul#dropdown1.dropdown-content.active {
+  margin-left: 90px;
+  margin-top: 64px;
+  width: 175px;
+  transition: none;
+}
+
+ul#dropdown1.dropdown-content {
+  margin-left: 90px;
+  margin-top: 64px;
+  width: 175px;
+}
+
+a.dropdown-button.active {
+  transition:none;
+  width: 75px;
+  background-color: $primary-1;
 }
