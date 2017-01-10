@@ -309,7 +309,8 @@ nav {
   background-color: #004585; }
 
 .dropdown-content li > a {
-  color: #D39F29; }
+  color: #D39F29;
+  text-align: center; }
 
 .navbar-links {
   margin-left: 110px; }
