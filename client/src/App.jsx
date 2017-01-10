@@ -121,10 +121,10 @@ class App extends Component {
                           pledge.pledged.map(userPledge =>
                         <li className="user-pledge-data collection-item">
                           <span className="username">{userPledge.username}</span>
-                            <br></br> Pledges: <strong>${userPledge.pledge_amount}</strong>.
-                            <br></br> For event: "{userPledge.pledge_event}".
-                            <br></br> Occurances: <strong>{userPledge.occurance}</strong>.
-                            <br></br> Owes: <strong>${userPledge.owes}</strong>.
+                            <br></br> Pledges: <strong>${userPledge.pledge_amount}</strong>
+                            <br></br> For event: "{userPledge.pledge_event}"
+                            <br></br> Occurances: <strong>{userPledge.occurance}</strong>
+                            <br></br> Owes: <strong>${userPledge.owes}</strong>
                         </li>
                          )
                         )}
