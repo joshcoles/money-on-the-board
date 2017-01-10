@@ -212,9 +212,7 @@ textarea.materialize-textarea.valid {
 
 .form-container {
   background-color: #FFFFFF;
-  margin-left: 15%;
-  margin-right: 15%;
-  margin-top: 25px;
+  margin: 25px auto;
   padding: 10px;
   width: 75%; }
 
