@@ -30,7 +30,7 @@ class App extends Component {
             Materialize.toast($toastContent, 5000, 'green');
             newTotalPledges = user.totalPledges.push(pledge.pledge_amount)
             pledge.occurance = pledge.occurance + 1;
-            pledge.owes = pledge.occurance * pledge.pledge_amount
+            pledge.owes = pledge.occurance * pledge.pledge_amount;
             this.setState({
               occurance : pledge.occurance,
             });
