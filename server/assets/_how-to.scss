@@ -1,4 +1,3 @@
-
 .fa {
   color: $primary-2;
 }
@@ -22,7 +21,7 @@
   margin-left: 4px;
 }
 
-.how-it-works {
+.how-it-works-block {
   margin-top: 75px;
   margin-bottom: 75px;
   h2 {
@@ -33,6 +32,13 @@
   p {
     color: $white;
   }
+}
+
+.how-it-works-h {
+  border-bottom: .5px solid black;
+  padding-bottom: 15px;
+  margin: 0 15%;
+  margin-top: 25px;
 }
 
 #cd-timeline {
