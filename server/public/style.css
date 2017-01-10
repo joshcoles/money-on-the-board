@@ -224,9 +224,22 @@ body {
   min-height: 100vh;
   flex-direction: column; }
   body h1 {
-    color: #141414; }
+    color: #323232;
+    font-weight: 300; }
   body h2 {
-    color: #141414; }
+    color: #323232;
+    font-weight: 300; }
+  body h3 {
+    color: #323232;
+    font-weight: 300; }
+  body h4 {
+    color: #323232; }
+  body h5 {
+    color: #323232;
+    font-weight: 300; }
+  body h6 {
+    color: #323232;
+    font-weight: 300; }
 
 main {
   flex: 1 0 auto; }
@@ -257,16 +270,15 @@ main {
   padding-top: 50px;
   text-shadow: 1px 1px #000000; }
 
+.card .card-content .card-title {
+  display: block; }
+
 .image-container {
   max-height: 284px;
   min-height: 284px; }
 
 .card-reveal h5 {
   color: #E3383F; }
-
-.sub-caption {
-  color: #E3383F;
-  font-family: "Rock Salt", cursive; }
 
 .get-started {
   background-color: #004585;
@@ -302,8 +314,9 @@ main {
   border-bottom: 20px solid #004585;
   height: 90vh; }
 
-.card .card-content .card-title {
-  display: block; }
+.sub-caption {
+  color: #E3383F;
+  font-family: "Rock Salt", cursive; }
 
 nav {
   background-color: #004585; }
@@ -318,6 +331,9 @@ nav {
 .motb-title {
   color: #E3383F;
   font-family: "Archivo Black", sans-serif; }
+
+.campaign-charity {
+  color: #FFFFFF; }
 
 .campaign-info {
   color: white;

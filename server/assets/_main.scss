@@ -9,9 +9,26 @@ body {
   flex-direction: column;
   h1 {
     color: $font-main;
+    font-weight: 300;
   }
   h2 {
     color: $font-main;
+    font-weight: 300;
+  }
+  h3 {
+    color: $font-main;
+    font-weight: 300;
+  }
+  h4 {
+    color: $font-main;
+  }
+  h5 {
+    color: $font-main;
+    font-weight: 300;
+  }
+  h6 {
+    color: $font-main;
+    font-weight: 300;
   }
 }
 
@@ -54,6 +71,10 @@ main {
   text-shadow: 1px 1px $black;
 }
 
+.card .card-content .card-title {
+  display: block;
+}
+
 .image-container {
   max-height: 284px;
   min-height: 284px;
@@ -63,11 +84,6 @@ main {
   h5 {
     color: $primary-2;
   }
-}
-
-.sub-caption {
-  color: $primary-2;
-  font-family: $logo2-type;
 }
 
 .get-started {
@@ -115,6 +131,7 @@ main {
   height: 90vh;
 }
 
-.card .card-content .card-title {
-  display: block;
+.sub-caption {
+  color: $primary-2;
+  font-family: $logo2-type;
 }
