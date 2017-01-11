@@ -88,7 +88,7 @@ class App extends Component {
               >
             <div className="leaderboard">
               <div className="front">
-                <button className="flip-button" type="button" ref="frontButton" onClick={this.showBack}>
+                <button className="flip-button" type="button" ref="frontButton" onClick={this.showBack}>Pledges
                   <i className="fa fa-reply fa-1x fa-flip-horizontal fa-fw button-cycle"></i>
                 </button>
                   <div className="name-head name-head-left">Money Board</div>
@@ -112,8 +112,8 @@ class App extends Component {
             </div>
             <div className="pledges">
               <div className="back">
-                <button className="flip-button" type="button" ref="backButton" onClick={this.showFront}>
-                  <i className="fa fa-reply fa-1x fa-fw button-cycle"></i>
+                <button className="flip-button" type="button" ref="backButton" onClick={this.showFront}>Money Board
+                  <i className="fa fa-reply fa-1x fa-flip-horizontal fa-fw button-cycle"></i>
                 </button>
                   <div className="name-head name-head-left">Pledges</div>
                     <div className="pledge-data">
