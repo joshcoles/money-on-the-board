@@ -91,6 +91,16 @@ app.use((req, res, next) => {
 //=========================================//
 //============== Routes ===================//
 //=========================================//
+app.get('/startgame', (req, res) => {
+  res.render('start-game');
+});
+
+app.post('/startgame2', (req, res) => {
+  pollGame();
+  res.send('starting game');
+});
+
+
 
 app.get('/', (req, res) => {
   inspect(res.locals);
@@ -129,32 +139,32 @@ app.get('/seedpledges', (req, res) => {
 //=========== CURRENTLY IN USE ============//
 //=========================================//
 
-app.get('/pledges', (req, res) => {
-  let allPledges = {
-    pledges: []
-  }
-  db.select().from('pledges').returning().then(result => {
-    let pledgingUsers = result.forEach(pledge => {
-      console.log(pledge);
-      allPledges.pledges.push({
-        user_id: pledge.user_id,
-        username: pledge.username,
-        totalPledges: [],
-        pledged: [
-          {
-            id: pledge.id,
-            username: pledge.username,
-            pledge_amount: parseInt(pledge.money),
-            pledge_event: pledge.event_string,
-            occurance: 0,
-            owes: 0
-          }
-        ]
-      });
-    });
-    res.json(allPledges)
-  });
-})
+// app.get('/pledges', (req, res) => {
+//   let allPledges = {
+//     pledges: []
+//   }
+//   db.select().from('pledges').returning().then(result => {
+//     let pledgingUsers = result.forEach(pledge => {
+//       console.log(pledge);
+//       allPledges.pledges.push({
+//         user_id: pledge.user_id,
+//         username: pledge.username,
+//         totalPledges: [],
+//         pledged: [
+//           {
+//             id: pledge.id,
+//             username: pledge.username,
+//             pledge_amount: parseInt(pledge.money),
+//             pledge_event: pledge.event_string,
+//             occurance: 0,
+//             owes: 0
+//           }
+//         ]
+//       });
+//     });
+//     res.json(allPledges)
+//   });
+// })
 
 //=========================================//
 //============== DB PLEDGES ===============//
@@ -165,7 +175,7 @@ app.get('/campaigns/:id/pledges', (req, res) => {
   let allPledges = {
     pledges: []
   }
-  db.select().from('pledges').where({id: req.params.id}).returning().then(result => {
+  db.select().from('pledges').where({campaign_id: req.params.id}).returning().then(result => {
     let pledgingUsers = result.forEach(pledge => {
       console.log(pledge);
       allPledges.pledges.push({
@@ -184,6 +194,7 @@ app.get('/campaigns/:id/pledges', (req, res) => {
         ]
       });
     });
+    console.log("New all pledges route", allPledges)
     res.json(allPledges)
   });
 })
@@ -455,7 +466,6 @@ app.get('/campaigns/:id', (req, res) => {
     let charity_url = data[0].charity_url
     res.render('index', {campaign_id, handle, charity_name, title, image_url, description, charity_url})
   })
-  pollGame();
 });
 
 
