@@ -4,10 +4,11 @@ form#multiphase > #phase2, #phase3, #phase4, #show_all_data {
 
 .collection-item {
   font-size: 1.2em;
-  span {
+}
+
+span.new-campaign-summary {
     font-size: 1em;
     float: right;
-  }
 }
 
 #step1, #step2, #step3, #step4 {
