@@ -222,6 +222,7 @@ h4.step {
 }
 .cd-timeline-content h2 {
   color: $white;
+  font-size: 2em;
 }
 .cd-timeline-content p, .cd-timeline-content .cd-read-more, .cd-timeline-content .cd-date {
   font-size: 13px;
@@ -262,7 +263,7 @@ h4.step {
 @media only screen and (min-width: 768px) {
   .cd-timeline-content h2 {
     font-size: 20px;
-    font-size: 1.25rem;
+    font-size: 2em;
   }
   .cd-timeline-content p {
     font-size: 16px;
