@@ -11,4 +11,4 @@ import io from 'socket.io-client';
 
 const socket = io.connect();
 
-ReactDOM.render(<App socket={socket} />, document.getElementById('react-root'));
+ReactDOM.render(<App socket={socket} campaign_id={window.campaign_id}/>, document.getElementById('react-root'));

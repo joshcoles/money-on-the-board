@@ -24,7 +24,7 @@ exports.up = function(knex, Promise) {
     knex.schema.createTable('campaigns', function(table){
       table.increments('id');
       table.string('charity_name');
-      table.string('charity_url');
+      table.string('charity_url', 500);
       table.integer('game_id').references('id').inTable('games').notNullable();
       table.integer('admin_id').references('id').inTable('admins').notNullable();
       table.string('handle');

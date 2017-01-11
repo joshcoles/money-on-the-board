@@ -1,0 +1,16 @@
+footer.page-footer{
+  background-color: $primary-1;
+  padding-top: 0;
+}
+
+.copywrite {
+  background-color: $accent-2;
+  color: $accent-1;
+  margin: 0;
+  padding: 4px 256px;
+  width: 100%;
+}
+
+.footer-links {
+  display: flex;
+}

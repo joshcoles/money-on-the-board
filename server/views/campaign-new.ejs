@@ -1,61 +1,389 @@
 <!DOCTYPE html>
 <html>
 <% include ./partials/_head %>
+
+<style>
+
+</style>
+
+
 <body>
 <% include ./partials/_header %>
+<main>
 
-  <div class="row">
-    <form class="col s12" action="/campaigns" method="POST">
-      <div class="row">
-        <label>Game</label>
-        <select name="game" class="browser-default selectpicker">
-          <option name="option1" value="" disabled selected>Choose your option</option>
-          <option value="4a130cc4-3bd4-42ad-ac93-484043a2d5bc">Sens vs Leafs</option>
-        </select>
-      </div>
-      <div class="row">
-        <div class="input-field col s12">
-          <input id="campaign_name" type="text" class="validate" name="campaign_name"/>
-          <label class="active" for="campaign_name">Name of Campaign</label>
+  <h2 class="custom-header new-camp-h">Create New Campaign</h2>
+
+  <div class="form-container card">
+  <% if (isAuthenticated) { %>
+    <div class="row">
+      <form class="col s12 form-int" id="multiphase" onsubmit="return false">
+
+        <div id="phase1">
+        <div class="row">
+        <div class="progress-div">
+          <ul class="progress-bar">
+            <li id="step1" class="active">Pick Game</li>
+            <li id="step2" class="">Campaign Info</li>
+            <li id="step3" class="">Charity Info</li>
+            <li id="step4" class="">Media</li>
+          </ul>
         </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s12">
-          <input id="charity_name" type="text" class="validate" name="charity_name"/>
-          <label class="active" for="charity_name">Charity Name</label>
         </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s12">
-          <input id="charity_url" type="text" class="validate" name="charity_url"/>
-          <label class="active" for="charity_url">Charity URL</label>
+          <hr>
+          <div class="row">
+            <p class="new-campaign-instructions">Pick an upcoming game for your campaign. Make sure the date and start time work with your campaign</p>
+          </div>
+          <div class="row">
+            <label>Game</label>
+            <select name="game" class="" id="game">
+              <option name="option1" value="" disabled selected>Select a Game</option>
+              <option value="4a130cc4-3bd4-42ad-ac93-484043a2d5bc">Senators vs Maple Leafs</option>
+              <option value="">Senators vs Canadians</option>
+              <option value="">Senators vs Oilers</option>
+              <option value="">Senators vs Jets</option>
+              <option value="3b8e1099-8050-42c9-b545-2aa74e93b2e8">Canucks vs Flames</option>
+            </select>
+          </div>
+        <button class="btn waves-effect waves-light button" onclick="processPhase1()">Continue</button>
         </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s12">
-          <input id="hashtag" type="text" class="validate" name="hashtag"/>
-          <label class="active" for="hashtag">Hashtag</label>
+
+
+
+        <div id="phase2">
+        <div class="row">
+        <div class="progress-div">
+          <ul class="progress-bar">
+            <li id="step1" class="">Pick Game</li>
+            <li id="step2" class="active">Campaign Info</li>
+            <li id="step3" class="">Charity Info</li>
+            <li id="step4" class="">Media</li>
+          </ul>
         </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s12">
-          <input id="email" type="email" class="validate" name="email" autocomplete="new-password"/>
-          <label class="active" for="email">Email</label>
         </div>
-      </div>
-       <div class="row">
-        <div class="input-field col s12">
-          <input id="password" type="password" class="validate" name="password" autocomplete="new-password"/>
-          <label class="active" for="password">Password</label>
+        <hr>
+          <div class="row">
+            <p class="new-campaign-instructions">Enter a unique name for your campaign, and provide a brief description about of your cause, and what any proceeds would be used for.</p>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="campaign_name" type="text" class="validate" name="campaign_name"/>
+              <label class="active" for="campaign_name">Name of Campaign</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <textarea id="description" class="validate materialize-textarea" name="description" length="255"></textarea>
+              <label class="active" for="description">Description</label>
+            </div>
+          </div>
+        <button class="btn waves-effect waves-light button" onclick="processPhase2()">Continue</button>
         </div>
-      </div>
-      <button class="btn waves-effect waves-light" type="submit" name="action">Submit
-        <i class="material-icons right"></i>
-      </button>
-    </form>
+
+
+
+        <div id="phase3">
+        <div class="row">
+        <div class="progress-div">
+          <ul class="progress-bar">
+            <li id="step1" class="">Pick Game</li>
+            <li id="step2" class="">Campaign Info</li>
+            <li id="step3" class="active">Charity Info</li>
+            <li id="step4" class="">Media</li>
+          </ul>
+        </div>
+        </div>
+        <hr>
+          <div class="row">
+            <p class="new-campaign-instructions">Provide the name of the charity; as well as a direct link to their donate page</p>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="charity_name" type="text" class="validate" name="charity_name"/>
+              <label class="active" for="charity_name">Charity Name</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="charity_url" type="text" class="validate" name="charity_url"/>
+              <label class="active" for="charity_url">Link to Donation Page</label>
+            </div>
+          </div>
+        <button class="btn waves-effect waves-light button" onclick="processPhase3()">Continue</button>
+        </div>
+
+
+        <div id="phase4">
+        <div class="row">
+        <div class="progress-div">
+          <ul class="progress-bar">
+            <li id="step1" class="">Pick Game</li>
+            <li id="step2" class="">Campaign Info</li>
+            <li id="step3" class="">Charity Info</li>
+            <li id="step4" class="active">Media</li>
+          </ul>
+        </div>
+        </div>
+        <hr>
+          <div class="row">
+            <p class="new-campaign-instructions">Provide an image url to help identify your campaign. Also provide a twitter handle to display a live twitter feed along side your campaign</p>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="image_url" type="text" class="validate" name="image_url"/>
+              <label class="active" for="image_url">Link to Image</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="hashtag" type="text" class="validate" name="hashtag"/>
+              <label class="active" for="hashtag">Twitter Handle</label>
+            </div>
+          </div>
+        <button class="btn waves-effect waves-light button" onclick="processPhase4()">Continue</button>
+        </div>
+
+        <div id="show_all_data">
+          <div class="row">
+            Game: <span id="display_game"></span>
+          </div>
+          <div class="row">
+            Campaign Name: <span id="display_campaign_name"></span>
+          </div>
+          <div class="row">
+            Description: <span id="display_description"></span>
+          </div>
+          <div class="row">
+            Chaity Name: <span id="display_charity_name"></span>
+          </div>
+          <div class="row">
+            Charity URL: <span id="display_charity_url"></span>
+          </div>
+          <div class="row">
+            Image URL: <span id="display_image_url"></span>
+          </div>
+          <div class="row">
+            Twitter Handle: <span id="display_hashtag"></span>
+          </div>
+          <button class="btn waves-effect waves-light button" onclick="submitForm()"> Submit Campaign</button>
+        </div>
+      </form>
+    </div>
   </div>
 
+  <% } else { %>
 
+      <div class="row">
+      <form class="col s12" id="multiphase" onsubmit="return false">
+
+
+        <div id="phase1">
+        <div class="row">
+        <div class="progress-div">
+          <ul class="progress-bar">
+            <li id="step1" class="active">Pick Game</li>
+            <li id="step2" class="">Campaign Info</li>
+            <li id="step3" class="">Charity Info</li>
+            <li id="step4" class="">Media</li>
+          </ul>
+        </div>
+        </div>
+        <hr>
+        <div class="row">
+          <p class="new-campaign-instructions">Pick an upcoming game for your campaign. Make sure the date and start time work with your campaign</p>
+        </div>
+          <div class="row">
+            <label>Game</label>
+            <select name="game" class="" id="game">
+              <option name="option1" value="" disabled selected>Choose your option</option>
+              <option value="4a130cc4-3bd4-42ad-ac93-484043a2d5bc">Senators vs Maple Leafs</option>
+              <option value="">Senators vs Canadians</option>
+              <option value="">Senators vs Oilers</option>
+              <option value="">Senators vs Jets</option>
+              <option value="3b8e1099-8050-42c9-b545-2aa74e93b2e8">Canucks vs Flames</option>
+            </select>
+          </div>
+        <a class="waves-effect waves-light btn modal-trigger button" href="#modal1">Continue</a>
+        </div>
+
+
+        <div id="phase2">
+        <div class="row">
+        <div class="progress-div">
+          <ul class="progress-bar">
+            <li id="step1" class="">Pick Game</li>
+            <li id="step2" class="active">Campaign Info</li>
+            <li id="step3" class="">Charity Info</li>
+            <li id="step4" class="">Media</li>
+          </ul>
+        </div>
+        </div>
+        <hr>
+        <div class="row">
+          <p class="new-campaign-instructions">Enter a unique name for your campaign, and provide a brief description about of your cause, and what any proceeds would be used for.</p>
+        </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="campaign_name" type="text" class="validate" name="campaign_name"/>
+              <label class="active" for="campaign_name">Name of Campaign</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <textarea id="description" class="validate materialize-textarea" name="description" length="255"></textarea>
+              <label class="active" for="description">Description</label>
+            </div>
+          </div>
+        <button class="btn waves-effect waves-light button" onclick="processPhase2()">Continue</button>
+        </div>
+
+
+
+        <div id="phase3">
+        <div class="row">
+        <div class="progress-div">
+          <ul class="progress-bar">
+            <li id="step1" class="">Pick Game</li>
+            <li id="step2" class="">Campaign Info</li>
+            <li id="step3" class="active">Charity Info</li>
+            <li id="step4" class="">Media</li>
+          </ul>
+        </div>
+        </div>
+        <hr>
+        <div class="row">
+          <p class="new-campaign-instructions">Provide the name of the charity; as well as a direct link to their donate page</p>
+        </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="charity_name" type="text" class="validate" name="charity_name"/>
+              <label class="active" for="charity_name">Charity Name</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="charity_url" type="text" class="validate" name="charity_url"/>
+              <label class="active" for="charity_url">Charity URL</label>
+            </div>
+          </div>
+        <button class="btn waves-effect waves-light button" onclick="processPhase3()">Continue</button>
+        </div>
+
+
+        <div id="phase4">
+        <div class="row">
+        <div class="progress-div">
+          <ul class="progress-bar">
+            <li id="step1" class="">Pick Game</li>
+            <li id="step2" class="">Campaign Info</li>
+            <li id="step3" class="">Charity Info</li>
+            <li id="step4" class="active">Media</li>
+          </ul>
+        </div>
+        </div>
+        <hr>
+        <div class="row">
+          <p class="new-campaign-instructions">Provide an image url to help identify your campaign. Also provide a twitter handle to display a live twitter feed along side your campaign</p>
+        </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="image_url" type="text" class="validate" name="image_url"/>
+              <label class="active" for="image_url">Image URL</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="hashtag" type="text" class="validate" name="hashtag"/>
+              <label class="active" for="hashtag">Hashtag</label>
+            </div>
+          </div>
+        <button class="btn waves-effect waves-light button" onclick="processPhase4()">Continue</button>
+        </div>
+
+        <div id="show_all_data">
+          <div class="row">
+            Game: <span id="display_game"></span>
+          </div>
+          <div class="row">
+            Campaign Name: <span id="display_campaign_name"></span>
+          </div>
+          <div class="row">
+            Description: <span id="display_description"></span>
+          </div>
+          <div class="row">
+            Chaity Name: <span id="display_charity_name"></span>
+          </div>
+          <div class="row">
+            Charity URL: <span id="display_charity_url"></span>
+          </div>
+          <!-- <div class="row">
+            Image URL: <span id="display_image_url"></span>
+          </div> -->
+          <div class="row">
+            Twitter Handle: <span id="display_hashtag"></span>
+          </div>
+          <a class="waves-effect waves-light btn modal-trigger button" href="#modal1">Create Campaign</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+    <!-- Modal Structure -->
+
+  <div id="modal1" class="modal">
+    <div class="modal-content">
+      <h5>Login to Create Campaign</h5>
+      <form class="col s12" id="campaign-login-modal" action="/campaigns/new/login" method="POST">
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="username" type="text" class="validate" name="username" autocomplete="new-username">
+            <label for="username">Username</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="password" type="password" class="validate" name="password" autocomplete="new-password">
+            <label for="password">Password</label>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <a href="/users/new">Not a user? Register.</a>
+          <button class="btn waves-effect waves-light button" type="submit" name="action">Login
+          <i class="material-icons right"></i>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="modal-image-url" class="modal">
+    <div class="modal-content">
+      <h5>Login to Create Campaign</h5>
+      <form class="col s12" id="campaign-login-modal" action="/campaigns/new/login" method="POST">
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="username" type="text" class="validate" name="username" autocomplete="new-username">
+            <label for="username">Username</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="password" type="password" class="validate" name="password" autocomplete="new-password">
+            <label for="password">Password</label>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <a href="/users/new">Not a user? Register.</a>
+          <button class="btn waves-effect waves-light button" type="submit" name="action">Login
+          <i class="material-icons right"></i>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <% } %>
+
+</main>
 <% include ./partials/_footer %>
+
 </body>
 </html>

@@ -1,19 +1,213 @@
-.gameFeed {
-  display: flex;
-  height: 600px;
-  margin-left: 600px;
-  background-color: blue;
+.back {
+  display: inline-block;
+  max-height: 300px;
+  min-height: 300px;
+  width: 100%;
 }
 
-.gameContent {
-  flex: 1;
-  height: 400px;
+.button-cycle {
+  color: #ffffff;
+  margin-top: 4px;
+}
+
+.cp-button {
+  background-color: #E3383F;
+  margin: 0 5px;
+  width: 250px;
+}
+
+.cp-button:hover {
+  background-color: #b52c32;
+}
+
+.flip-board {
+  display: inline-block;
+  float: left;
+  width: 100%;
+}
+
+.flip-button {
+  background-color: #e3383f;
+  border: solid 1px #ffffff;
+  border-radius: 25px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  float: right;
+  height: 30px;
+  margin-right: 10px;
+  margin-top: 10px;
+  padding-left: 4px;
+  width: 30px;
+}
+
+.flip-button:hover {
+  background-color: #b52c32;
+}
+
+.flip-button:focus {
+  background-color: #b52c32;
+}
+
+.front {
+  display: inline-block;
+  max-height: 300px;
+  min-height: 300px;
+  width: 100%;
+}
+
+.game-content {
+  display: table;
+  height: 20%;
+  margin: 0 auto;
   min-height: 0;
   min-width: 0;
-  overflow: scroll;
-  background-color: red;
+  overflow: auto;
+  width: 100%;
+}
+
+.game-feed {
+  background-color: rgb(0, 69, 133);
+  border-radius: 5px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  display: inline-flex;
+  height: 108%;
+  margin: 300px 0 0 0;
+  width: 100%;
+}
+
+.leaderboard {
+  background-color: rgb(0, 69, 133);
+  border-radius: 5px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  display: inline-block;
+  margin-bottom: 10px;
+  max-height: 290px;
+  width: 100%;
+}
+
+.leaderboard-content {
+  display: block;
+  height: 100%;
+  margin: 0 auto;
+  max-height: 214px;
+  min-height: 0;
+  min-width: 0;
+  overflow: auto;
+  width: 100%;
+}
+
+.leaderboard-data {
+  background-color: #ffffff;
+  border-radius: 5px;
+  display: block;
+  margin: 10px auto;
+  max-height: 225px;
+  min-height: 210px;
+  width: 94%;
+}
+
+.leaderboard-user {
+  margin: 5px;
+}
+
+.name-head {
+  color: #ffffff;
+  font-size: 1.85em;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.name-head-left {
+  margin-left: 40px;
+}
+
+.panel {
+  display: block;
+  width: 100%;
 }
 
 .panel-content {
-  height: 500px;
+  background-color: #ffffff;
+  border-radius: 5px;
+  height: 80%;
+  margin: 10px auto;
+  width: 94%;
+}
+
+.pledges {
+  background-color: rgb(0, 69, 133);
+  border-radius: 5px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  display: inline-block;
+  max-height: 290px;
+  width: 100%;
+}
+
+.pledge-button {
+  margin: 25px 0;
+  text-align: center;
+}
+
+.pledge-content {
+  max-height: 210px;
+  min-height: 0;
+  min-width: 0;
+  overflow: auto;
+
+}
+
+.pledge-data {
+  background-color: #ffffff;
+  border-radius: 5px;
+  border: thin black;
+  margin: 10px;
+  max-height: 225px;
+  min-height: 210px;
+}
+.username {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.react {
+  display: inline-flex;
+}
+
+.ReactFlipCard {
+  display: inline-block;
+  width: 100%;
+}
+
+.ReactFlipCard__Front {
+  width: 100% !important;
+}
+
+.ReactFlipCard__Back {
+  width: 100% !important;
+}
+
+.react-main {
+  display: inline-block;
+  width: 100%;
+}
+
+.twitter-feed {
+  position: relative !important;
+  border: solid rgb(0, 69, 133);
+  border-radius: 5px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  display: inline-flex;
+  margin-top: 15px;
+  width: 49% !important;
+}
+
+.twitter-mention-top-right {
+  position: absolute !important;
+  right: 8px;
+  top: 8px;
+}
+
+.twitter-follow-top-right {
+  position: absolute !important;
+  right: 145px;
+  top: 8px;
 }

@@ -1,21 +1,19 @@
-<!-- <footer class="page-footer">
-  <div class="container">
-    <div class="row">
-      <div class="col l6 s12">
-        <h5 class="white-text">Footer Content</h5>
-      </div>
-      <div class="col l4 offset-l2 s12">
-        <h5 class="white-text">Links</h5>
-        <ul>
-          <li><a class="grey-text text-lighten-3" href="/campaigns/new">Create a campaign.</a></li>
-        </ul>
-      </div>
+<footer class="page-footer">
+  <div class="container left-align footer-links">
+    <div class="col l4 s12">
+      <ul>
+        <li><a class="grey-text text-lighten-3" href="/">Home</a></li>
+        <li><a class="grey-text text-lighten-3" href="/#about">About</a></li>
+        <li><a class="grey-text text-lighten-3" href="/campaigns">Campaigns</a></li>
+        <li><a class="grey-text text-lighten-3" href="/campaigns/new">Create a Campaign</a></li>
+        <% if(!isAuthenticated) { %>
+        <li><a class="grey-text text-lighten-3" href="/users/new">Signup</a></li>
+        <% } %>
+      </ul>
     </div>
   </div>
-  <div class="footer-copyright">
-    <div class="container">
-    © 2017 Copyright Text
-    </div>
+    <div class="footer-copywrite">
+      <div class="copywrite right-align light-text">© Money on the Board 2017
+      </div>
   </div>
 </footer>
- -->

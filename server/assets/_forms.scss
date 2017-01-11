@@ -1,0 +1,74 @@
+input[type=text]:focus:not([readonly]) {
+  border-bottom: 1px solid $primary-1;
+  box-shadow: 0 1px 0 0 $primary-1;
+}
+
+input[type=email]:focus:not([readonly]) {
+  border-bottom: 1px solid $primary-1;
+  box-shadow: 0 1px 0 0 $primary-1;
+}
+
+input[type=password]:focus:not([readonly]) {
+  border-bottom: 1px solid $primary-1;
+  box-shadow: 0 1px 0 0 $primary-1;
+}
+
+input[type=email]:focus:not([readonly])+label {
+  color: $primary-1;
+}
+
+input[type=password]:focus:not([readonly])+label {
+  color: $primary-1;
+}
+
+input[type=text]:focus:not([readonly])+label {
+  color: $primary-1;
+}
+
+input[type=email].valid {
+  border-bottom: 1px solid $accent-1;
+  box-shadow: 0 1px 0 0 $accent-1;
+}
+
+input[type=password].valid {
+  border-bottom: 1px solid $accent-1;
+  box-shadow: 0 1px 0 0 $accent-1;
+}
+
+input[type=text].valid {
+  border-bottom: 1px solid $accent-1;
+  box-shadow: 0 1px 0 0 $accent-1;
+}
+
+textarea.materialize-textarea:focus:not([readonly]) {
+  border-bottom: 1px solid $primary-1;
+  box-shadow: 0 1px 0 0 $primary-1;
+}
+
+textarea.materialize-textarea:focus:not([readonly])+label {
+  color: $primary-1;
+}
+
+textarea.materialize-textarea.valid {
+  border-bottom: 1px solid $accent-1;
+  box-shadow: 0 1px 0 0 $accent-1;
+}
+
+.dropdown-content li>span {
+  color: $accent-1;
+}
+
+.form-container {
+  background-color: $white;
+  margin: 25px auto;
+  padding: 10px;
+  width: 75%;
+}
+
+.form-int {
+  padding: 0 12px;
+}
+
+.form-title {
+  margin-left: 20px;
+}

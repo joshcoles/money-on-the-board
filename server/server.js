@@ -2,6 +2,8 @@
 //=========================================//
 //=========== DEPENDENCIES ================//
 //=========================================//
+
+require('dotenv').config();
 const request = require('request');
 const express = require('express');
 const app = express();
@@ -13,15 +15,17 @@ const bcrypt = require('bcrypt');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const session = require('cookie-session');
+const mailgun = require('mailgun-js')({
+                  apiKey: process.env.MAILGUN_KEY,
+                  domain: process.env.MAILGUN_DOMAIN
+                });
 
-
-const home    = require('../mock-api/sample-data/sportsradar-roster-ottawa.json');
-const away    = require('../mock-api/sample-data/sportsradar-roster-toronto.json');
+const home = require('../mock-api/sample-data/sportsradar-roster-ottawa.json');
+const away = require('../mock-api/sample-data/sportsradar-roster-toronto.json');
 
 const util = require('util');
 
 const inspect = (o, d = 1) => { console.log(util.inspect(o, { colors: true, depth: d }))};
-
 
 app.set('port', process.env.port || 8080);
 app.set('view engine', 'ejs');
@@ -35,6 +39,13 @@ app.use(session({
   keys: ['toranto', 'bimbimbop']
 }));
 
+// function that fixed urls that don't begin with 'http://''
+function fixURL(originalURL) {
+  if (!(originalURL.includes("://"))) {
+    originalURL = "http://" + originalURL;
+  }
+  return originalURL;
+}
 
 // function that compares user input password with stored password
 function comparePass(userPassword, databasePassword) {
@@ -77,6 +88,14 @@ app.use((req, res, next) => {
 //=========================================//
 //============== Routes ===================//
 //=========================================//
+app.get('/startgame', (req, res) => {
+  res.render('start-game');
+});
+
+app.post('/startgame2', (req, res) => {
+  pollGame();
+  res.send('starting game');
+});
 
 app.get('/', (req, res) => {
   inspect(res.locals);
@@ -87,6 +106,7 @@ app.get('/', (req, res) => {
 //============ SEED PLEDGES ===============//
 //======== CURRENTLY NOT IN USE ===========//
 //=========================================//
+
 app.get('/seedpledges', (req, res) => {
   res.json({
     pledges: [{
@@ -113,11 +133,44 @@ app.get('/seedpledges', (req, res) => {
 //============== DB PLEDGES ===============//
 //=========== CURRENTLY IN USE ============//
 //=========================================//
-app.get('/pledges', (req, res) => {
+
+// app.get('/pledges', (req, res) => {
+//   let allPledges = {
+//     pledges: []
+//   }
+//   db.select().from('pledges').returning().then(result => {
+//     let pledgingUsers = result.forEach(pledge => {
+//       console.log(pledge);
+//       allPledges.pledges.push({
+//         user_id: pledge.user_id,
+//         username: pledge.username,
+//         totalPledges: [],
+//         pledged: [
+//           {
+//             id: pledge.id,
+//             username: pledge.username,
+//             pledge_amount: parseInt(pledge.money),
+//             pledge_event: pledge.event_string,
+//             occurance: 0,
+//             owes: 0
+//           }
+//         ]
+//       });
+//     });
+//     res.json(allPledges)
+//   });
+// })
+
+//=========================================//
+//============== DB PLEDGES ===============//
+//============== Test Version =============//
+//=========================================//
+
+app.get('/campaigns/:id/pledges', (req, res) => {
   let allPledges = {
     pledges: []
   }
-  db.select().from('pledges').returning().then(result => {
+  db.select().from('pledges').where({campaign_id: req.params.id}).returning().then(result => {
     let pledgingUsers = result.forEach(pledge => {
       console.log(pledge);
       allPledges.pledges.push({
@@ -135,7 +188,8 @@ app.get('/pledges', (req, res) => {
           }
         ]
       });
-  });
+    });
+    console.log("New all pledges route", allPledges)
     res.json(allPledges)
   });
 })
@@ -143,6 +197,7 @@ app.get('/pledges', (req, res) => {
 //=========================================//
 //========== SIGN UP NEW USERS ============//
 //=========================================//
+
 app.get('/users/new', (req, res) => {
   res.render('signup');
 });
@@ -171,11 +226,6 @@ app.post('/users/new', (req, res) => {
   }
 });
 
-function handleResponse(res, code, statusMsg) {
-  res.status(code).json({status: statusMsg});
-};
-
-
 //=========================================//
 //========== LOGIN/LOGOUT USERS ===========//
 //=========================================//
@@ -183,7 +233,6 @@ function handleResponse(res, code, statusMsg) {
 app.get('/login', (req, res) => {
   res.render('login');
 });
-
 
 app.post('/login', passport.authenticate('local', { failureRedirect: '/login' }), (req, res) => {
   res.redirect('/');
@@ -197,6 +246,7 @@ app.post('/logout', (req, res) => {
 //=========================================//
 //============ CREATE PLEDGES =============//
 //=========================================//
+
 app.get('/campaigns/:id/pledges/new', (req, res) => {
   let campaign_id = req.params.id;
   let away_roster = [];
@@ -239,12 +289,11 @@ app.post('/campaigns/:id/pledges/new', (req, res) => {
   let teamID = req.body.team;
   let pledgeTeam = req.body.team;
   let pledgePlayer = req.body.player;
-  let pledgeAmount = req.body.money;
+  let pledgeAmount = req.body.pledge.slice( 1 );
   let inGameEvent = req.body.inGameEvent;
   let user_id = res.locals.currentUser.id;
   let username = res.locals.currentUser.username;
   let campaign_id = req.params.id;
-  console.log("Res.locals: ", res.locals)
 
   request(`http://localhost:4000/api/campaigns/team/${teamID}`, (err, response, body) => {
     team = JSON.parse(body)
@@ -260,6 +309,12 @@ app.post('/campaigns/:id/pledges/new', (req, res) => {
        case '9':
        eventString = `${eventPlayerName}`;
        break;
+       case '7':
+       eventString = `${eventPlayerName} 5 minutes for Fighting`;
+       break;
+       case '8':
+       eventString = `assisted by ${eventPlayerName}`;
+       break;
        case '4':
        eventString = `${eventPlayerName} credited with`;
        break;
@@ -273,20 +328,30 @@ app.post('/campaigns/:id/pledges/new', (req, res) => {
        eventString = `saved by ${eventPlayerName}`;
        break;
     }
-    db.insert([{player_uuid: pledgePlayer, team_uuid: pledgeTeam, money: pledgeAmount, in_game_event_id: inGameEvent, user_id: user_id, campaign_id: campaign_id, event_string: eventString, username: username}])
+    db.insert([{
+      player_uuid: pledgePlayer,
+      team_uuid: pledgeTeam,
+      money: pledgeAmount,
+      in_game_event_id: inGameEvent,
+      user_id: user_id,
+      campaign_id: campaign_id,
+      event_string: eventString,
+      username: username}
+    ])
     .into('pledges')
     .then((result) => {
       console.log("Pledge insert result", result);
     })
   })
-  res.redirect('/campaigns/:id');
+  res.redirect(`/campaigns/${req.params.id}`);
 });
 
 //=========================================//
 //======= SHOW/CREATE CAMPAIGNS ===========//
 //=========================================//
+
 app.get('/campaigns', (req, res) => {
-  db.select('title', 'id').from('campaigns')
+  db.select('title', 'id', 'charity_url', 'charity_name', 'image_url', 'description').from('campaigns')
   .then(campaigns => {
     res.render('campaign-list', {campaigns});
   });
@@ -296,24 +361,28 @@ app.get('/campaigns/new', (req, res) => {
   res.render('campaign-new');
 });
 
+app.post('/campaigns/new/login', passport.authenticate('local', { failureRedirect: '/login' }), (req, res) => {
+  res.redirect('/campaigns/new');
+});
+
 app.post('/campaigns', (req, res) => {
   console.log('***Form Submitted***')
   console.log('request body: ', req.body)
   let game = req.body.game;
   let campaign_name = req.body.campaign_name;
   let charity_name = req.body.charity_name;
-  let charity_url = req.body.charity_url;
+  let charity_url = fixURL(req.body.charity_url);
   let hashtag = req.body.hashtag;
-  let email = req.body.email;
-  let password = req.body.password;
-  let currentUser = res.locals.currentUser
+  let image_url = req.body.image_url;
+  let description = req.body.description;
+  let currentUser = res.locals.currentUser;
   console.log("Game: " + game);
   console.log("Campaign name: " + campaign_name);
   console.log("Charity name: " + charity_name);
   console.log("Charity url: " + charity_url);
   console.log("Hashtag: " + hashtag);
-  console.log("Email: " + email);
-  console.log("Password: " + password);
+  console.log("Description: " + description);
+  console.log("image_url: " + image_url);
   console.log("CurrentUser.id: " + currentUser.id);
 
   db.select('id').from('games').where({game_uuid: game})
@@ -329,6 +398,8 @@ app.post('/campaigns', (req, res) => {
       charity_name: charity_name,
       charity_url: charity_url,
       user_id: currentUser.id,
+      image_url: image_url,
+      description: description,
     }])
     .into('campaigns')
     .returning('id')
@@ -336,6 +407,22 @@ app.post('/campaigns', (req, res) => {
       console.log("campaign insert result", result);
       if (result.length === 1) {
         const campaign_id = result[0];
+        let email_data = {
+          from: 'MOTB TEAM <postmaster@sandboxaa6735332e75406fa7971145060d2387.mailgun.org>',
+          to: currentUser.email,
+          subject: 'Your Campaign Details',
+          text: `Hi ${currentUser.username}!\n
+          Thank you for making a campaign with Money on the Board! Here are the details about the campaign:\n
+          Twitter Account: ${hashtag}\n
+          Title: ${campaign_name}\n
+          Charity Name: ${charity_name}\n
+          Donation Link: ${charity_url}\n
+          description: ${description}\n
+          Sharable Link: http://localhost:8080/campaigns/${result[0]}`
+        };
+        mailgun.messages().send(email_data, (error, body) => {
+          console.log(body);
+        });
         res.redirect(`campaigns/${campaign_id}`);
       } else {
         console.error("number of found campaigns =", result.length);
@@ -349,72 +436,32 @@ app.post('/campaigns', (req, res) => {
   });
 });
 
-
-app.post('/campaigns/:id/pledges/new', (req, res) => {
-  let teamID = req.body.team;
-  let pledgeTeam = req.body.team;
-  let pledgePlayer = req.body.player;
-  let pledgeAmount = req.body.money;
-  let inGameEvent = req.body.inGameEvent;
-  let user_id = res.locals.currentUser.id;
-  let username = res.locals.currentUser.username;
-  let campaign_id = req.params.id;
-  console.log("Res.locals: ", res.locals)
-
-  request(`http://localhost:4000/api/campaigns/team/${teamID}`, (err, response, body) => {
-    team = JSON.parse(body)
-    team.players.forEach((player) => {
-
-      if(player.id === pledgePlayer) {
-      eventPlayerName = player.full_name
-      }
-
-    })
-    switch (inGameEvent) {
-       case '6':
-       eventString = `Goal scored by ${eventPlayerName}`;
-       break;
-       case '9':
-       eventString = `${eventPlayerName}`;
-       break;
-       case '4':
-       eventString = `${eventPlayerName} credited with`;
-       break;
-       case '5':
-       eventString = `Penalty to ${eventPlayerName}`;
-       break;
-       case '2':
-       eventString = `${eventPlayerName} won faceoff`;
-       break;
-       case '3':
-       eventString = `saved by ${eventPlayerName}`;
-       break;
-    }
-
-
-    db.insert([{player_uuid: pledgePlayer, team_uuid: pledgeTeam, money: pledgeAmount, in_game_event_id: inGameEvent, user_id: user_id, campaign_id: campaign_id, event_string: eventString, username: username}])
-    .into('pledges')
-    .then((result) => {
-      console.log("Pledge insert result", result);
-    })
-
-  })
-  console.log("Form Submitted.")
-  res.redirect('/campaigns/:id');
+app.post('/campaigns/:id', passport.authenticate('local', { failureRedirect: '/login' }), (req, res) => {
+  res.redirect(`/campaigns/${req.params.id}/pledges/new`);
 });
 
 //=========================================//
 //====== SHOW CAMPAIGN REACT PAGE =========//
 //=========================================//
+
 app.get('/campaigns/:id', (req, res) => {
   let campaign_id = req.params.id
-  res.render('index', {campaign_id: campaign_id})
+  db.select().from('campaigns').where({id: campaign_id}).then(data => {
+    console.log(data)
+    let handle = data[0].handle
+    let charity_name = data[0].charity_name
+    let title = data[0].title
+    let image_url = data[0].image_url
+    let description = data[0].description
+    let charity_url = data[0].charity_url
+    res.render('index', {campaign_id, handle, charity_name, title, image_url, description, charity_url})
+  })
 });
-
 
 //=========================================//
 //============ HANDLE API CALLS ===========//
 //=========================================//
+
 app.get('/api/schedule', (req, res) => {
   request('http://localhost:4000/api/schedule', (err, response, body) => {
     let scheduleParsed = JSON.parse(body);
@@ -454,6 +501,7 @@ app.get('/api/campaigns/:id/awayteam', (req, res) => {
 //=========================================//
 //============== SOCKETS ==================//
 //=========================================//
+
 let p = 0;
 let e = 0;
 
@@ -469,7 +517,7 @@ function endGame(gameRightNow) {
 
 function pollGame() {
   request('http://localhost:4000/api/campaigns/1', (err, response, body) => {
-    const filter_events = ['goal', 'shotsaved', 'hit', 'penalty', 'assist'];
+    const filter_events = ['goal', 'shotsaved', 'hit', 'penalty', 'assist', 'faceoff'];
     let gameData = JSON.parse(body)
     const gameRightNow = Object.assign({}, gameData);
     let period_length = gameData.periods.length
@@ -496,7 +544,6 @@ function pollGame() {
     }
   });
 }
-pollGame();
 
 server.listen(app.get('port'), (err) => {
  if (err) throw err;

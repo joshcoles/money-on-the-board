@@ -1,0 +1,66 @@
+form#multiphase > #phase2, #phase3, #phase4, #show_all_data {
+  display:none;
+}
+
+#step1, #step2, #step3, #step4 {
+  margin-bottom: 15px;
+}
+
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  margin: 1em 0;
+  background: $accent-1;
+  box-sizing: content-box;
+}
+
+.progress-div {
+  margin-bottom: 10px;
+}
+
+.progress-bar{
+  counter-reset: step;
+}
+
+.progress-bar li {
+  list-style-type: none;
+  float: left;
+  width: 25%;
+  position: relative;
+  text-align: center;
+  color: $form-shadow;
+}
+
+.progress-bar li:before {
+  content: counter(step);
+  counter-increment: step;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  border: 1px solid $form-shadow;
+  color: $form-shadow;
+  display: block;
+  text-align: center;
+  margin: 0 auto 0 auto;
+  border-radius: 50%;
+  background-color: $white;
+}
+
+.progress-bar li:first-child:after {
+  content: none;
+}
+
+.progress-bar li.active {
+  color: $primary-1;
+}
+
+.progress-bar li.active:before {
+  border: 2px solid;
+  border-color: $primary-1;
+  color: $primary-1;
+}
+
+.progress-bar li.active + li:after {
+  background-color: $primary-1;
+}

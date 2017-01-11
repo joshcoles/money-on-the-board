@@ -3,20 +3,71 @@
 <% include ./partials/_head %>
 <body>
 <% include ./partials/_header %>
-
-  <a class="twitter-timeline"  width="300"
-  height="500" data-height="400" href="https://twitter.com/SensMotB">Tweets by Sens MotB</a>
-
-  <% if(isAuthenticated) { %>
-  <a class="btn" href="/campaigns/<%= campaign_id %>/pledges/new">Make a pledge</a>
-  <% } else { %>
-    <a class="btn" href="/login">Login to make a pledge</a>
-  <% } %>
-
-  <div id="react-root"></div>
+<main class="container">
 
 
+<div class="title campaign-info">
+   <h2 class="campaign-title"><%= title %></h2>
+   <h3 class="campaign-charity"> <%= charity_name %></h3>
+   <% if (isAuthenticated) { %>
+   <div class="pledge-button">
+   <a class="btn button cp-button" href="/campaigns/<%= campaign_id %>/pledges/new">Create a Pledge</a>
+   <a class="waves-effect waves-light btn button modal-trigger cp-button" href="<%= charity_url %>">Donate Now</a>
+   </div>
+   <% } else { %>
+   <div class="pledge-button">
+     <a class="waves-effect waves-light btn button modal-trigger cp-button" href="#modal1">Create a Pledge</a>
+     <a class="waves-effect waves-light btn button modal-trigger cp-button" href="<%= charity_url %>">Donate Now</a>
+   </div>
+ <% } %>
+ </div>
+
+  <div id="modal1" class="modal">
+    <div class="modal-content">
+      <h5>Login to make pledge</h5>
+      <form class="col s12" id="login-modal" action="/campaigns/<%= campaign_id %>" method="POST">
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="username" type="text" class="validate" name="username" autocomplete="new-username">
+            <label for="username">Username</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="password" type="password" class="validate" name="password" autocomplete="new-password">
+            <label for="password">Password</label>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <a href="/users/new">Not a user? Register.</a>
+          <button class="btn waves-effect waves-light button" type="submit" name="action">Login
+          <i class="material-icons right"></i>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+<div class="row">
+  <script>
+    // Jeremy says: please, God, someone teach me how to do this in a way that doesn't give me cancer.
+    // We need to smuggle the campaign_id into the App.jsx, and the index.jsx
+    // file is mangled in by some horrible bundle.js magic, so we're just gonna use the global universe
+    window.campaign_id = <%= campaign_id %>
+  </script>
+  <div class="react col s6 m6 l6" id="react-root"></div>
+  <div class="twitter-feed col s6 m6 l6">
+    <a class="twitter-timeline" heigth="700"  data-height="700" href="https://twitter.com/<%= handle %>">Tweets by <%= handle%></a>
+    <a href="https://twitter.com/<%= handle %>" class="twitter-follow-top-right twitter-follow-button" data-show-count="false">Follow</a><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+    <a href="https://twitter.com/intent/tweet?screen_name=<%= handle %>" class="twitter-mention-top-right twitter-mention-button" data-show-count="false">Tweet</a>
+    <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+  </div>
+</div>
 
   <script src="//localhost:3000/build/bundle.js"></script>
+</main>
+<% include ./partials/_footer %>
+
 </body>
 </html>

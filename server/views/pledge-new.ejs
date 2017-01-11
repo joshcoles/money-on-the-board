@@ -1,68 +1,108 @@
 <!DOCTYPE html>
 <html>
-<% include ./partials/_head-pledges %>
+<% include ./partials/_head %>
+
+<script type="text/javascript">
+  function populate(selectTeam, selectPlayer) {
+    var team = document.getElementById(selectTeam);
+    var player = document.getElementById(selectPlayer);
+    player.innerHTML = "";
+    var optionArray;
+    if(team.value == <%- JSON.stringify(home_id) %>) {
+      optionArray = <%- JSON.stringify(home_roster) %>
+    } else if(team.value == <%- JSON.stringify(away_id) %>) {
+      optionArray = <%- JSON.stringify(away_roster) %>
+    }
+    for(var index in optionArray) {
+      var newOption = document.createElement("option");
+      newOption.value = optionArray[index].id
+      newOption.innerHTML = optionArray[index].name
+      player.options.add(newOption);
+    }
+    $('select').material_select();
+  }
+</script>
+
 <body>
 <% include ./partials/_header %>
 
-<div class="row">
-  <% if(!isAuthenticated) { %>
+<main>
+<h2 class="custom-header new-camp-h">Make a New Pledge</h2>
 
-    <p> You can't make a pledge unless you're logged in. You can log in <a href="/login">here</a>.</p>
+<div class="form-container card">
+  <div class="row">
+    <% if(!isAuthenticated) { %>
 
-  <% } else { %>
+      <p> You can't make a pledge unless you're logged in. You can log in <a href="/login">here</a>.</p>
 
-  <form class="col s12" action="/campaigns/<%= campaign_id %>/pledges/new" method="POST">
-    <div class="row">
-     <label>Team</label>
-      <select id="team" name="team" onchange="populate('team','player')" class="browser-default selectpicker">
-        <option value="" disabled selected>Choose your Team</option>
-        <option name="team" value="<%= home_id %>"><%= home_name %></option>
-        <option name="team" value="<%= away_id %>"><%= away_name %></option>
-      </select>
+    <% } else { %>
 
-      <label>Player</label>
-      <select id="player" name="player" class="browser-default selectpicker">
-      </select>
+    <form class="col s12 form-int" id="pledge-new" action="/campaigns/<%= campaign_id %>/pledges/new" method="POST">
+      <div class="row">
+        <!-- <h5 class="form-title">Make a Pledge</h5> -->
+      </div>
+      <div class="row">
+       <label>Team</label>
+        <select id="team" name="team" onchange="populate('team','player')" class="required">
+          <option name="option1" value="option1" disabled selected>Choose your Team</option>
+          <option class="team-option" name="team" value="<%= home_id %>"><%= home_name %></option>
+          <option class="team-option" name="team" value="<%= away_id %>"><%= away_name %></option>
+        </select>
+      </div>
 
-      <label>Event</label>
-      <select name="inGameEvent" class="browser-default selectpicker">
-        <option name="option1" value="" disabled selected>Choose your in-game event</option>
-        <option name="goal" value="6">Goal</option>
-        <option name="assist" value="8">
+      <div class="row">
+        <label>Player</label>
+        <select id="player" name="player" class="">
+          <option name="option1" value="option1" disabled selected>Choose your Player</option>
+        </select>
+      </div>
+
+      <div class="row">
+        <label>Event</label>
+        <select name="inGameEvent" class="required" id="inGameEvent">
+          <option name="option1" value="" disabled selected>Choose your in-game event</option>
+          <option name="goal" value="6">Goal</option>
+          <option name="assist" value="8">
           Assist
-        </option>
-        <option name="point" value="9">
+          </option>
+          <!-- <option name="point" value="9">
           Point
-        </option>
-        <option name="hit" value="4">
+          </option> -->
+          <option name="hit" value="4">
           Hit
-        </option>
-        <option name="penalty" value="5">
+          </option>
+          <option name="penalty" value="5">
           Penalty
-        </option>
-        <option name="faceoff" value="2">
+          </option>
+          <option name="fight" value="7">
+          Fight
+          </option>
+          <option name="faceoff" value="2">
           Faceoff Won
-        </option>
-        <option name="shotsaved" value="3">
+          </option>
+          <option name="shotsaved" value="3">
           Shot Saved
-        </option>
-      </select>
+          </option>
+        </select>
+      </div>
 
+      <div class="row">
+       <div class="input-field">
+         <input id="pledge" type="text" class="validate" name="pledge" value="$"/>
+         <label class="active" for="money">Pledge Amount</label>
+       </div>
+     </div>
 
-        <label>Pledge Amount</label>
-          <input id="money" type="text" class="validate" name="money" placeholder="$">
-          <label class="active" for="money"></label>
+      <button class="btn waves-effect waves-light button" type="submit" name="action">Submit
+          <i class="material-icons right"></i>
+      </button>
 
-    </div>
-    <button class="btn waves-effect waves-light" type="submit" name="action">Submit
-        <i class="material-icons right"></i>
-    </button>
-  </form>
-  <% } %>
+    </form>
+    <% } %>
+  </div>
 </div>
 
-
-
+</main>
 <% include ./partials/_footer %>
 </body>
 </html>
