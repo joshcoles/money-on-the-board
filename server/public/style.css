@@ -301,6 +301,10 @@ main {
   height: 80vh;
   border-bottom: 20px solid #004585; }
 
+.mistake {
+  display: inline-block;
+  float: right; }
+
 .second-parallax {
   border-top: 20px solid #004585;
   border-bottom: 20px solid #004585;

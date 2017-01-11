@@ -100,6 +100,11 @@ main {
   border-bottom: 20px solid $primary-1;
 }
 
+.mistake {
+  display: inline-block;
+  float: right;
+}
+
 .second-parallax {
   border-top: 20px solid $primary-1;
   border-bottom: 20px solid $primary-1;
