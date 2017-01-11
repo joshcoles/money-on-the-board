@@ -49,7 +49,8 @@ class App extends Component {
     };
   }
   componentDidMount() {
-    fetch('/pledges')
+    // console.log("if I were to fetch, the campaign I'd be fetching would be", this.props.campaign_id);
+    fetch(`/campaigns/${this.props.campaign_id}/pledges/`)
     .then(response => response.json())
     .then(data => {
       console.dir(data)

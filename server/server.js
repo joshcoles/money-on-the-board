@@ -151,10 +151,44 @@ app.get('/pledges', (req, res) => {
           }
         ]
       });
-  });
+    });
     res.json(allPledges)
   });
 })
+
+//=========================================//
+//============== DB PLEDGES ===============//
+//============== Test Version =============//
+//=========================================//
+
+app.get('/campaigns/:id/pledges', (req, res) => {
+  let allPledges = {
+    pledges: []
+  }
+  db.select().from('pledges').where({id: req.params.id}).returning().then(result => {
+    let pledgingUsers = result.forEach(pledge => {
+      console.log(pledge);
+      allPledges.pledges.push({
+        user_id: pledge.user_id,
+        username: pledge.username,
+        totalPledges: [],
+        pledged: [
+          {
+            id: pledge.id,
+            username: pledge.username,
+            pledge_amount: parseInt(pledge.money),
+            pledge_event: pledge.event_string,
+            occurance: 0,
+            owes: 0
+          }
+        ]
+      });
+    });
+    res.json(allPledges)
+  });
+})
+
+
 
 //=========================================//
 //========== SIGN UP NEW USERS ============//
@@ -413,7 +447,7 @@ app.get('/campaigns/:id', (req, res) => {
     let image_url = data[0].image_url
     let description = data[0].description
     let charity_url = data[0].charity_url
-  res.render('index', {campaign_id, handle, charity_name, title, image_url, description, charity_url})
+    res.render('index', {campaign_id, handle, charity_name, title, image_url, description, charity_url})
   })
   pollGame();
 });

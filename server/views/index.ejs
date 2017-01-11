@@ -49,6 +49,12 @@
 
 
 <div class="row">
+  <script>
+    // Jeremy says: please, God, someone teach me how to do this in a way that doesn't give me cancer.
+    // We need to smuggle the campaign_id into the App.jsx, and the index.jsx
+    // file is mangled in by some horrible bundle.js magic, so we're just gonna use the global universe
+    window.campaign_id = <%= campaign_id %>
+  </script>
   <div class="react col s6 m6 l6" id="react-root"></div>
   <div class="twitter-feed col s6 m6 l6">
     <a class="twitter-timeline" heigth="700"  data-height="700" href="https://twitter.com/<%= handle %>">Tweets by <%= handle%></a>
