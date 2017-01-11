@@ -215,7 +215,7 @@ app.post('/users/new', (req, res) => {
       user.id = userIDs[0];
       req.login(user, (err) => {
         if (!err) {
-          res.redirect('/');
+          res.redirect('/campaigns');
         } else {
           res.send("ERROR");
         }
