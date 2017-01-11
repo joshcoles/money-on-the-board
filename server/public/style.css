@@ -797,6 +797,12 @@ h4.step {
 form#multiphase > #phase2, #phase3, #phase4, #show_all_data {
   display: none; }
 
+.collection-item {
+  font-size: 1.2em; }
+  .collection-item span {
+    font-size: 1em;
+    float: right; }
+
 #step1, #step2, #step3, #step4 {
   margin-bottom: 15px; }
 
