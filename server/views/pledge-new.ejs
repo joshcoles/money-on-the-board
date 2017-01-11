@@ -27,6 +27,7 @@
 <% include ./partials/_header %>
 
 <main>
+<h2 class="custom-header new-camp-h">Make a New Pledge</h2>
 
 <div class="form-container card">
   <div class="row">
@@ -38,7 +39,7 @@
 
     <form class="col s12 form-int" id="pledge-new" action="/campaigns/<%= campaign_id %>/pledges/new" method="POST">
       <div class="row">
-        <h5 class="form-title">Make a Pledge</h5>
+        <!-- <h5 class="form-title">Make a Pledge</h5> -->
       </div>
       <div class="row">
        <label>Team</label>
@@ -64,14 +65,17 @@
           <option name="assist" value="8">
           Assist
           </option>
-          <option name="point" value="9">
+          <!-- <option name="point" value="9">
           Point
-          </option>
+          </option> -->
           <option name="hit" value="4">
           Hit
           </option>
           <option name="penalty" value="5">
           Penalty
+          </option>
+          <option name="fight" value="7">
+          Fight
           </option>
           <option name="faceoff" value="2">
           Faceoff Won
