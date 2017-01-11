@@ -364,7 +364,9 @@ a.dropdown-button.active {
   background-color: #004585; }
 
 .campaign-charity {
-  color: #FFFFFF; }
+  color: #FFFFFF;
+  font-size: 2em;
+  margin-top: 10px; }
 
 .campaign-info {
   color: white;
@@ -375,7 +377,11 @@ a.dropdown-button.active {
   text-align: center; }
 
 .campaign-title {
-  color: #FFFFFF; }
+  border-bottom: 1px solid white;
+  color: #FFFFFF;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-bottom: 10px; }
 
 .secondary-content {
   color: #19c856; }
@@ -604,7 +610,8 @@ h4.step {
   clear: both; }
 
 .cd-timeline-content h2 {
-  color: #FFFFFF; }
+  color: #FFFFFF;
+  font-size: 2em; }
 
 .cd-timeline-content p, .cd-timeline-content .cd-read-more, .cd-timeline-content .cd-date {
   font-size: 13px;
@@ -645,7 +652,7 @@ h4.step {
 @media only screen and (min-width: 768px) {
   .cd-timeline-content h2 {
     font-size: 20px;
-    font-size: 1.25rem; }
+    font-size: 2em; }
 
   .cd-timeline-content p {
     font-size: 16px; }

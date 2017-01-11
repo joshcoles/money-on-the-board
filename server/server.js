@@ -517,7 +517,7 @@ function endGame(gameRightNow) {
 
 function pollGame() {
   request('http://localhost:4000/api/campaigns/1', (err, response, body) => {
-    const filter_events = ['goal', 'shotsaved', 'hit', 'penalty', 'assist'];
+    const filter_events = ['goal', 'shotsaved', 'hit', 'penalty', 'assist', 'faceoff'];
     let gameData = JSON.parse(body)
     const gameRightNow = Object.assign({}, gameData);
     let period_length = gameData.periods.length
