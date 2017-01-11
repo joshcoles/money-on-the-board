@@ -1,5 +1,7 @@
 .campaign-charity {
   color: $white;
+  font-size: 2em;
+  margin-top: 10px;
 }
 
 .campaign-info {
@@ -12,7 +14,11 @@
 }
 
 .campaign-title {
+  border-bottom: 1px solid white;
   color: $white;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-bottom: 10px;
 }
 
 .secondary-content {
