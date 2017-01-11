@@ -230,7 +230,6 @@ app.get('/login', (req, res) => {
   res.render('login');
 });
 
-
 app.post('/login', passport.authenticate('local', { failureRedirect: '/login' }), (req, res) => {
   res.redirect('/');
 });
