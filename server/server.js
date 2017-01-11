@@ -306,6 +306,12 @@ app.post('/campaigns/:id/pledges/new', (req, res) => {
        case '9':
        eventString = `${eventPlayerName}`;
        break;
+       case '7':
+       eventString = `${eventPlayerName} 5 minutes for Fighting`;
+       break;
+       case '8':
+       eventString = `assisted by ${eventPlayerName}`;
+       break;
        case '4':
        eventString = `${eventPlayerName} credited with`;
        break;
