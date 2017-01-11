@@ -20,6 +20,11 @@
   background-color: #b52c32;
 }
 
+.fa-reply.fa-flip-horizontal {
+  padding-left: 6px;
+  padding-right: 22px;
+}
+
 .flip-board {
   display: inline-block;
   float: left;
@@ -36,7 +41,7 @@
   height: 30px;
   margin-right: 10px;
   margin-top: 10px;
-  padding-left: 4px;
+  padding-left: 10px;
   // width: 30px;
 }
 
