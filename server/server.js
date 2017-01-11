@@ -20,14 +20,12 @@ const mailgun = require('mailgun-js')({
                   domain: process.env.MAILGUN_DOMAIN
                 });
 
-
 const home = require('../mock-api/sample-data/sportsradar-roster-ottawa.json');
 const away = require('../mock-api/sample-data/sportsradar-roster-toronto.json');
 
 const util = require('util');
 
 const inspect = (o, d = 1) => { console.log(util.inspect(o, { colors: true, depth: d }))};
-
 
 app.set('port', process.env.port || 8080);
 app.set('view engine', 'ejs');
@@ -40,7 +38,6 @@ app.use(session({
   name: 'purplecatattack',
   keys: ['toranto', 'bimbimbop']
 }));
-
 
 // function that fixed urls that don't begin with 'http://''
 function fixURL(originalURL) {
@@ -99,8 +96,6 @@ app.post('/startgame2', (req, res) => {
   pollGame();
   res.send('starting game');
 });
-
-
 
 app.get('/', (req, res) => {
   inspect(res.locals);
@@ -198,8 +193,6 @@ app.get('/campaigns/:id/pledges', (req, res) => {
     res.json(allPledges)
   });
 })
-
-
 
 //=========================================//
 //========== SIGN UP NEW USERS ============//
@@ -372,7 +365,6 @@ app.post('/campaigns/new/login', passport.authenticate('local', { failureRedirec
   res.redirect('/campaigns/new');
 });
 
-
 app.post('/campaigns', (req, res) => {
   console.log('***Form Submitted***')
   console.log('request body: ', req.body)
@@ -448,7 +440,6 @@ app.post('/campaigns/:id', passport.authenticate('local', { failureRedirect: '/l
   res.redirect(`/campaigns/${req.params.id}/pledges/new`);
 });
 
-
 //=========================================//
 //====== SHOW CAMPAIGN REACT PAGE =========//
 //=========================================//
@@ -467,10 +458,10 @@ app.get('/campaigns/:id', (req, res) => {
   })
 });
 
-
 //=========================================//
 //============ HANDLE API CALLS ===========//
 //=========================================//
+
 app.get('/api/schedule', (req, res) => {
   request('http://localhost:4000/api/schedule', (err, response, body) => {
     let scheduleParsed = JSON.parse(body);
@@ -547,15 +538,12 @@ function pollGame() {
       e += 1;
     }
     if (endGame(gameRightNow)) {
-
       console.log("Game Over");
     } else {
     setTimeout(pollGame, 500);
     }
   });
 }
-
-
 
 server.listen(app.get('port'), (err) => {
  if (err) throw err;
