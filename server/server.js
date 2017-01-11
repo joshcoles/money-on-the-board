@@ -420,13 +420,13 @@ app.post('/campaigns', (req, res) => {
           from: 'MOTB TEAM <postmaster@sandboxaa6735332e75406fa7971145060d2387.mailgun.org>',
           to: currentUser.email,
           subject: 'Your Campaign Details',
-          text: `Hi ${currentUser.username}!\
-          Thank you for making a campaign with Money on the Board! Here are the details about the campaign:\
-          Twitter Account: ${hashtag}\
-          Title: ${campaign_name}\
-          Charity Name: ${charity_name}\
-          Donation Link: ${charity_url}\
-          description: ${description}\
+          text: `Hi ${currentUser.username}!\n
+          Thank you for making a campaign with Money on the Board! Here are the details about the campaign:\n
+          Twitter Account: ${hashtag}\n
+          Title: ${campaign_name}\n
+          Charity Name: ${charity_name}\n
+          Donation Link: ${charity_url}\n
+          description: ${description}\n
           Sharable Link: http://localhost:8080/campaigns/${result[0]}`
         };
         mailgun.messages().send(email_data, (error, body) => {
