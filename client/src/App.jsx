@@ -26,7 +26,7 @@ class App extends Component {
       this.state.pledges.forEach((user) => {
         user.pledged.forEach((pledge) => {
           if(data.includes(pledge.pledge_event)){
-            let $toastContent = $(`<span>${pledge.username} owes $${pledge.pledge_amount} for "${pledge.pledge_event}"</span>`);
+            let $toastContent = $(`<span>${pledge.username} owes $${pledge.pledge_amount} for "${pledge.pledge_event}"<audio autoplay><source src="../sounds/chaching.wav" src="../sounds/chaching.wav" type="audio/wav" type="audio/ogg"></audio></span>`);
             Materialize.toast($toastContent, 5000, 'green');
             newTotalPledges = user.totalPledges.push(pledge.pledge_amount)
             pledge.occurance = pledge.occurance + 1;
