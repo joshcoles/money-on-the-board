@@ -10,3 +10,4 @@ server/.sass-cache/*
 style.css.map
 server/style.css.map
 .sass-cache/*
+server/npm-debug.log
