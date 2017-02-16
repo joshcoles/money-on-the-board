@@ -58,4 +58,4 @@ request(teamUrl, (error, response, body) => {
       // console.log(roster);
     });
   };
-});
+})
