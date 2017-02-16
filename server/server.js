@@ -351,7 +351,7 @@ app.post('/campaigns/:id/pledges/new', (req, res) => {
 //=========================================//
 
 app.get('/campaigns', (req, res) => {
-  db.select('title', 'id', 'charity_url', 'charity_name', 'image_url', 'description').from('campaigns')
+  db.select('id', 'charity_id', 'game_id', 'handle', 'title', 'user_id', 'image_url', 'total_pledges', 'target_amount').from('campaigns')
   .then(campaigns => {
     res.render('campaign-list', {campaigns});
   });
