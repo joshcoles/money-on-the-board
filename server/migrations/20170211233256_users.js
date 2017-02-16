@@ -6,7 +6,7 @@ exports.up = function(knex, Promise) {
       table.string('username').unique().notNullable();
       table.string('password');
       table.string('email').unique().notNullable();
-      table.string('avatar', 500).notNullable;
+      table.string('avatar', 500).notNullable();
     }),
     knex.schema.createTable('games', function(table){
       table.increments('id');
@@ -20,7 +20,7 @@ exports.up = function(knex, Promise) {
     knex.schema.createTable('charities', function(table) {
       table.increments('id');
       table.string('charity_name');
-      table.string('charity_url', 500).notNullable;
+      table.string('charity_url', 500).notNullable();
       table.string('charity_transaction');
       table.string('charity_description', 500).notNullable;
       table.string('charity_image_url', 500).notNullable;

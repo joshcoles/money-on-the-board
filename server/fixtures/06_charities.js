@@ -6,11 +6,11 @@ exports.seed = function(knex, Promise) {
         // Inserts seed entries
         knex('charities').insert(
           {
-            charity_name: "Tots 4 Kids",
-            charity_url: "www.kids.com",
-            charity_transaction: "Blah blah blah I'm supposed to be an integer but I'm a string lol",
-            charity_description: "Tots 4 Kids provides tater tots for kids around Vancouver's impoverished DTES on 'Tater Tot Thursdays'",
-            charity_image_url: "https://www.lehmansdeli.com/wp-content/uploads/2014/05/tater-1W-e1399744048140.jpg"
+            charity_name: "canuck autism network",
+            charity_url: "http://www.canucksautism.ca/",
+            charity_transaction: "1",
+            charity_description: "Test description",
+            charity_image_url: 'http://www.canucksautism.ca/Assets/Canucks+Austism+Network+Digital+Assets/Canucks+Autism+Network+Brand+Iden.jpg'
           })
       ]);
     });

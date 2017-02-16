@@ -397,12 +397,12 @@ app.post('/campaigns', (req, res) => {
       game_id: game_id,
       // charity_name: charity_name,
       // charity_url: charity_url,
-      charity_id: 1,
+      charity_id: 3,
       user_id: currentUser.id,
       image_url: image_url,
       // description: description,
-      total_pledges: 10,
-      target_amount: 100
+      total_pledges: 1,
+      target_amount: 10
     }])
     .into('campaigns')
     .returning('id')
