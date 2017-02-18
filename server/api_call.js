@@ -14,7 +14,6 @@ request(teamUrl, (error, response, body) => {
   if(!error && response.statusCode == 200) {
     let teamListObj = JSON.parse(body);
     let teamList = teamListObj.teams;
-    // console.log(teamList);
     teamList.forEach((team) => {
       let teamInfo = {
         team_uuid: team.id,
@@ -31,8 +30,6 @@ request(teamUrl, (error, response, body) => {
         console.log("Team insterted", result);
       });
     });
-    // console.log(teams);
-    // console.log(rosterUrl);
     rosterUrl.forEach((roster) => {
       request(roster, (error, response, body) => {
         if(!error && response.statusCode == 200) {
@@ -55,7 +52,6 @@ request(teamUrl, (error, response, body) => {
           });
         };
       });
-      // console.log(roster);
     });
   };
 })
