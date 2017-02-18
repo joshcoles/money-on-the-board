@@ -358,7 +358,11 @@ app.get('/campaigns', (req, res) => {
 });
 
 app.get('/campaigns/new', (req, res) => {
-  res.render('campaign-new');
+  db.select('*').from('games').where('state', '=', 'Preview').limit(10)
+  .then(games => {
+    console.log(games)
+    res.render('campaign-new', {games});
+  });
 });
 
 app.post('/campaigns/new/login', passport.authenticate('local', { failureRedirect: '/login' }), (req, res) => {
@@ -397,7 +401,7 @@ app.post('/campaigns', (req, res) => {
       game_id: game_id,
       // charity_name: charity_name,
       // charity_url: charity_url,
-      charity_id: 3,
+      charity_id: 1,
       user_id: currentUser.id,
       image_url: image_url,
       // description: description,
