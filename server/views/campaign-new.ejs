@@ -1,16 +1,11 @@
 <!DOCTYPE html>
 <html>
 <% include ./partials/_head %>
-
 <style>
-
 </style>
-
-
 <body>
 <% include ./partials/_header %>
 <main>
-
   <h2 class="custom-header new-camp-h">Create New Campaign</h2>
 
   <div class="form-container card">
@@ -37,11 +32,10 @@
             <label>Game</label>
             <select name="game" class="" id="game">
               <option name="option1" value="" disabled selected>Select a Game</option>
-              <option value="2016020726">Senators vs Maple Leafs</option>
-              <option value="">Senators vs Canadians</option>
-              <option value="">Senators vs Oilers</option>
-              <option value="">Senators vs Jets</option>
-              <option value="2016020726">Canucks vs Flames</option>
+              <% games.forEach(function(game) { %>
+                <option value=<%=game.game_uuid%>><%= game.away_team_fullname %> vs. <%= game.home_team_fullname %>
+                </option>
+              <% }); %>
             </select>
           </div>
         <button class="btn waves-effect waves-light button" onclick="processPhase1()">Continue</button>
@@ -187,12 +181,11 @@
           <div class="row">
             <label>Game</label>
             <select name="game" class="" id="game">
-              <option name="option1" value="" disabled selected>Choose your option</option>
-              <option value="2016020726">Senators vs Maple Leafs</option>
-              <option value="">Senators vs Canadians</option>
-              <option value="">Senators vs Oilers</option>
-              <option value="">Senators vs Jets</option>
-              <option value="2016020726">Canucks vs Flames</option>
+              <option name="option1" value="" disabled selected>Select a Game</option>
+              <% games.forEach(function(game) { %>
+                <option value=<%=game.game_uuid%>><%= game.away_team_fullname %> vs. <%= game.home_team_fullname %>
+                </option>
+              <% }); %>
             </select>
           </div>
         <a class="waves-effect waves-light btn modal-trigger button" href="#modal1">Continue</a>
