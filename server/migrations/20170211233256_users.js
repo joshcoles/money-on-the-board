@@ -6,7 +6,7 @@ exports.up = function(knex, Promise) {
       table.string('username').unique().notNullable();
       table.string('password');
       table.string('email').unique().notNullable();
-      table.string('avatar', 500).notNullable();
+      table.string('avatar', 500);
     }),
     knex.schema.createTable('games', function(table){
       table.increments('id');
@@ -15,7 +15,9 @@ exports.up = function(knex, Promise) {
       table.string('game_date');
       table.string('state');
       table.integer('home_team_id');
+      table.string('home_team_fullname');
       table.integer('away_team_id');
+      table.string('away_team_fullname');
     }),
     knex.schema.createTable('charities', function(table) {
       table.increments('id');
