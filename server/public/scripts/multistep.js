@@ -29,9 +29,10 @@ function processPhase2() {
   }
 }
 function processPhase3() {
-  charity_name = _("charity_name").value;
-  charity_url = _("charity_url").value;
-  if(charity_name.length > 0 && charity_url.length >0) {
+  charity_id = _("charity_id").value
+  // charity_name = _("charity_name").value;
+  // charity_url = _("charity_url").value;
+  if(charity_id.length > 0  ) {
   _("phase3").style.display = "none";
   _("phase4").style.display = "block";
   } else {
@@ -47,8 +48,7 @@ function processPhase4() {
   _("display_game").innerHTML = "Canucks vs Flames";
   _("display_campaign_name").innerHTML = campaign_name;
   _("display_description").innerHTML = description;
-  _("display_charity_name").innerHTML = charity_name;
-  _("display_charity_url").innerHTML = charity_url;
+  _("display_charity_id").innerHTML = charity_id;
   _("display_image_url").innerHTML = image_url;
   _("display_hashtag").innerHTML = hashtag;
   } else {
