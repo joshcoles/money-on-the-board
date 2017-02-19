@@ -91,16 +91,14 @@
             <p class="new-campaign-instructions">Provide the name of the charity; as well as a direct link to their donate page</p>
           </div>
           <div class="row">
-            <div class="input-field col s12">
-              <input id="charity_name" type="text" class="validate" name="charity_name"/>
-              <label class="active" for="charity_name">Charity Name</label>
-            </div>
-          </div>
-          <div class="row">
-            <div class="input-field col s12">
-              <input id="charity_url" type="text" class="validate" name="charity_url"/>
-              <label class="active" for="charity_url">Link to Donation Page</label>
-            </div>
+            <label>Charity</label>
+            <select name="charity" class="" id="charity_id">
+              <option name="option1" disabled selected>Select a Charity</option>
+              <% charities.forEach(function(charity) { %>
+                <option for=<%=charity.id%>> <%=charity.charity_name%>
+                </option>
+              <% }); %>
+            </select>
           </div>
         <button class="btn waves-effect waves-light button" onclick="processPhase3()">Continue</button>
         </div>
@@ -143,8 +141,7 @@
         <li class="collection-item">Game: <span class="new-campaign-summary" id="display_game"></span></li>
         <li class="collection-item">Campaign Name: <span class="new-campaign-summary" id="display_campaign_name"></span></li>
         <li class="collection-item">Description: <span class="new-campaign-summary" id="display_description"></span></li>
-        <li class="collection-item">Charity Name: <span class="new-campaign-summary" id="display_charity_name"></span></li>
-        <li class="collection-item">Charity URL: <span class="new-campaign-summary" id="display_charity_url"></span></li>
+        <li class="collection-item">Charity Name: <span class="new-campaign-summary" id="display_charity_id"></span></li>
         <li class="collection-item">Image URL: <span class="new-campaign-summary" id="display_image_url"></span></li>
         <li class="collection-item">Twitter Handle: <span class="new-campaign-summary" id="display_hashtag"></span></li>
         </ul>
@@ -239,18 +236,16 @@
         <div class="row">
           <p class="new-campaign-instructions">Provide the name of the charity; as well as a direct link to their donate page</p>
         </div>
-          <div class="row">
-            <div class="input-field col s12">
-              <input id="charity_name" type="text" class="validate" name="charity_name"/>
-              <label class="active" for="charity_name">Charity Name</label>
-            </div>
-          </div>
-          <div class="row">
-            <div class="input-field col s12">
-              <input id="charity_url" type="text" class="validate" name="charity_url"/>
-              <label class="active" for="charity_url">Charity URL</label>
-            </div>
-          </div>
+        <div class="row">
+          <label>Charity</label>
+          <select name="charity" class="" id="charity_id">
+            <option name="option1" disabled selected>Select a Charity</option>
+            <% charities.forEach(function(charity) { %>
+              <option for=<%=charity.id%>> <%=charity.charity_name%>
+              </option>
+            <% }); %>
+          </select>
+        </div>
         <button class="btn waves-effect waves-light button" onclick="processPhase3()">Continue</button>
         </div>
 
@@ -295,7 +290,6 @@
         <li class="collection-item">Campaign Name: <span id="display_campaign_name"></span></li>
         <li class="collection-item">Description: <span id="display_description"></span></li>
         <li class="collection-item">Charity Name: <span id="display_charity_name"></span></li>
-        <li class="collection-item">Charity URL: <span id="display_charity_url"></span></li>
         <li class="collection-item">Twitter Handle: <span id="display_hashtag"></span></li>
         </ul>
         <a class="waves-effect waves-light btn modal-trigger button" href="#modal1">Create Campaign</a>
