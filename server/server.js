@@ -253,32 +253,27 @@ app.get('/campaigns/:id/pledges/new', (req, res) => {
   let home_roster = [];
   db.select('game_id').from('campaigns').where({id: campaign_id})
   .then(game => {
-    let game_id = game[0].game_id
+    let game_id = game[0].game_id;
     db.select('game_uuid').from('games').where({id: game_id})
     .then(gameUUID => {
-      let game_uuid = gameUUID[0].game_uuid
-      request('http://localhost:4000/api/schedule', (err, response, body) => {
-        let gameObject = JSON.parse(body)
-        gameObject.games.forEach((game) => {
-          if (game.id === game_uuid) {
-            let away_id = game.away.id
-            let away_name = game.away.name
-            let home_id = game.home.id
-            let home_name = game.home.name
-            request(`http://localhost:4000/api/campaigns/team/${away_id}`, (err, response, body) => {
-              let awayObject = JSON.parse(body)
-              awayObject.players.forEach((player) => {
-                away_roster.push({id: player.id, name: player.full_name})
-              })
-            })
-            request(`http://localhost:4000/api/campaigns/team/${home_id}`, (err, response, body) => {
-              let awayObject = JSON.parse(body)
-              awayObject.players.forEach((player) => {
-                home_roster.push({id: player.id, name: player.full_name})
-              })
-  res.render('pledge-new', {campaign_id, away_roster, home_roster, away_id, home_id, away_name, home_name});
-            })
-          }
+      let game_uuid = gameUUID[0].game_uuid;
+      db.select('*').from('games').where({game_uuid: game_uuid})
+      .then(game => {
+        let home_id = game[0].home_team_id;
+        let home_name = game[0].home_team_fullname;
+        let away_id = game[0].away_team_id;
+        let away_name = game[0].away_team_fullname;
+        console.log('Home: ', home_name);
+        db.select('*').from('players').where({team_id: home_id})
+        .then(home_roster => {
+          let home_team = home_roster;
+          console.log('Home Team: ', home_team);
+          db.select('*').from('players').where({team_id: away_id})
+          .then(away_roster => {
+            let away_team = away_roster;
+            console.log('Away Team: ', away_team);
+            res.render('pledge-new', {campaign_id, away_team, home_team, away_id, home_id, away_name, home_name});
+          })
         })
       })
     })
@@ -299,7 +294,7 @@ app.post('/campaigns/:id/pledges/new', (req, res) => {
     team = JSON.parse(body)
     team.players.forEach((player) => {
       if(player.id === pledgePlayer) {
-        eventPlayerName = player.full_name
+        eventPlayerName = player.full_name;
       }
     })
     switch (inGameEvent) {

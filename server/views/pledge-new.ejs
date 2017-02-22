@@ -9,14 +9,14 @@
     player.innerHTML = "";
     var optionArray;
     if(team.value == <%- JSON.stringify(home_id) %>) {
-      optionArray = <%- JSON.stringify(home_roster) %>
+      optionArray = <%- JSON.stringify(home_team) %>
     } else if(team.value == <%- JSON.stringify(away_id) %>) {
-      optionArray = <%- JSON.stringify(away_roster) %>
+      optionArray = <%- JSON.stringify(away_team) %>
     }
     for(var index in optionArray) {
       var newOption = document.createElement("option");
-      newOption.value = optionArray[index].id
-      newOption.innerHTML = optionArray[index].name
+      newOption.value = optionArray[index].id;
+      newOption.innerHTML = optionArray[index].player_name;
       player.options.add(newOption);
     }
     $('select').material_select();
