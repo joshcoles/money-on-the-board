@@ -45,7 +45,7 @@ function processPhase4() {
   if(image_url.length > 0 && hashtag.length > 0) {
   _("phase4").style.display = "none";
   _("show_all_data").style.display = "block";
-  _("display_game").innerHTML = "Canucks vs Flames";
+  _("display_game").innerHTML = game;
   _("display_campaign_name").innerHTML = campaign_name;
   _("display_description").innerHTML = description;
   _("display_charity_id").innerHTML = charity_id;
