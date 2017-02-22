@@ -361,7 +361,6 @@ app.get('/campaigns/new', (req, res) => {
   db.select('*').from('games').where('state', '=', 'Preview').limit(10)
   .then(games => {
     db.select('id', 'charity_name', 'charity_description').from('charities').then(charities => {
-      console.log(charities)
       res.render('campaign-new', {charities, games});
     });
   });
@@ -376,6 +375,7 @@ app.post('/campaigns', (req, res) => {
   console.log('request body: ', req.body)
   let game = req.body.game;
   let campaign_name = req.body.campaign_name;
+  let charity_id = req.body.charity;
   // let charity_name = req.body.charity_name; FIX ME
   // let charity_url = fixURL(req.body.charity_url);
   let hashtag = req.body.hashtag;
@@ -403,11 +403,11 @@ app.post('/campaigns', (req, res) => {
       game_id: game_id,
       // charity_name: charity_name,
       // charity_url: charity_url,
-      charity_id: 1,
+      charity_id: charity_id,
       user_id: currentUser.id,
       image_url: image_url,
       // description: description,
-      total_pledges: 1,
+      total_pledges: 0,
       target_amount: 10
     }])
     .into('campaigns')
