@@ -1,16 +1,11 @@
 <!DOCTYPE html>
 <html>
 <% include ./partials/_head %>
-
 <style>
-
 </style>
-
-
 <body>
 <% include ./partials/_header %>
 <main>
-
   <h2 class="custom-header new-camp-h">Create New Campaign</h2>
 
   <div class="form-container card">
@@ -37,11 +32,10 @@
             <label>Game</label>
             <select name="game" class="" id="game">
               <option name="option1" value="" disabled selected>Select a Game</option>
-              <option value="4a130cc4-3bd4-42ad-ac93-484043a2d5bc">Senators vs Maple Leafs</option>
-              <option value="">Senators vs Canadians</option>
-              <option value="">Senators vs Oilers</option>
-              <option value="">Senators vs Jets</option>
-              <option value="3b8e1099-8050-42c9-b545-2aa74e93b2e8">Canucks vs Flames</option>
+              <% games.forEach(function(game) { %>
+                <option value=<%=game.game_uuid%>><%= game.away_team_fullname %> vs. <%= game.home_team_fullname %>
+                </option>
+              <% }); %>
             </select>
           </div>
         <button class="btn waves-effect waves-light button" onclick="processPhase1()">Continue</button>
@@ -97,16 +91,14 @@
             <p class="new-campaign-instructions">Provide the name of the charity; as well as a direct link to their donate page</p>
           </div>
           <div class="row">
-            <div class="input-field col s12">
-              <input id="charity_name" type="text" class="validate" name="charity_name"/>
-              <label class="active" for="charity_name">Charity Name</label>
-            </div>
-          </div>
-          <div class="row">
-            <div class="input-field col s12">
-              <input id="charity_url" type="text" class="validate" name="charity_url"/>
-              <label class="active" for="charity_url">Link to Donation Page</label>
-            </div>
+            <label>Charity</label>
+            <select name="charity" class="" id="charity_id">
+              <option name="option1" disabled selected>Select a Charity</option>
+              <% charities.forEach(function(charity) { %>
+                <option for=<%=charity.id%>> <%=charity.charity_name%>
+                </option>
+              <% }); %>
+            </select>
           </div>
         <button class="btn waves-effect waves-light button" onclick="processPhase3()">Continue</button>
         </div>
@@ -149,8 +141,7 @@
         <li class="collection-item">Game: <span class="new-campaign-summary" id="display_game"></span></li>
         <li class="collection-item">Campaign Name: <span class="new-campaign-summary" id="display_campaign_name"></span></li>
         <li class="collection-item">Description: <span class="new-campaign-summary" id="display_description"></span></li>
-        <li class="collection-item">Charity Name: <span class="new-campaign-summary" id="display_charity_name"></span></li>
-        <li class="collection-item">Charity URL: <span class="new-campaign-summary" id="display_charity_url"></span></li>
+        <li class="collection-item">Charity Name: <span class="new-campaign-summary" id="display_charity_id"></span></li>
         <li class="collection-item">Image URL: <span class="new-campaign-summary" id="display_image_url"></span></li>
         <li class="collection-item">Twitter Handle: <span class="new-campaign-summary" id="display_hashtag"></span></li>
         </ul>
@@ -187,12 +178,11 @@
           <div class="row">
             <label>Game</label>
             <select name="game" class="" id="game">
-              <option name="option1" value="" disabled selected>Choose your option</option>
-              <option value="4a130cc4-3bd4-42ad-ac93-484043a2d5bc">Senators vs Maple Leafs</option>
-              <option value="">Senators vs Canadians</option>
-              <option value="">Senators vs Oilers</option>
-              <option value="">Senators vs Jets</option>
-              <option value="3b8e1099-8050-42c9-b545-2aa74e93b2e8">Canucks vs Flames</option>
+              <option name="option1" value="" disabled selected>Select a Game</option>
+              <% games.forEach(function(game) { %>
+                <option value=<%=game.game_uuid%>><%= game.away_team_fullname %> vs. <%= game.home_team_fullname %>
+                </option>
+              <% }); %>
             </select>
           </div>
         <a class="waves-effect waves-light btn modal-trigger button" href="#modal1">Continue</a>
@@ -246,18 +236,16 @@
         <div class="row">
           <p class="new-campaign-instructions">Provide the name of the charity; as well as a direct link to their donate page</p>
         </div>
-          <div class="row">
-            <div class="input-field col s12">
-              <input id="charity_name" type="text" class="validate" name="charity_name"/>
-              <label class="active" for="charity_name">Charity Name</label>
-            </div>
-          </div>
-          <div class="row">
-            <div class="input-field col s12">
-              <input id="charity_url" type="text" class="validate" name="charity_url"/>
-              <label class="active" for="charity_url">Charity URL</label>
-            </div>
-          </div>
+        <div class="row">
+          <label>Charity</label>
+          <select name="charity" class="" id="charity_id">
+            <option name="option1" disabled selected>Select a Charity</option>
+            <% charities.forEach(function(charity) { %>
+              <option for=<%=charity.id%>> <%=charity.charity_name%>
+              </option>
+            <% }); %>
+          </select>
+        </div>
         <button class="btn waves-effect waves-light button" onclick="processPhase3()">Continue</button>
         </div>
 
@@ -302,7 +290,6 @@
         <li class="collection-item">Campaign Name: <span id="display_campaign_name"></span></li>
         <li class="collection-item">Description: <span id="display_description"></span></li>
         <li class="collection-item">Charity Name: <span id="display_charity_name"></span></li>
-        <li class="collection-item">Charity URL: <span id="display_charity_url"></span></li>
         <li class="collection-item">Twitter Handle: <span id="display_hashtag"></span></li>
         </ul>
         <a class="waves-effect waves-light btn modal-trigger button" href="#modal1">Create Campaign</a>

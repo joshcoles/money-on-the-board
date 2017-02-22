@@ -6,24 +6,35 @@ exports.up = function(knex, Promise) {
       table.string('username').unique().notNullable();
       table.string('password');
       table.string('email').unique().notNullable();
-      table.string('avatar', 500).notNullable;
+      table.string('avatar', 500);
+    }),
+    knex.schema.createTable('teams', function(table){
+      table.increments('id');
+      table.integer('team_uuid').unique().notNullable();
+      table.string('team_fullname');
+      table.string('team_name');
+      table.string('team_abbreviation');
+      table.string('roster_url',500).notNullable();
     }),
     knex.schema.createTable('games', function(table){
       table.increments('id');
-      table.string('game_uuid');
+      table.integer('game_uuid');
       table.string('link');
       table.string('game_date');
       table.string('state');
-      table.integer('home_team_id');
-      table.integer('away_team_id');
+      table.integer('home_team_id').references('team_uuid').inTable('teams').notNullable();
+      table.string('home_team_fullname');
+      table.integer('away_team_id').references('team_uuid').inTable('teams').notNullable();
+      table.string('away_team_fullname');
+
     }),
     knex.schema.createTable('charities', function(table) {
       table.increments('id');
       table.string('charity_name');
-      table.string('charity_url', 500).notNullable;
+      table.string('charity_url', 500).notNullable();
       table.string('charity_transaction');
-      table.string('charity_description', 500).notNullable;
-      table.string('charity_image_url', 500).notNullable;
+      table.string('charity_description', 500).notNullable();
+      table.string('charity_image_url', 500).notNullable();
     }),
     knex.schema.createTable('campaigns', function(table){
       table.increments('id').unique().notNullable();
@@ -39,14 +50,6 @@ exports.up = function(knex, Promise) {
     knex.schema.createTable('in_game_events', function(table){
       table.increments('id');
       table.string('event_type');
-    }),
-    knex.schema.createTable('teams', function(table){
-      table.increments('id');
-      table.integer('team_uuid').unique().notNullable();
-      table.string('team_fullname');
-      table.string('team_name');
-      table.string('team_abbreviation');
-      table.string('roster_url',500).notNullable();
     }),
     knex.schema.createTable('players', function(table){
       table.increments('id');

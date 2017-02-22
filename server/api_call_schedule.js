@@ -22,7 +22,9 @@ request(scheduleURL, function (error, response, body) {
          game_date : game.gameDate,
          state : game.status.abstractGameState,
          home_team_id : game.teams.home.team.id,
-         away_team_id : game.teams.away.team.id
+         home_team_fullname : game.teams.home.team.name,
+         away_team_id : game.teams.away.team.id,
+         away_team_fullname : game.teams.away.team.name,
        }
        gameInfo.push(gameData);
        db.insert([gameData])

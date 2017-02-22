@@ -40,12 +40,12 @@ app.use(session({
 }));
 
 // function that fixed urls that don't begin with 'http://''
-function fixURL(originalURL) {
-  if (!(originalURL.includes("://"))) {
-    originalURL = "http://" + originalURL;
-  }
-  return originalURL;
-}
+// function fixURL(originalURL) {
+//   if (!(originalURL.includes("://"))) {
+//     originalURL = "http://" + originalURL;
+//   }
+//   return originalURL;
+// }
 
 // function that compares user input password with stored password
 function comparePass(userPassword, databasePassword) {
@@ -358,7 +358,13 @@ app.get('/campaigns', (req, res) => {
 });
 
 app.get('/campaigns/new', (req, res) => {
-  res.render('campaign-new');
+  db.select('*').from('games').where('state', '=', 'Preview').limit(10)
+  .then(games => {
+    db.select('id', 'charity_name', 'charity_description').from('charities').then(charities => {
+      console.log(charities)
+      res.render('campaign-new', {charities, games});
+    });
+  });
 });
 
 app.post('/campaigns/new/login', passport.authenticate('local', { failureRedirect: '/login' }), (req, res) => {
@@ -370,16 +376,16 @@ app.post('/campaigns', (req, res) => {
   console.log('request body: ', req.body)
   let game = req.body.game;
   let campaign_name = req.body.campaign_name;
-  let charity_name = req.body.charity_name;
-  let charity_url = fixURL(req.body.charity_url);
+  // let charity_name = req.body.charity_name; FIX ME
+  // let charity_url = fixURL(req.body.charity_url);
   let hashtag = req.body.hashtag;
   let image_url = req.body.image_url;
   let description = req.body.description;
   let currentUser = res.locals.currentUser;
   console.log("Game: " + game);
   console.log("Campaign name: " + campaign_name);
-  console.log("Charity name: " + charity_name);
-  console.log("Charity url: " + charity_url);
+  // console.log("Charity name: " + charity_name);
+  // console.log("Charity url: " + charity_url);
   console.log("Hashtag: " + hashtag);
   console.log("Description: " + description);
   console.log("image_url: " + image_url);
@@ -395,11 +401,14 @@ app.post('/campaigns', (req, res) => {
       handle: hashtag,
       title: campaign_name,
       game_id: game_id,
-      charity_name: charity_name,
-      charity_url: charity_url,
+      // charity_name: charity_name,
+      // charity_url: charity_url,
+      charity_id: 1,
       user_id: currentUser.id,
       image_url: image_url,
-      description: description,
+      // description: description,
+      total_pledges: 1,
+      target_amount: 10
     }])
     .into('campaigns')
     .returning('id')
@@ -415,8 +424,8 @@ app.post('/campaigns', (req, res) => {
           Thank you for making a campaign with Money on the Board! Here are the details about the campaign:\n
           Twitter Account: ${hashtag}\n
           Title: ${campaign_name}\n
-          Charity Name: ${charity_name}\n
-          Donation Link: ${charity_url}\n
+
+
           description: ${description}\n
           Sharable Link: http://localhost:8080/campaigns/${result[0]}`
         };
