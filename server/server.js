@@ -263,7 +263,8 @@ app.get('/campaigns/:id/pledges/new', (req, res) => {
         let home_name = game[0].home_team_fullname;
         let away_id = game[0].away_team_id;
         let away_name = game[0].away_team_fullname;
-        console.log('Home: ', home_name);
+        console.log('Home: ', typeof home_name);
+        console.log('Home ID: ', typeof home_id);
         db.select('*').from('players').where({team_id: home_id})
         .then(home_roster => {
           let home_team = home_roster;

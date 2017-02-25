@@ -8,11 +8,16 @@
     var player = document.getElementById(selectPlayer);
     player.innerHTML = "";
     var optionArray;
-    if(team.value == <%- JSON.stringify(home_id) %>) {
-      optionArray = <%- JSON.stringify(home_team) %>
-    } else if(team.value == <%- JSON.stringify(away_id) %>) {
-      optionArray = <%- JSON.stringify(away_team) %>
+    if(team.value == <% home_id %>) {
+      optionArray = <% home_team %>
+    } else if(team.value == <% away_id %>) {
+      optionArray = <% away_team %>
     }
+    // if(team.value == home_id ) {
+    //   optionArray = home_team
+    // } else if(team.value == away_id ) {
+    //   optionArray = away_team
+    // }
     for(var index in optionArray) {
       var newOption = document.createElement("option");
       newOption.value = optionArray[index].id;
