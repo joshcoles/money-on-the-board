@@ -8,14 +8,14 @@
     var player = document.getElementById(selectPlayer);
     player.innerHTML = "";
     var optionArray;
-    if(team.value == <%- JSON.stringify(home_id) %>) {
+    if(team.value == <%- JSON.stringify(home_uuid) %>) {
       optionArray = <%- JSON.stringify(home_team) %>
-    } else if(team.value == <%- JSON.stringify(away_id) %>) {
+    } else if(team.value == <%- JSON.stringify(away_uuid) %>) {
       optionArray = <%- JSON.stringify(away_team) %>
     }
     for(var index in optionArray) {
       var newOption = document.createElement("option");
-      newOption.value = optionArray[index].id;
+      newOption.value = optionArray[index].player_uuid;
       newOption.innerHTML = optionArray[index].player_name;
       player.options.add(newOption);
     }
@@ -45,8 +45,8 @@
        <label>Team</label>
         <select id="team" name="team" onchange="populate('team','player')" class="required">
           <option name="option1" value="option1" disabled selected>Choose your Team</option>
-          <option class="team-option" name="team" value="<%= home_id %>"><%= home_name %></option>
-          <option class="team-option" name="team" value="<%= away_id %>"><%= away_name %></option>
+          <option class="team-option" name="team" value="<%= home_uuid %>"><%= home_name %></option>
+          <option class="team-option" name="team" value="<%= away_uuid %>"><%= away_name %></option>
         </select>
       </div>
 
@@ -60,17 +60,16 @@
       <div class="row">
         <label>Event</label>
         <select name="inGameEvent" class="required" id="inGameEvent">
-          <option name="option1" value="" disabled selected>Choose your in-game event</option>
-          <option name="goal" value="6">Goal</option>
-          <option name="assist" value="8">Assist</option>
-          <!-- <option name="point" value="9">
-          Point
-          </option> -->
-          <option name="hit" value="4">Hit</option>
-          <option name="penalty" value="5">Penalty</option>
-          <option name="fight" value="7">Fight</option>
-          <option name="faceoff" value="2">Faceoff Won</option>
-          <option name="shotsaved" value="3">Shot Saved</option>
+          <option name="option1" value="" disabled selected>Choose your Event</option>
+          <option name="faceoff" value="1">Faceoff</option>
+          <option name="give_away" value="2">Give Away</option>
+          <option name="blocked_shot" value="3">Blocked Shot</option>
+          <option name="take_away" value="4">Take Away</option>
+          <option name="hit" value="5">Hit</option>
+          <option name="shot" value="6">Shot</option>
+          <option name="blocked_shot" value="7">Blocked Shot</option>
+          <option name="goal" value="8">Goal</option>
+          <option name="penalty" value="9">Penalty</option>
         </select>
       </div>
 
