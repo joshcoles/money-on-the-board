@@ -259,20 +259,20 @@ app.get('/campaigns/:id/pledges/new', (req, res) => {
       let game_uuid = gameUUID[0].game_uuid;
       db.select('*').from('games').where({game_uuid: game_uuid})
       .then(game => {
-        let home_id = game[0].home_team_id;
+        let home_uuid = game[0].home_team_id;
         let home_name = game[0].home_team_fullname;
-        let away_id = game[0].away_team_id;
+        let away_uuid = game[0].away_team_id;
         let away_name = game[0].away_team_fullname;
         console.log('Home: ', home_name);
-        db.select('*').from('players').where({team_id: home_id})
+        db.select('*').from('players').where({team_id: home_uuid})
         .then(home_roster => {
           let home_team = home_roster;
-          console.log('Home Team: ', home_team);
-          db.select('*').from('players').where({team_id: away_id})
+          // console.log('Home Team: ', home_team);
+          db.select('*').from('players').where({team_id: away_uuid})
           .then(away_roster => {
             let away_team = away_roster;
-            console.log('Away Team: ', away_team);
-            res.render('pledge-new', {campaign_id, away_team, home_team, away_id, home_id, away_name, home_name});
+            // console.log('Away Team: ', away_team);
+            res.render('pledge-new', {campaign_id, away_team, home_team, away_uuid, home_uuid, away_name, home_name});
           })
         })
       })
@@ -281,7 +281,7 @@ app.get('/campaigns/:id/pledges/new', (req, res) => {
 });
 
 app.post('/campaigns/:id/pledges/new', (req, res) => {
-  let teamID = req.body.team;
+  let teamuuID = req.body.team;
   let pledgeTeam = req.body.team;
   let pledgePlayer = req.body.player;
   let pledgeAmount = req.body.pledge.slice( 1 );
@@ -290,56 +290,55 @@ app.post('/campaigns/:id/pledges/new', (req, res) => {
   let username = res.locals.currentUser.username;
   let campaign_id = req.params.id;
 
-  request(`http://localhost:4000/api/campaigns/team/${teamID}`, (err, response, body) => {
-    team = JSON.parse(body)
-    team.players.forEach((player) => {
-      if(player.id === pledgePlayer) {
-        eventPlayerName = player.full_name;
-      }
-    })
-    switch (inGameEvent) {
-       case '6':
-       eventString = `Goal scored by ${eventPlayerName}`;
-       break;
-       case '9':
-       eventString = `${eventPlayerName}`;
-       break;
-       case '7':
-       eventString = `${eventPlayerName} 5 minutes for Fighting`;
-       break;
-       case '8':
-       eventString = `assisted by ${eventPlayerName}`;
-       break;
-       case '4':
-       eventString = `${eventPlayerName} credited with hit`;
-       break;
-       case '5':
-       eventString = `Penalty to ${eventPlayerName}`;
-       break;
-       case '2':
-       eventString = `${eventPlayerName} won faceoff`;
-       break;
-       case '3':
-       eventString = `saved by ${eventPlayerName}`;
-       break;
-    }
+  console.log("USERname", username);
+
+  db.select('player_name').from('players').where({player_uuid : pledgePlayer}).then(player_name => {
+    let pledgePlayer_fullName = player_name[0].player_name;
+    console.log("pledgePlayerNAME", pledgePlayer_fullName);
+
+    // console.log("====================")
+    // switch (inGameEvent) {
+    //    case '6':
+    //    eventString = `Goal scored by ${pledgePlayer_fullName}`;
+    //    break;
+    //    case '9':
+    //    eventString = `${pledgePlayer_fullName}`;
+    //    break;
+    //    case '7':
+    //    eventString = `${pledgePlayer_fullName} 5 minutes for Fighting`;
+    //    break;
+    //    case '8':
+    //    eventString = `assisted by ${pledgePlayer_fullName}`;
+    //    break;
+    //    case '4':
+    //    eventString = `${pledgePlayer_fullName} credited with hit`;
+    //    break;
+    //    case '5':
+    //    eventString = `Penalty to ${pledgePlayer_fullName}`;
+    //    break;
+    //    case '2':
+    //    eventString = `${pledgePlayer_fullName} won faceoff`;
+    //    break;
+    //    case '3':
+    //    eventString = `saved by ${pledgePlayer_fullName}`;
+    //    break;
+    // }
+  })
     db.insert([{
-      player_uuid: pledgePlayer,
-      team_uuid: pledgeTeam,
-      money: pledgeAmount,
-      in_game_event_id: inGameEvent,
-      user_id: user_id,
-      campaign_id: campaign_id,
-      event_string: eventString,
-      username: username}
-    ])
+      user_id : user_id,
+      in_game_event_id : inGameEvent,
+      campaign_id : campaign_id,
+      player_id : pledgePlayer,
+      team_id : pledgeTeam,
+      money : pledgeAmount
+    }])
     .into('pledges')
     .then((result) => {
       console.log("Pledge insert result", result);
     })
-  })
   res.redirect(`/campaigns/${req.params.id}`);
 });
+
 
 //=========================================//
 //======= SHOW/CREATE CAMPAIGNS ===========//
