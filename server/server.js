@@ -449,104 +449,150 @@ app.post('/campaigns/:id', passport.authenticate('local', { failureRedirect: '/l
 
 app.get('/campaigns/:id', (req, res) => {
   let campaign_id = req.params.id
-  db.select().from('campaigns').where({id: campaign_id}).then(data => {
-    console.log(data)
-    let handle = data[0].handle
-    let charity_name = data[0].charity_name
-    let title = data[0].title
-    let image_url = data[0].image_url
-    let description = data[0].description
-    let charity_url = data[0].charity_url
-    res.render('index', {campaign_id, handle, charity_name, title, image_url, description, charity_url})
-  })
-});
+  const filter_events = ['Faceoff', 'Giveaway', 'Blocked Shot', 'Takeaway', 'Hit', 'Shot', 'Goal', 'Penalty'];
+
+  db.select('*').from('campaigns').where({id: campaign_id}).then(campaignData => {
+    let campaignHandle = campaignData[0].handle;
+    let campaignImageUrl = campaignData[0].image_url;
+    let campaignTitle = campaignData[0].title;
+    let campaignCharityId = campaignData[0].charity_id;
+    let campaignTotalPledges = campaignData[0].total_pledges;
+    let campaignTargetAmount = campaignData[0].target_amount;
+    let campaignGameId = campaignData[0].game_id;
+    db.select('*').from('charities').where({id: campaignCharityId}).then(charityData => {
+    let charityName = charityData[0].charity_name;
+    let charityUrl = charityData[0].charity_url;
+    let chartiyTransaction = charityData[0].charity_transaction;
+    let charityDescription = charityData[0].charity_description;
+    db.select('*').from('games').where({id: campaignGameId}).then(gameData => {
+      let gameLink = gameData[0].link;
+      let gameHome = gameData[0].home_team_fullname;
+      let gameAway = gameData[0].away_team_fullname;
+
+        function pollGame() {
+         request(gameLink, function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+              let  gameLink = JSON.parse(body);
+              const gameRightNow = Object.assign({}, gameLink);
+              let state = gameRightNow.gameData.status.detailedState;
+              console.log(state);
+              if (state === "In Progress") {
+                let plays = gameRightNow.liveData.plays.allPlays;
+                plays.forEach((play) => {
+                 let event = play.result.event;
+                 if (filter_events.includes(event)) {
+                   let filteredEvent = event;
+                   let description = play.result.description;
+                   let period = play.about.period;
+                   let timeRemaining = play.about.periodTimeRemaining;
+                    let timeEvent = ("Period: " + period + " Time remainging: " + timeRemaining + " Event: " + description);
+                    io.emit('game-event', timeEvent);
+                 }
+               })
+               setTimeout(pollGame, 30000);
+             } else if (state === "Preview" || "Pre-game") {
+               console.log("game not started");
+               setTimeout(pollGame, 30000);
+             }
+             }
+         });
+        }
+        pollGame();
+
+          res.render('index', {campaignHandle, campaignImageUrl, campaignTitle, campaignCharityId, campaignTotalPledges, campaignTargetAmount, campaignGameId, charityName, charityUrl, chartiyTransaction, charityDescription, gameLink, gameHome, gameAway, campaign_id})
+      })
+    })
+    })
+  });
+
 
 //=========================================//
 //============ HANDLE API CALLS ===========//
 //=========================================//
 
-app.get('/api/schedule', (req, res) => {
-  request('http://localhost:4000/api/schedule', (err, response, body) => {
-    let scheduleParsed = JSON.parse(body);
-    scheduleParsed.games.forEach((game) => {
-      if (game.home.name === 'Ottawa Senators' || game.away.name === 'Ottawa Senators') {
-        console.log('===============')
-        console.log('Game ID: ', game.id);
-        console.log('Game Date: ', game.scheduled);
-        console.log('Game Away Team: ', game.away.name);
-        console.log('Game Home Team: ', game.home.name);
-      }
-    })
-    res.send(scheduleParsed);
-  })
-});
-
-app.get('/api/campaigns/:id/hometeam', (req, res) => {
-  request('http://localhost:4000/api/campaigns/1/hometeam', (err, response, body) => {
-    let hometeamParsed = JSON.parse(body);
-    hometeamParsed.players.forEach((player) => {
-      console.log('Home Player: ', player.full_name);
-    })
-    res.send(hometeamParsed);
-  })
-});
-
-app.get('/api/campaigns/:id/awayteam', (req, res) => {
-  request('http://localhost:4000/api/campaigns/1/awayteam', (err, response, body) => {
-    let awayteamParsed = JSON.parse(body);
-    awayteamParsed.players.forEach((player) => {
-      console.log('Away Player: ', player.full_name);
-    })
-    res.send(awayteamParsed);
-  })
-});
-
-//=========================================//
-//============== SOCKETS ==================//
-//=========================================//
-
-let p = 0;
-let e = 0;
-
-function shouldAdvancePeriod(gameRightNow) {
-  return gameRightNow.periods[p].events.length >= gameRightNow.periods[p].events.length && p < gameRightNow.periods.length - 1;
-}
-
-function endGame(gameRightNow) {
-  let length = gameRightNow.periods[p].events.length
-  return gameRightNow.periods[p].events[length - 1].event_type === 'endperiod' && gameRightNow.periods[p].events[length - 1].description === 'End of 1st OT.'
-  // return gameRightNow.periods[p].events[length - 1].event_type === 'endperiod' && gameRightNow.deleted_events --- review for later - deleted.events is not tied to event or event_type
-}
-
-function pollGame() {
-  request('http://localhost:4000/api/campaigns/1', (err, response, body) => {
-    const filter_events = ['goal', 'shotsaved', 'hit', 'penalty', 'assist', 'faceoff'];
-    let gameData = JSON.parse(body)
-    const gameRightNow = Object.assign({}, gameData);
-    let period_length = gameData.periods.length
-    let length = gameData.periods[p].events.length
-    let gameEvent = gameData.periods[p].events[length - 1]
-    let gameEventType = gameData.periods[p].events[length - 1].event_type
-
-    if (filter_events.includes(gameEventType)){
-      let gameEventTypeDescription = gameData.periods[p].events[length - 1].description
-      let gameEventTypeClock = gameData.periods[p].events[length - 1].clock
-      let timeEvent = (gameEventTypeClock + " : " + gameEventTypeDescription)
-      io.emit('game-event', timeEvent);
-    }
-    if (shouldAdvancePeriod(gameRightNow)) {
-      p += 1;
-      e = 0;
-    } else {
-      e += 1;
-    }
-    if (endGame(gameRightNow)) {
-      console.log("Game Over");
-    } else {
-    setTimeout(pollGame, 500);
-    }
-  });
-}
+// app.get('/api/schedule', (req, res) => {
+//   request('http://localhost:4000/api/schedule', (err, response, body) => {
+//     let scheduleParsed = JSON.parse(body);
+//     scheduleParsed.games.forEach((game) => {
+//       if (game.home.name === 'Ottawa Senators' || game.away.name === 'Ottawa Senators') {
+//         console.log('===============')
+//         console.log('Game ID: ', game.id);
+//         console.log('Game Date: ', game.scheduled);
+//         console.log('Game Away Team: ', game.away.name);
+//         console.log('Game Home Team: ', game.home.name);
+//       }
+//     })
+//     res.send(scheduleParsed);
+//   })
+// });
+//
+// app.get('/api/campaigns/:id/hometeam', (req, res) => {
+//   request('http://localhost:4000/api/campaigns/1/hometeam', (err, response, body) => {
+//     let hometeamParsed = JSON.parse(body);
+//     hometeamParsed.players.forEach((player) => {
+//       console.log('Home Player: ', player.full_name);
+//     })
+//     res.send(hometeamParsed);
+//   })
+// });
+//
+// app.get('/api/campaigns/:id/awayteam', (req, res) => {
+//   request('http://localhost:4000/api/campaigns/1/awayteam', (err, response, body) => {
+//     let awayteamParsed = JSON.parse(body);
+//     awayteamParsed.players.forEach((player) => {
+//       console.log('Away Player: ', player.full_name);
+//     })
+//     res.send(awayteamParsed);
+//   })
+// });
+//
+// //=========================================//
+// //============== SOCKETS ==================//
+// //=========================================//
+//
+// let p = 0;
+// let e = 0;
+//
+// function shouldAdvancePeriod(gameRightNow) {
+//   return gameRightNow.periods[p].events.length >= gameRightNow.periods[p].events.length && p < gameRightNow.periods.length - 1;
+// }
+//
+// function endGame(gameRightNow) {
+//   let length = gameRightNow.periods[p].events.length
+//   return gameRightNow.periods[p].events[length - 1].event_type === 'endperiod' && gameRightNow.periods[p].events[length - 1].description === 'End of 1st OT.'
+//   // return gameRightNow.periods[p].events[length - 1].event_type === 'endperiod' && gameRightNow.deleted_events --- review for later - deleted.events is not tied to event or event_type
+// }
+//
+// function pollGame() {
+//
+//   request('http://localhost:4000/api/campaigns/1', (err, response, body) => {
+//     const filter_events = ['faceoff', 'giveaway', 'blockedshot', 'takeaway', 'hit', 'shot', 'goal', 'penalty'];
+//     let gameData = JSON.parse(body)
+//     const gameRightNow = Object.assign({}, gameData);
+//     let period_length = gameData.periods.length
+//     let length = gameData.periods[p].events.length
+//     let gameEvent = gameData.periods[p].events[length - 1]
+//     let gameEventType = gameData.periods[p].events[length - 1].event_type
+//
+//     if (filter_events.includes(gameEventType)){
+//       let gameEventTypeDescription = gameData.periods[p].events[length - 1].description
+//       let gameEventTypeClock = gameData.periods[p].events[length - 1].clock
+//       let timeEvent = (gameEventTypeClock + " : " + gameEventTypeDescription)
+//       io.emit('game-event', timeEvent);
+//     }
+//     if (shouldAdvancePeriod(gameRightNow)) {
+//       p += 1;
+//       e = 0;
+//     } else {
+//       e += 1;
+//     }
+//     if (endGame(gameRightNow)) {
+//       console.log("Game Over");
+//     } else {
+//     setTimeout(pollGame, 500);
+//     }
+//   });
+// }
 
 server.listen(app.get('port'), (err) => {
  if (err) throw err;
