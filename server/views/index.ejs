@@ -7,17 +7,17 @@
 
 
 <div class="title campaign-info">
-   <h2 class="campaign-title"><%= title %></h2>
-   <h3 class="campaign-charity"> <%= charity_name %></h3>
+   <h2 class="campaign-title"><%= campaignTitle %></h2>
+   <h3 class="campaign-charity"> <%= charityName %></h3>
    <% if (isAuthenticated) { %>
    <div class="pledge-button">
    <a class="btn button cp-button" href="/campaigns/<%= campaign_id %>/pledges/new">Create a Pledge</a>
-   <a class="waves-effect waves-light btn button modal-trigger cp-button" href="<%= charity_url %>">Donate Now</a>
+   <a class="waves-effect waves-light btn button modal-trigger cp-button" href="<%= charityUrl %>">Donate Now</a>
    </div>
    <% } else { %>
    <div class="pledge-button">
      <a class="waves-effect waves-light btn button modal-trigger cp-button" href="#modal1">Create a Pledge</a>
-     <a class="waves-effect waves-light btn button modal-trigger cp-button" href="<%= charity_url %>">Donate Now</a>
+     <a class="waves-effect waves-light btn button modal-trigger cp-button" href="<%= charityUrl %>">Donate Now</a>
    </div>
  <% } %>
  </div>
@@ -58,9 +58,9 @@
   </script>
   <div class="react col s6 m6 l6" id="react-root"></div>
   <div class="twitter-feed col s6 m6 l6">
-    <a class="twitter-timeline" heigth="700"  data-height="700" href="https://twitter.com/<%= handle %>">Tweets by <%= handle%></a>
-    <a href="https://twitter.com/<%= handle %>" class="twitter-follow-top-right twitter-follow-button" data-show-count="false">Follow</a><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-    <a href="https://twitter.com/intent/tweet?screen_name=<%= handle %>" class="twitter-mention-top-right twitter-mention-button" data-show-count="false">Tweet</a>
+    <a class="twitter-timeline" heigth="700"  data-height="700" href="https://twitter.com/<%= campaignHandle %>">Tweets by <%= campaignHandle%></a>
+    <a href="https://twitter.com/<%= campaignHandle %>" class="twitter-follow-top-right twitter-follow-button" data-show-count="false">Follow</a><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+    <a href="https://twitter.com/intent/tweet?screen_name=<%= campaignHandle %>" class="twitter-mention-top-right twitter-mention-button" data-show-count="false">Tweet</a>
     <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
   </div>
 </div>
