@@ -8,17 +8,10 @@
     var player = document.getElementById(selectPlayer);
     player.innerHTML = "";
     var optionArray;
-<<<<<<< HEAD
-    if(team.value == <% home_id %>) {
-      optionArray = <% home_team %>
-    } else if(team.value == <% away_id %>) {
-      optionArray = <% away_team %>
-=======
     if(team.value == <%- JSON.stringify(home_uuid) %>) {
       optionArray = <%- JSON.stringify(home_team) %>
     } else if(team.value == <%- JSON.stringify(away_uuid) %>) {
       optionArray = <%- JSON.stringify(away_team) %>
->>>>>>> 6db318c0a057fe32d48232fae54e4632868c0720
     }
     // if(team.value == home_id ) {
     //   optionArray = home_team
