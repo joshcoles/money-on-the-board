@@ -3,6 +3,15 @@ const express = require('express');
 const app = express();
 const server = require('http').Server(app);
 const db = require('./db');
+const pg = require('pg');
+const config = require('./knexfile.js');
+const knex = require('knex')(config);
+
+knex('games').del().then(count) => {
+  console.log(count);
+}).finally(() => {
+  knex.destroy();
+});
 
 let scheduleURL = 'https://statsapi.web.nhl.com/api/v1/schedule?startDate=2016-10-12&endDate=2017-04-20';
 
