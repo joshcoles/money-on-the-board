@@ -352,7 +352,7 @@ app.get('/campaigns', (req, res) => {
 });
 
 app.get('/campaigns/new', (req, res) => {
-  db.select('*').from('games').where('state', '=', 'Preview').limit(10)
+  db.select('*').from('games').orderBy('game_uuid', 'asc').where('state', '=', 'Preview').limit(10)
   .then(games => {
     db.select('id', 'charity_name', 'charity_description').from('charities').then(charities => {
       res.render('campaign-new', {charities, games});

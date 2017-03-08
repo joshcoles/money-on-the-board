@@ -33,7 +33,7 @@
             <select name="game" class="" id="game">
               <option name="option1" value="" disabled selected>Select a Game</option>
               <% games.forEach(function(game) { %>
-                <option value=<%=game.game_uuid%> > <%= game.away_team_fullname %> vs. <%= game.home_team_fullname %>
+                <option value=<%=game.game_uuid%> > <%= game.away_team_fullname %> vs. <%= game.home_team_fullname %> 
                 </option>
               <% }); %>
             </select>

@@ -10,8 +10,8 @@ let gameInfo = [];
 
 request(scheduleURL, (error, response, body) => {
  if (!error && response.statusCode == 200) {
-   let schedule = JSON.parse(body)
-   let gameDates = schedule.dates
+   let schedule = JSON.parse(body);
+   let gameDates = schedule.dates;
      // creating an object that has all relevant game information
      // creating the link that will allow access to the game events data
    gameDates.forEach((date) => {
@@ -32,8 +32,7 @@ request(scheduleURL, (error, response, body) => {
        .then((result) => {
          console.log("Games insterted", result);
        });
-     })
+     });
    });
- // console.log(gameInfo)
   }
 });
