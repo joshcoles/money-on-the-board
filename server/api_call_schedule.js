@@ -8,7 +8,7 @@ let scheduleURL = 'https://statsapi.web.nhl.com/api/v1/schedule?startDate=2016-1
 
 let gameInfo = [];
 
-request(scheduleURL, function (error, response, body) {
+request(scheduleURL, (error, response, body) => {
  if (!error && response.statusCode == 200) {
    let schedule = JSON.parse(body)
    let gameDates = schedule.dates
