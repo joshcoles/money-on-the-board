@@ -13,6 +13,11 @@
     } else if(team.value == <%- JSON.stringify(away_uuid) %>) {
       optionArray = <%- JSON.stringify(away_team) %>
     }
+    // if(team.value == home_id ) {
+    //   optionArray = home_team
+    // } else if(team.value == away_id ) {
+    //   optionArray = away_team
+    // }
     for(var index in optionArray) {
       var newOption = document.createElement("option");
       newOption.value = optionArray[index].player_uuid;

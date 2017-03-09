@@ -4,39 +4,41 @@ const app = express();
 const server = require('http').Server(app);
 
 let liveGameData = 'https://statsapi.web.nhl.com/api/v1/game/2016020933/feed/live';
+
 let period;
 let plays;
 let description;
 let timeRemaining;
 
-function pollGame() {
-  request(liveGameData, function (error, response, body) {
-      let  liveGame = JSON.parse(body)
-      const gameRightNow = Object.assign({}, liveGame);
-      console.log(gameRightNow.gameData.status.detailedState)
-       //if the game is in preview, just wait and poll the game in 2 minuties
-      if (gameRightNow.gameData.status.detailedState == ("Preview" || "Pre-Game")) {
-        console.log("game not started")
-        setTimeout(pollGame, 30000);
-      }
-      //if the game is in progress, get all the events and console log them
-      else if (gameRightNow.gameData.status.detailedState == "In Progress") {
-        let plays = gameRightNow.liveData.plays.allPlays;
-        plays.forEach((play) => {
-          let description = play.result.description
-          let period = play.about.period
-          let timeRemaining = play.about.periodTimeRemaining
-          console.log("Period: " + period + " Time remainging: " + timeRemaining + " Event: " + description)
-        })
-        setTimeout(pollGame, 30000);
-      }
+const filter_events = ['Faceoff', 'Giveaway', 'Blocked Shot', 'Takeaway', 'Hit', 'Shot', 'Goal', 'Penalty'];
 
-      //if the game is over, say its over.
-      else {
-        console.log("game over")
-        return
+
+function pollGame() {
+request(liveGameData, function (error, response, body) {
+   if (!error && response.statusCode == 200) {
+     let  liveGame = JSON.parse(body);
+     const gameRightNow = Object.assign({}, liveGame);
+     let state = gameRightNow.gameData.status.detailedState;
+     console.log(state);
+     if (state === "In Progress") {
+       let plays = gameRightNow.liveData.plays.allPlays;
+       plays.forEach((play) => {
+        let event = play.result.event;
+        if (filter_events.includes(event)) {
+          let filteredEvent = event;
+          let description = play.result.description;
+          let period = play.about.period;
+          let timeRemaining = play.about.periodTimeRemaining;
+           console.log("Period: " + period + " Time remainging: " + timeRemaining + " Event: " + description)
+        }
+      })
+      setTimeout(pollGame, 30000);
+    } else if (state === "Preview" || "Pre-game") {
+      console.log("game not started");
+      setTimeout(pollGame, 30000);
       }
-  })
-};
+    }
+  });
+}
 
 pollGame();
